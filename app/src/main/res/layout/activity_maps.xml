@@ -15,6 +15,18 @@
         android:layout_height="match_parent">
 
         <ImageButton
+            android:id="@+id/poi_search_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="36px"
+            android:layout_marginRight="36px"
+            android:background="@drawable/circle_btn_bg"
+            android:elevation="2dp"
+            android:src="@mipmap/ic_qu_direction_mylocation" />
+
+
+        <ImageButton
             android:id="@+id/my_location_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

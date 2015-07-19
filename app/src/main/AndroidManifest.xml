@@ -35,7 +35,7 @@
         android:allowBackup="true"
         android:name=".MapsApplication"
         android:icon="@mipmap/ic_launcher"
-        android:theme="@style/AppTheme" >
+        android:theme="@style/Theme.AppCompat.Light.NoActionBar" >
 
         <meta-data
             android:name="com.amap.api.v2.apikey"

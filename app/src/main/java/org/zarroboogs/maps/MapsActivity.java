@@ -1,9 +1,11 @@
 package org.zarroboogs.maps;
 
+import android.content.Intent;
 import android.location.Location;
+import android.media.Image;
 import android.os.Bundle;
-import android.widget.RadioGroup;
-import android.widget.RadioGroup.OnCheckedChangeListener;
+import android.view.View;
+import android.widget.ImageButton;
 
 import com.amap.api.location.AMapLocation;
 import com.amap.api.location.AMapLocationListener;
@@ -13,6 +15,7 @@ import com.amap.api.maps.AMap;
 import com.amap.api.maps.LocationSource;
 import com.amap.api.maps.MapView;
 
+import org.zarroboogs.maps.poi.PoiKeywordSearchActivity;
 import org.zarroboogs.maps.ui.MapsModule;
 
 
@@ -20,7 +23,7 @@ import org.zarroboogs.maps.ui.MapsModule;
  * AMapV2地图中介绍定位三种模式的使用，包括定位，追随，旋转
  */
 public class MapsActivity extends BaseActivity implements LocationSource,
-        AMapLocationListener {
+        AMapLocationListener , View.OnClickListener{
     private AMap aMap;
     private MapView mapView;
     private OnLocationChangedListener mListener;
@@ -33,7 +36,7 @@ public class MapsActivity extends BaseActivity implements LocationSource,
 
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.locationmodesource_activity);
+        setContentView(R.layout.activity_maps);
 
         mapView = (MapView) findViewById(R.id.map);
         mapView.onCreate(savedInstanceState);// 此方法必须重写
@@ -45,6 +48,10 @@ public class MapsActivity extends BaseActivity implements LocationSource,
 
 
         aMap.setMyLocationType(AMap.LOCATION_TYPE_MAP_ROTATE);
+
+        ImageButton searchBtn = (ImageButton) findViewById(R.id.poi_search_btn);
+        searchBtn.setOnClickListener(this);
+
 
     }
 
@@ -174,4 +181,10 @@ public class MapsActivity extends BaseActivity implements LocationSource,
     }
 
 
+    @Override
+    public void onClick(View v) {
+        Intent intent = new Intent(MapsActivity.this, PoiKeywordSearchActivity.class);
+        startActivity(intent);
+
+    }
 }
