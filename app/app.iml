@@ -92,10 +92,10 @@
     <orderEntry type="library" exported="" name="baidumapapi_v3_5_0" level="project" />
     <orderEntry type="library" exported="" name="Android_Map_V2.5.0" level="project" />
     <orderEntry type="library" exported="" name="Msc" level="project" />
+    <orderEntry type="library" exported="" name="AMap_Services_V2.4.0" level="project" />
     <orderEntry type="library" exported="" name="support-v4-22.1.1" level="project" />
     <orderEntry type="library" exported="" name="NavigationApi_1.2.0" level="project" />
     <orderEntry type="library" exported="" name="support-annotations-22.1.1" level="project" />
-    <orderEntry type="library" exported="" name="locSDK_5.2" level="project" />
     <orderEntry type="library" exported="" name="Android_Location_V1.3.2" level="project" />
   </component>
 </module>
