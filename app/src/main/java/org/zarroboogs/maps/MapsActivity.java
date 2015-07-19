@@ -43,6 +43,9 @@ public class MapsActivity extends BaseActivity implements LocationSource,
         mMapsModule = new MapsModule(this);
         mMapsModule.init();
 
+
+        aMap.setMyLocationType(AMap.LOCATION_TYPE_MAP_ROTATE);
+
     }
 
     public AMap getGaoDeMap(){
