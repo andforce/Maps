@@ -19,6 +19,7 @@
 
     <application
         android:allowBackup="true"
+        android:name=".MapsApplication"
         android:icon="@mipmap/ic_launcher"
         android:theme="@style/AppTheme" >
 

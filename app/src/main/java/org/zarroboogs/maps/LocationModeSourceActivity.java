@@ -12,6 +12,9 @@ import com.amap.api.location.LocationProviderProxy;
 import com.amap.api.maps.AMap;
 import com.amap.api.maps.LocationSource;
 import com.amap.api.maps.MapView;
+import com.amap.api.maps.MapsInitializer;
+
+import org.zarroboogs.maps.utils.OffLineMapUtils;
 
 
 /**
@@ -37,7 +40,8 @@ public class LocationModeSourceActivity extends BaseActivity implements Location
          * 则需要在离线地图下载和使用地图页面都进行路径设置
          * */
         //Demo中为了其他界面可以使用下载的离线地图，使用默认位置存储，屏蔽了自定义设置
-//        MapsInitializer.sdcardDir =OffLineMapUtils.getSdCacheDir(this);
+//        MapsInitializer.sdcardDir = OffLineMapUtils.getSdCacheDir(this);
+
         mapView = (MapView) findViewById(R.id.map);
         mapView.onCreate(savedInstanceState);// 此方法必须重写
         init();

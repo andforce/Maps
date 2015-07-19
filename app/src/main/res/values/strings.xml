@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <!-- 讯飞语音 -->
+    <string name="preference_default_tts_role">xiaoyan</string>
+    <string name="preference_key_tts_speed">tts_speed</string>
+    <string name="preference_key_tts_volume">tts_volume</string>
+    <string name="preference_key_tts_pitch">tts_pitch</string>
+    <string name="app_id">输入您讯飞的appid</string>
+    <!---->
+
     <string name="animate">Animate</string>
     <string name="basic_map">基本地图</string>
     <string name="basic_description">介绍如何创建一个基本地图</string>
