@@ -24,6 +24,8 @@ import java.util.ArrayList;
  */
 public class GeoFenceManager {
 
+    private static final String TAG = "GeoFenceManager";
+
     private ArrayList<GeoFenceInfo> mGeoFences = new ArrayList<>();
     private LocationManagerProxy mLocationManagerProxy;//定位实例
     private Context mContext;
@@ -31,12 +33,17 @@ public class GeoFenceManager {
     private OnGeoFenceListener mOnGenFenceListener;
 
     private LatLng mCurrentLatLng;
+    private TTSController ttsController = null;
 
     public GeoFenceManager(Context context) {
         this.mContext = context;
-
+        ttsController = TTSController.getInstance(mContext);
         mLocationManagerProxy = LocationManagerProxy.getInstance(mContext);
 
+        requestLocation();
+    }
+
+    public void requestLocation() {
         // 此方法为每隔固定时间会发起一次定位请求，为了减少电量消耗或网络流量消耗，
         // 注意设置合适的定位时间的间隔（最小间隔支持为2000ms），并且在合适时间调用removeUpdates()方法来取消定位请求
         // 在定位结束后，在合适的生命周期调用destroy()方法
@@ -46,15 +53,18 @@ public class GeoFenceManager {
                 LocationProviderProxy.AMapNetwork, 2000, 15, new AMapLocationListener() {
                     @Override
                     public void onLocationChanged(AMapLocation aMapLocation) {
-
+                        Log.d(TAG, "onLocationChanged-> AMAPLocation " + mCurrentLatLng.latitude + " " + mCurrentLatLng.longitude);
                     }
 
                     @Override
                     public void onLocationChanged(Location location) {
 
+                        Log.d(TAG, "onLocationChanged-> " + mCurrentLatLng.latitude + " " + mCurrentLatLng.longitude);
+
                         if (mCurrentLatLng == null || mCurrentLatLng.latitude != location.getLatitude()
                                 || mCurrentLatLng.longitude != location.getLongitude()){
                             mCurrentLatLng = new LatLng(location.getLatitude(), location.getLongitude());
+
                         }
 
 
@@ -129,10 +139,8 @@ public class GeoFenceManager {
     private BroadcastReceiver mGeoFenceReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-            TTSController ttsController = TTSController.getInstance(mContext);
 
-            Log.d("GeoFenceManager", "onReceive   " + intent.getAction());
-
+            Log.d(TAG, "onReceive   " + intent.getAction());
 
             // 接受广播
             if (intent.getAction().contains(GeoFenceInfo.GEOFENCE_BROADCAST_ACTION)) {
@@ -149,7 +157,7 @@ public class GeoFenceManager {
                 // 根据广播的status来确定是在区域内还是在区域外
                 int status = bundle.getInt("status");
                 if (status == 0) {
-                    Toast.makeText(mContext, "不在区域", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(mContext, "不在区域", Toast.LENGTH_SHORT).show();
                     if (mOnGenFenceListener != null){
                         mOnGenFenceListener.onGeoFenceIn(mCurrentLatLng,latLng);
                     }

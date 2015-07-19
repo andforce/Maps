@@ -11,7 +11,7 @@ import java.util.ArrayList;
 /**
  * Created by andforce on 15/7/19.
  */
-public class MapsModule implements IGaoDeMapsView ,AMap.OnMapLoadedListener{
+public class MapsModule implements IGaoDeMapsView, AMap.OnMapLoadedListener {
     private MapsActivity mMapsActivity;
     private ArrayList<Marker> mMarkers = new ArrayList<>();
 
@@ -44,6 +44,7 @@ public class MapsModule implements IGaoDeMapsView ,AMap.OnMapLoadedListener{
 
     @Override
     public void onMapLoaded() {
-        mMapsPresenter.loaddefaultCameras();
+        mMapsPresenter.loadDefaultCameraMarkers();
+        mMapsPresenter.enableDefaultGeoFences();
     }
 }

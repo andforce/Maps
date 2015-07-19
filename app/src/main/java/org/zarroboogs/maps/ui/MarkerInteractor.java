@@ -2,6 +2,8 @@ package org.zarroboogs.maps.ui;
 
 import com.amap.api.maps.model.MarkerOptions;
 
+import org.zarroboogs.maps.db.beans.CameraBean;
+
 import java.util.ArrayList;
 
 /**
@@ -9,10 +11,16 @@ import java.util.ArrayList;
  */
 public interface MarkerInteractor {
 
-    public static interface OnMarkerCreatedListener{
-        public void onMarkerCreated(ArrayList<MarkerOptions> markerOptions);
+    interface OnMarkerCreatedListener{
+        void onMarkerCreated(ArrayList<MarkerOptions> markerOptions);
     }
 
-    public void createMarkers(OnMarkerCreatedListener listener);
+
+    interface OnReadCamerasListener{
+        void onReadCameras(ArrayList<CameraBean> cameraBeans);
+    }
+    void createMarkers(OnMarkerCreatedListener listener);
+
+    void readCameras(OnReadCamerasListener listener);
 
 }

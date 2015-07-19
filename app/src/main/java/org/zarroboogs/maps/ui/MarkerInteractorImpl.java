@@ -20,19 +20,31 @@ public class MarkerInteractorImpl implements MarkerInteractor {
     @Override
     public void createMarkers(OnMarkerCreatedListener listener) {
         if (null != listener){
-            listener.onMarkerCreated(readCameras());
+            listener.onMarkerCreated(creayeMarkerOptions());
         }
     }
 
-    private ArrayList<MarkerOptions> readCameras(){
+    @Override
+    public void readCameras(OnReadCamerasListener listener) {
+        if (listener != null) {
+            listener.onReadCameras(readCameras());
+        }
+    }
+
+    private ArrayList<MarkerOptions> creayeMarkerOptions(){
         ArrayList<MarkerOptions> markerOptionses = new ArrayList<>();
-        ArrayList<CameraBean> cameraBeans = JsonUtils.prasePaperCameras(FileUtils.readStringFromAsset(MapsApplication.getAppContext(), "beijing_paper.json"));;
+        ArrayList<CameraBean> cameraBeans = readCameras();
         for (CameraBean cameraBean : cameraBeans) {
             LatLng latLng = new LatLng(cameraBean.getLatitude(), cameraBean.getLongtitude());
             MarkerOptions mo = new MarkerOptions().position(latLng).draggable(true).icon(BitmapDescriptorFactory.fromResource(R.mipmap.icon_camera_location));
             markerOptionses.add(mo);
         }
         return  markerOptionses;
+    }
+
+    private ArrayList<CameraBean> readCameras(){
+        ArrayList<CameraBean> cameraBeans = JsonUtils.prasePaperCameras(FileUtils.readStringFromAsset(MapsApplication.getAppContext(), "beijing_paper.json"));;
+        return cameraBeans;
     }
 
 }
