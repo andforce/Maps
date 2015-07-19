@@ -1,0 +1,1747 @@
+{
+    "data": [
+        {
+            "id": 1,
+            "name": "双清路北",
+            "latitude": 40.026214599609375,
+            "longtitude": 116.35411834716797,
+            "direction": "N->S"
+        },
+        {
+            "id": 2,
+            "name": "学清路北口位置细化",
+            "latitude": 40.0267448425293,
+            "longtitude": 116.35834503173828,
+            "direction": "S->N,N->S"
+        },
+        {
+            "id": 7,
+            "name": "紫竹",
+            "latitude": 39.944313049316406,
+            "longtitude": 116.33098602294922,
+            "direction": "W->E,E->W,S->N,N->S"
+        },
+        {
+            "id": 8,
+            "name": "二拨子",
+            "latitude": 40.09407424926758,
+            "longtitude": 116.30962371826172,
+            "direction": "S->N,N->S"
+        },
+        {
+            "id": 10,
+            "name": "鼓楼西大街西口",
+            "latitude": 39.95427322387695,
+            "longtitude": 116.3864974975586,
+            "direction": "E->W"
+        },
+        {
+            "id": 14,
+            "name": "北太平桥南天桥",
+            "latitude": 39.972110748291016,
+            "longtitude": 116.37682342529297,
+            "direction": "N->S"
+        },
+        {
+            "id": 16,
+            "name": "北宫门",
+            "latitude": 40.012413024902344,
+            "longtitude": 116.27935028076172,
+            "direction": "S->N,N->S"
+        },
+        {
+            "id": 17,
+            "name": "南北双向摄像头",
+            "latitude": 40.010894775390625,
+            "longtitude": 116.27999877929688,
+            "direction": "S->N,N->S"
+        },
+        {
+            "id": 19,
+            "name": "限行监控",
+            "latitude": 39.9289665222168,
+            "longtitude": 116.46177673339844,
+            "direction": "W->E"
+        },
+        {
+            "id": 20,
+            "name": "北京市丰台区成寿寺路家世界东口南向北",
+            "latitude": 39.85947036743164,
+            "longtitude": 116.45198822021484,
+            "direction": "S->N"
+        },
+        {
+            "id": 21,
+            "name": "北京市朝阳区霄云里南街北向南",
+            "latitude": 39.96623229980469,
+            "longtitude": 116.4640121459961,
+            "direction": "N->S"
+        },
+        {
+            "id": 22,
+            "name": "东便门桥",
+            "latitude": 39.906455993652344,
+            "longtitude": 116.44302368164062,
+            "direction": "E->W"
+        },
+        {
+            "id": 23,
+            "name": "康斯丹郡附近",
+            "latitude": 40.02167510986328,
+            "longtitude": 116.42320251464844,
+            "direction": "N->S"
+        },
+        {
+            "id": 24,
+            "name": "横街子，五环入口",
+            "latitude": 39.82949447631836,
+            "longtitude": 116.51760864257812,
+            "direction": "W->E,E->W"
+        },
+        {
+            "id": 25,
+            "name": "右安南桥",
+            "latitude": 39.863563537597656,
+            "longtitude": 116.3714370727539,
+            "direction": "S->N,N->S"
+        },
+        {
+            "id": 26,
+            "name": "同华南路",
+            "latitude": 39.78665542602539,
+            "longtitude": 116.36851501464844,
+            "direction": "S->N,N->S"
+        },
+        {
+            "id": 28,
+            "name": "吉祥寺桥北",
+            "latitude": 40.04835891723633,
+            "longtitude": 116.48727416992188,
+            "direction": "N->S"
+        },
+        {
+            "id": 29,
+            "name": "赵公口桥东",
+            "latitude": 39.86338424682617,
+            "longtitude": 116.4234848022461,
+            "direction": "E->W"
+        },
+        {
+            "id": 30,
+            "name": "进京证",
+            "latitude": 39.906166076660156,
+            "longtitude": 116.32781982421875,
+            "direction": "E->W"
+        },
+        {
+            "id": 31,
+            "name": "高峰期外地车",
+            "latitude": 39.83650207519531,
+            "longtitude": 116.32282257080078,
+            "direction": "E->W"
+        },
+        {
+            "id": 33,
+            "name": "雍和宫桥南",
+            "latitude": 39.95475387573242,
+            "longtitude": 116.42292785644531,
+            "direction": "N->S"
+        },
+        {
+            "id": 34,
+            "name": "化工桥东向西",
+            "latitude": 39.853515625,
+            "longtitude": 116.54747009277344,
+            "direction": "E->W"
+        },
+        {
+            "id": 35,
+            "name": "房山梨园桥高速进京",
+            "latitude": 39.70659255981445,
+            "longtitude": 116.11186218261719,
+            "direction": "W->E"
+        },
+        {
+            "id": 36,
+            "name": "香泉环岛第4出口",
+            "latitude": 39.99830627441406,
+            "longtitude": 116.23092651367188,
+            "direction": "W->E,E->W"
+        },
+        {
+            "id": 37,
+            "name": "进京证",
+            "latitude": 40.00662612915039,
+            "longtitude": 116.35945129394531,
+            "direction": "S->N"
+        },
+        {
+            "id": 38,
+            "name": "金宝路西口",
+            "latitude": 39.92161560058594,
+            "longtitude": 116.43347930908203,
+            "direction": "W->E"
+        },
+        {
+            "id": 39,
+            "name": "左安门内大街 北向南",
+            "latitude": 39.88008499145508,
+            "longtitude": 116.44608306884766,
+            "direction": "N->S"
+        },
+        {
+            "id": 40,
+            "name": "西罗园路南向北",
+            "latitude": 39.86467742919922,
+            "longtitude": 116.40047454833984,
+            "direction": "S->N"
+        },
+        {
+            "id": 41,
+            "name": "颐和园路南向北方向",
+            "latitude": 40.01100540161133,
+            "longtitude": 116.27991485595703,
+            "direction": "S->N"
+        },
+        {
+            "id": 43,
+            "name": "东单路口",
+            "latitude": 39.91431427001953,
+            "longtitude": 116.42485809326172,
+            "direction": "E->W"
+        },
+        {
+            "id": 44,
+            "name": "老山南路西",
+            "latitude": 39.91639709472656,
+            "longtitude": 116.22118377685547,
+            "direction": "W->E,E->W"
+        },
+        {
+            "id": 45,
+            "name": "鲁谷桥东",
+            "latitude": 39.90957260131836,
+            "longtitude": 116.21749114990234,
+            "direction": "W->E,E->W"
+        },
+        {
+            "id": 48,
+            "name": "机场第二高速",
+            "latitude": 39.951820373535156,
+            "longtitude": 116.593017578125,
+            "direction": "S->N,N->S"
+        },
+        {
+            "id": 49,
+            "name": "工大桥北内环  由北向南",
+            "latitude": 39.88321304321289,
+            "longtitude": 116.49848175048828,
+            "direction": "N->S"
+        },
+        {
+            "id": 50,
+            "name": "顺平路",
+            "latitude": 40.12305450439453,
+            "longtitude": 116.62898254394531,
+            "direction": "N->S"
+        },
+        {
+            "id": 51,
+            "name": "南法信",
+            "latitude": 40.134071350097656,
+            "longtitude": 116.61677551269531,
+            "direction": "W->E,E->W,S->N,N->S"
+        },
+        {
+            "id": 53,
+            "name": "T1",
+            "latitude": 40.08610153198242,
+            "longtitude": 116.59483337402344,
+            "direction": "E->W"
+        },
+        {
+            "id": 54,
+            "name": "监控拍摄",
+            "latitude": 39.99407958984375,
+            "longtitude": 116.51099395751953,
+            "direction": "E->W"
+        },
+        {
+            "id": 55,
+            "name": "五景桥",
+            "latitude": 39.9224853515625,
+            "longtitude": 116.21690368652344,
+            "direction": "W->E"
+        },
+        {
+            "id": 56,
+            "name": "西城区供电局路口西向东",
+            "latitude": 39.90642166137695,
+            "longtitude": 116.40189361572266,
+            "direction": "W->E"
+        },
+        {
+            "id": 57,
+            "name": "进京探头",
+            "latitude": 39.860107421875,
+            "longtitude": 116.2446517944336,
+            "direction": "N->S"
+        },
+        {
+            "id": 60,
+            "name": "京承高速进京方向1.7公里处",
+            "latitude": 40.001739501953125,
+            "longtitude": 116.45423126220703,
+            "direction": "N->S"
+        },
+        {
+            "id": 61,
+            "name": "安贞桥西外环",
+            "latitude": 39.97523498535156,
+            "longtitude": 116.4126968383789,
+            "direction": "E->W"
+        },
+        {
+            "id": 62,
+            "name": "花园桥东天桥",
+            "latitude": 39.93828201293945,
+            "longtitude": 116.32160949707031,
+            "direction": "E->W"
+        },
+        {
+            "id": 63,
+            "name": "台湖收费站北",
+            "latitude": 39.82274627685547,
+            "longtitude": 116.60487365722656,
+            "direction": "N->S"
+        },
+        {
+            "id": 64,
+            "name": "七棵树桥西由西向东",
+            "latitude": 39.964900970458984,
+            "longtitude": 116.53484344482422,
+            "direction": "W->E"
+        },
+        {
+            "id": 65,
+            "name": "三营门路口摄像头",
+            "latitude": 39.81321716308594,
+            "longtitude": 116.4088134765625,
+            "direction": "N->S"
+        },
+        {
+            "id": 66,
+            "name": "高峰限行拍照",
+            "latitude": 39.86103057861328,
+            "longtitude": 116.24472045898438,
+            "direction": "E->W"
+        },
+        {
+            "id": 67,
+            "name": "进京证不定时拍摄",
+            "latitude": 39.86330795288086,
+            "longtitude": 116.42040252685547,
+            "direction": "W->E"
+        },
+        {
+            "id": 68,
+            "name": "旱河路北段",
+            "latitude": 39.99626922607422,
+            "longtitude": 116.22979736328125,
+            "direction": "S->N,N->S"
+        },
+        {
+            "id": 70,
+            "name": "阜成门内大街",
+            "latitude": 39.92930603027344,
+            "longtitude": 116.36399841308594,
+            "direction": "E->W"
+        },
+        {
+            "id": 71,
+            "name": "家乐福",
+            "latitude": 39.96615982055664,
+            "longtitude": 116.45111846923828,
+            "direction": "W->E"
+        },
+        {
+            "id": 72,
+            "name": "联合大学特殊教育学院",
+            "latitude": 39.87406539916992,
+            "longtitude": 116.42530059814453,
+            "direction": "W->E"
+        },
+        {
+            "id": 73,
+            "name": "安宁庄西二旗",
+            "latitude": 40.055442810058594,
+            "longtitude": 116.32530975341797,
+            "direction": "N->S"
+        },
+        {
+            "id": 76,
+            "name": "祈年大街路口西向东！具体位置不详",
+            "latitude": 39.89898681640625,
+            "longtitude": 116.41885375976562,
+            "direction": "W->E"
+        },
+        {
+            "id": 77,
+            "name": "三中南面",
+            "latitude": 40.338043212890625,
+            "longtitude": 116.645263671875,
+            "direction": "S->N"
+        },
+        {
+            "id": 78,
+            "name": "京津塘高速距收费站南1公里南向北",
+            "latitude": 39.80794143676758,
+            "longtitude": 116.5338134765625,
+            "direction": "S->N"
+        },
+        {
+            "id": 79,
+            "name": "京津塘高速距收费站南1公里",
+            "latitude": 39.807865142822266,
+            "longtitude": 116.53385925292969,
+            "direction": "S->N"
+        },
+        {
+            "id": 80,
+            "name": "321",
+            "latitude": 39.90286636352539,
+            "longtitude": 116.32393646240234,
+            "direction": "W->E,E->W"
+        },
+        {
+            "id": 81,
+            "name": "322",
+            "latitude": 40.02274703979492,
+            "longtitude": 116.32428741455078,
+            "direction": "S->N"
+        },
+        {
+            "id": 82,
+            "name": "月坛南桥",
+            "latitude": 39.91965103149414,
+            "longtitude": 116.36324310302734,
+            "direction": "S->N"
+        },
+        {
+            "id": 83,
+            "name": "华威桥西100米",
+            "latitude": 39.87701416015625,
+            "longtitude": 116.46611022949219,
+            "direction": "E->W"
+        },
+        {
+            "id": 85,
+            "name": "大生庄路口",
+            "latitude": 39.772335052490234,
+            "longtitude": 116.40805053710938,
+            "direction": "E->W"
+        },
+        {
+            "id": 86,
+            "name": "康化桥西",
+            "latitude": 39.841739654541016,
+            "longtitude": 116.5301284790039,
+            "direction": "W->E"
+        },
+        {
+            "id": 87,
+            "name": "朝阳门桥西 西向东",
+            "latitude": 39.93031311035156,
+            "longtitude": 116.440185546875,
+            "direction": "W->E"
+        },
+        {
+            "id": 88,
+            "name": "摄像头",
+            "latitude": 39.83668899536133,
+            "longtitude": 116.35811614990234,
+            "direction": "W->E"
+        },
+        {
+            "id": 89,
+            "name": "三元桥东",
+            "latitude": 39.95762252807617,
+            "longtitude": 116.46830749511719,
+            "direction": "E->W,S->N"
+        },
+        {
+            "id": 90,
+            "name": "京开西红门",
+            "latitude": 39.790252685546875,
+            "longtitude": 116.35323333740234,
+            "direction": "S->N,N->S"
+        },
+        {
+            "id": 91,
+            "name": "外地车限时",
+            "latitude": 39.86346435546875,
+            "longtitude": 116.37135314941406,
+            "direction": "S->N"
+        },
+        {
+            "id": 93,
+            "name": "白纸坊桥西向东",
+            "latitude": 39.883262634277344,
+            "longtitude": 116.35699462890625,
+            "direction": "W->E"
+        },
+        {
+            "id": 94,
+            "name": "安华里西中间那个门",
+            "latitude": 39.97318649291992,
+            "longtitude": 116.4086685180664,
+            "direction": "N->S"
+        },
+        {
+            "id": 95,
+            "name": "安华里西中间的门",
+            "latitude": 39.97318649291992,
+            "longtitude": 116.4086685180664,
+            "direction": "S->N"
+        },
+        {
+            "id": 96,
+            "name": "西单北大街",
+            "latitude": 39.92071533203125,
+            "longtitude": 116.3795394897461,
+            "direction": "W->E"
+        },
+        {
+            "id": 97,
+            "name": "西二环复兴门北",
+            "latitude": 39.91983413696289,
+            "longtitude": 116.3637466430664,
+            "direction": "S->N"
+        },
+        {
+            "id": 98,
+            "name": "八角桥东天桥",
+            "latitude": 39.91309356689453,
+            "longtitude": 116.2178955078125,
+            "direction": "W->E"
+        },
+        {
+            "id": 99,
+            "name": "燕莎桥",
+            "latitude": 39.955787658691406,
+            "longtitude": 116.46778869628906,
+            "direction": "W->E"
+        },
+        {
+            "id": 100,
+            "name": "三元桥",
+            "latitude": 39.95994567871094,
+            "longtitude": 116.46419525146484,
+            "direction": "W->E"
+        },
+        {
+            "id": 101,
+            "name": "灵境胡同",
+            "latitude": 39.92037582397461,
+            "longtitude": 116.3776626586914,
+            "direction": "E->W"
+        },
+        {
+            "id": 102,
+            "name": "供电局",
+            "latitude": 39.906673431396484,
+            "longtitude": 116.3982162475586,
+            "direction": "E->W"
+        },
+        {
+            "id": 103,
+            "name": "白纸坊桥西向东",
+            "latitude": 39.883277893066406,
+            "longtitude": 116.35702514648438,
+            "direction": "W->E"
+        },
+        {
+            "id": 106,
+            "name": "四惠东双向",
+            "latitude": 39.91415023803711,
+            "longtitude": 116.51752471923828,
+            "direction": "W->E,E->W"
+        },
+        {
+            "id": 107,
+            "name": "西坝河东里西门南面",
+            "latitude": 39.969573974609375,
+            "longtitude": 116.44439697265625,
+            "direction": "N->S"
+        },
+        {
+            "id": 108,
+            "name": "和平东桥南，北向南",
+            "latitude": 39.97374725341797,
+            "longtitude": 116.43132019042969,
+            "direction": "N->S"
+        },
+        {
+            "id": 109,
+            "name": "十字路口拍进京证",
+            "latitude": 39.968868255615234,
+            "longtitude": 116.44365692138672,
+            "direction": "N->S"
+        },
+        {
+            "id": 110,
+            "name": "七圣路西坝河南路交口",
+            "latitude": 39.96885299682617,
+            "longtitude": 116.44364929199219,
+            "direction": "N->S"
+        },
+        {
+            "id": 111,
+            "name": "招商局路口",
+            "latitude": 40.327606201171875,
+            "longtitude": 116.65141296386719,
+            "direction": "E->W"
+        },
+        {
+            "id": 112,
+            "name": "大瓦窑桥东向下辅路",
+            "latitude": 39.861263275146484,
+            "longtitude": 116.2445068359375,
+            "direction": "E->W"
+        },
+        {
+            "id": 113,
+            "name": "丽湖北门西向东",
+            "latitude": 40.31665802001953,
+            "longtitude": 116.63330841064453,
+            "direction": "W->E"
+        },
+        {
+            "id": 114,
+            "name": "肖家河桥南",
+            "latitude": 40.01814651489258,
+            "longtitude": 116.2938003540039,
+            "direction": "N->S"
+        },
+        {
+            "id": 115,
+            "name": "大羊坊桥下",
+            "latitude": 39.826141357421875,
+            "longtitude": 116.51129913330078,
+            "direction": "S->N"
+        },
+        {
+            "id": 116,
+            "name": "上清桥高速主路北向南",
+            "latitude": 40.0286865234375,
+            "longtitude": 116.36026000976562,
+            "direction": "N->S"
+        },
+        {
+            "id": 117,
+            "name": "师大北路东口",
+            "latitude": 39.97098922729492,
+            "longtitude": 116.36756134033203,
+            "direction": "S->N"
+        },
+        {
+            "id": 118,
+            "name": "抓拍",
+            "latitude": 39.912620544433594,
+            "longtitude": 116.44230651855469,
+            "direction": "E->W"
+        },
+        {
+            "id": 119,
+            "name": "月坛北桥下东向西",
+            "latitude": 39.924312591552734,
+            "longtitude": 116.36327362060547,
+            "direction": "E->W"
+        },
+        {
+            "id": 120,
+            "name": "欣羊桥北",
+            "latitude": 39.79486083984375,
+            "longtitude": 116.32010650634766,
+            "direction": "W->E,E->W"
+        },
+        {
+            "id": 121,
+            "name": "姚家园路",
+            "latitude": 39.939788818359375,
+            "longtitude": 116.50122833251953,
+            "direction": "W->E,E->W"
+        },
+        {
+            "id": 122,
+            "name": "进京证1",
+            "latitude": 39.889015197753906,
+            "longtitude": 116.54691314697266,
+            "direction": "W->E"
+        },
+        {
+            "id": 123,
+            "name": "有交警查限行",
+            "latitude": 39.92879867553711,
+            "longtitude": 116.38835144042969,
+            "direction": "S->N"
+        },
+        {
+            "id": 124,
+            "name": "西黄村桥东向西",
+            "latitude": 39.939208984375,
+            "longtitude": 116.21858978271484,
+            "direction": "E->W"
+        },
+        {
+            "id": 125,
+            "name": "鼓楼南街与南环路路口南向北",
+            "latitude": 40.218719482421875,
+            "longtitude": 116.24047088623047,
+            "direction": "S->N"
+        },
+        {
+            "id": 126,
+            "name": "招商局路口",
+            "latitude": 40.32737731933594,
+            "longtitude": 116.65116882324219,
+            "direction": "E->W"
+        },
+        {
+            "id": 128,
+            "name": "限行",
+            "latitude": 39.874671936035156,
+            "longtitude": 116.35546112060547,
+            "direction": "S->N"
+        },
+        {
+            "id": 129,
+            "name": "拍进京证",
+            "latitude": 40.22107696533203,
+            "longtitude": 116.25719451904297,
+            "direction": "S->N"
+        },
+        {
+            "id": 130,
+            "name": "方面",
+            "latitude": 40.234344482421875,
+            "longtitude": 116.25635528564453,
+            "direction": "E->W"
+        },
+        {
+            "id": 131,
+            "name": "这7)",
+            "latitude": 40.23504638671875,
+            "longtitude": 116.24576568603516,
+            "direction": "S->N"
+        },
+        {
+            "id": 132,
+            "name": "地税局路口红绿灯",
+            "latitude": 40.31497573852539,
+            "longtitude": 116.63787841796875,
+            "direction": "W->E"
+        },
+        {
+            "id": 133,
+            "name": "欧尚十字路口",
+            "latitude": 39.93013381958008,
+            "longtitude": 116.58980560302734,
+            "direction": "W->E,E->W"
+        },
+        {
+            "id": 134,
+            "name": "进京证",
+            "latitude": 40.067169189453125,
+            "longtitude": 116.49067687988281,
+            "direction": "E->W"
+        },
+        {
+            "id": 135,
+            "name": "拍进京证",
+            "latitude": 40.225894927978516,
+            "longtitude": 116.23357391357422,
+            "direction": "S->N"
+        },
+        {
+            "id": 136,
+            "name": "紫竹桥东天桥 由东向西",
+            "latitude": 39.946510314941406,
+            "longtitude": 116.32125091552734,
+            "direction": "E->W"
+        },
+        {
+            "id": 137,
+            "name": "长春桥北 北向南",
+            "latitude": 39.964866638183594,
+            "longtitude": 116.30061340332031,
+            "direction": "N->S"
+        },
+        {
+            "id": 138,
+            "name": "高峰期摄像头",
+            "latitude": 40.02862548828125,
+            "longtitude": 116.38082122802734,
+            "direction": "E->W"
+        },
+        {
+            "id": 139,
+            "name": "马甸桥下",
+            "latitude": 39.97443389892578,
+            "longtitude": 116.38728332519531,
+            "direction": "E->W"
+        },
+        {
+            "id": 140,
+            "name": "机场辅路望京公园",
+            "latitude": 40.001712799072266,
+            "longtitude": 116.50395202636719,
+            "direction": "W->E,E->W"
+        },
+        {
+            "id": 141,
+            "name": "摄像头",
+            "latitude": -11.126861572265625,
+            "longtitude": -10.965066909790039,
+            "direction": "N->S"
+        },
+        {
+            "id": 142,
+            "name": "东向西",
+            "latitude": 40.228153228759766,
+            "longtitude": 116.26802825927734,
+            "direction": "E->W"
+        },
+        {
+            "id": 143,
+            "name": "实测",
+            "latitude": 40.21878433227539,
+            "longtitude": 116.24720001220703,
+            "direction": "S->N"
+        },
+        {
+            "id": 144,
+            "name": "实测",
+            "latitude": 40.23493576049805,
+            "longtitude": 116.2332534790039,
+            "direction": "S->N"
+        },
+        {
+            "id": 145,
+            "name": "实测",
+            "latitude": 40.22024917602539,
+            "longtitude": 116.23361206054688,
+            "direction": "S->N"
+        },
+        {
+            "id": 146,
+            "name": "南环东路与燕平街路口北侧南向北",
+            "latitude": 40.219032287597656,
+            "longtitude": 116.2511978149414,
+            "direction": "S->N"
+        },
+        {
+            "id": 147,
+            "name": "左安门桥",
+            "latitude": 39.87702178955078,
+            "longtitude": 116.44591522216797,
+            "direction": "N->S"
+        },
+        {
+            "id": 148,
+            "name": "晋元桥阜石路主路西向东",
+            "latitude": 39.93037033081055,
+            "longtitude": 116.21878814697266,
+            "direction": "W->E"
+        },
+        {
+            "id": 149,
+            "name": "被拍",
+            "latitude": 39.96921920776367,
+            "longtitude": 116.4524154663086,
+            "direction": "E->W"
+        },
+        {
+            "id": 151,
+            "name": "朝阳门桥北内环北向南",
+            "latitude": 39.9307861328125,
+            "longtitude": 116.4409408569336,
+            "direction": "N->S"
+        },
+        {
+            "id": 152,
+            "name": "朝阳路由东向西辅路中间车道",
+            "latitude": 39.92224884033203,
+            "longtitude": 116.54988098144531,
+            "direction": "E->W"
+        },
+        {
+            "id": 153,
+            "name": "南环路与西环路路口东侧",
+            "latitude": 40.21803283691406,
+            "longtitude": 116.23371887207031,
+            "direction": "W->E"
+        },
+        {
+            "id": 154,
+            "name": "拍进京证",
+            "latitude": 40.218017578125,
+            "longtitude": 116.23368835449219,
+            "direction": "W->E"
+        },
+        {
+            "id": 155,
+            "name": "进京证",
+            "latitude": 40.23495864868164,
+            "longtitude": 116.23983764648438,
+            "direction": "N->S"
+        },
+        {
+            "id": 156,
+            "name": "拍照",
+            "latitude": 39.90541458129883,
+            "longtitude": 116.37271118164062,
+            "direction": "W->E"
+        },
+        {
+            "id": 157,
+            "name": "古城北小街",
+            "latitude": 39.91337585449219,
+            "longtitude": 116.19559478759766,
+            "direction": "W->E"
+        },
+        {
+            "id": 158,
+            "name": "五环亦庄桥出口",
+            "latitude": 39.81218338012695,
+            "longtitude": 116.48225402832031,
+            "direction": "E->W"
+        },
+        {
+            "id": 159,
+            "name": "高峰期限行",
+            "latitude": 40.02709197998047,
+            "longtitude": 116.36280822753906,
+            "direction": "S->N"
+        },
+        {
+            "id": 160,
+            "name": "拍进京证",
+            "latitude": 40.21967697143555,
+            "longtitude": 116.26490783691406,
+            "direction": "E->W"
+        },
+        {
+            "id": 161,
+            "name": "拍进京证",
+            "latitude": 40.21967697143555,
+            "longtitude": 116.26490783691406,
+            "direction": "E->W"
+        },
+        {
+            "id": 162,
+            "name": "家乐福天桥",
+            "latitude": 39.96657180786133,
+            "longtitude": 116.4511947631836,
+            "direction": "E->W"
+        },
+        {
+            "id": 163,
+            "name": "十字路口北向南",
+            "latitude": 39.9688606262207,
+            "longtitude": 116.44367218017578,
+            "direction": "N->S"
+        },
+        {
+            "id": 165,
+            "name": "禁令",
+            "latitude": 40.3473014831543,
+            "longtitude": 116.65090942382812,
+            "direction": "S->N"
+        },
+        {
+            "id": 166,
+            "name": "禁令",
+            "latitude": 40.31897735595703,
+            "longtitude": 116.64434051513672,
+            "direction": "S->N"
+        },
+        {
+            "id": 167,
+            "name": "禁令",
+            "latitude": 40.31897735595703,
+            "longtitude": 116.64434051513672,
+            "direction": "S->N"
+        },
+        {
+            "id": 168,
+            "name": "禁令",
+            "latitude": 40.339088439941406,
+            "longtitude": 116.63684844970703,
+            "direction": "N->S"
+        },
+        {
+            "id": 169,
+            "name": "光明桥西",
+            "latitude": 39.890350341796875,
+            "longtitude": 116.45046997070312,
+            "direction": "E->W"
+        },
+        {
+            "id": 170,
+            "name": "仓南胡同东口",
+            "latitude": 39.933441162109375,
+            "longtitude": 116.44013977050781,
+            "direction": "E->W"
+        },
+        {
+            "id": 171,
+            "name": "月坛桥西",
+            "latitude": 39.919498443603516,
+            "longtitude": 116.36222076416016,
+            "direction": "W->E"
+        },
+        {
+            "id": 172,
+            "name": "违反禁今标志",
+            "latitude": 39.920265197753906,
+            "longtitude": 116.46805572509766,
+            "direction": "E->W"
+        },
+        {
+            "id": 173,
+            "name": "三元东桥南由东向西",
+            "latitude": 39.959651947021484,
+            "longtitude": 116.46565246582031,
+            "direction": "E->W"
+        },
+        {
+            "id": 174,
+            "name": "麻痹",
+            "latitude": 40.22712326049805,
+            "longtitude": 116.2684097290039,
+            "direction": "S->N"
+        },
+        {
+            "id": 175,
+            "name": "东向北右拐",
+            "latitude": 39.86393737792969,
+            "longtitude": 116.32364654541016,
+            "direction": "E->W"
+        },
+        {
+            "id": 176,
+            "name": "垂杨柳医院路口双向",
+            "latitude": 39.893470764160156,
+            "longtitude": 116.4676284790039,
+            "direction": "W->E,E->W"
+        },
+        {
+            "id": 177,
+            "name": "安宁庄G6辅路桥下",
+            "latitude": 40.06035614013672,
+            "longtitude": 116.3352279663086,
+            "direction": "N->S"
+        },
+        {
+            "id": 178,
+            "name": "吉祥寺桥北",
+            "latitude": 40.04703140258789,
+            "longtitude": 116.4866943359375,
+            "direction": "N->S"
+        },
+        {
+            "id": 179,
+            "name": "肖家河桥南北向南",
+            "latitude": 40.01975631713867,
+            "longtitude": 116.29363250732422,
+            "direction": "N->S"
+        },
+        {
+            "id": 180,
+            "name": "三元西桥南第二个天桥",
+            "latitude": 39.9662971496582,
+            "longtitude": 116.45088195800781,
+            "direction": "N->S"
+        },
+        {
+            "id": 181,
+            "name": "高峰",
+            "latitude": 39.85438919067383,
+            "longtitude": 116.29004669189453,
+            "direction": "S->N"
+        },
+        {
+            "id": 182,
+            "name": "管庄桥北",
+            "latitude": 39.95687484741211,
+            "longtitude": 116.59156036376953,
+            "direction": "S->N"
+        },
+        {
+            "id": 183,
+            "name": "早晚高峰",
+            "latitude": 39.79104232788086,
+            "longtitude": 116.43083953857422,
+            "direction": "S->N"
+        },
+        {
+            "id": 184,
+            "name": "化工桥西向东",
+            "latitude": 39.85190963745117,
+            "longtitude": 116.55000305175781,
+            "direction": "W->E"
+        },
+        {
+            "id": 185,
+            "name": "四通桥南天桥",
+            "latitude": 39.966678619384766,
+            "longtitude": 116.32940673828125,
+            "direction": "S->N,N->S"
+        },
+        {
+            "id": 186,
+            "name": "为公桥东",
+            "latitude": 39.96291732788086,
+            "longtitude": 116.31781005859375,
+            "direction": "W->E,E->W"
+        },
+        {
+            "id": 187,
+            "name": "紫竹桥东天桥",
+            "latitude": 39.94626235961914,
+            "longtitude": 116.32118225097656,
+            "direction": "W->E,E->W"
+        },
+        {
+            "id": 188,
+            "name": "杏石口桥东",
+            "latitude": 39.96052551269531,
+            "longtitude": 116.23052215576172,
+            "direction": "W->E"
+        },
+        {
+            "id": 189,
+            "name": "上清桥",
+            "latitude": 40.02360534667969,
+            "longtitude": 116.36434936523438,
+            "direction": "S->N,N->S"
+        },
+        {
+            "id": 190,
+            "name": "肖家河桥南",
+            "latitude": 40.01835250854492,
+            "longtitude": 116.29399871826172,
+            "direction": "S->N,N->S"
+        },
+        {
+            "id": 191,
+            "name": "厢白旗桥南",
+            "latitude": 40.02305221557617,
+            "longtitude": 116.32351684570312,
+            "direction": "S->N"
+        },
+        {
+            "id": 192,
+            "name": "晋元桥东天桥",
+            "latitude": 39.93035888671875,
+            "longtitude": 116.22592163085938,
+            "direction": "W->E"
+        },
+        {
+            "id": 193,
+            "name": "新兴桥东天桥",
+            "latitude": 39.913387298583984,
+            "longtitude": 116.32101440429688,
+            "direction": "E->W"
+        },
+        {
+            "id": 194,
+            "name": "新兴桥主路",
+            "latitude": 39.91341781616211,
+            "longtitude": 116.3167495727539,
+            "direction": "S->N"
+        },
+        {
+            "id": 195,
+            "name": "增光路西口东",
+            "latitude": 39.934104919433594,
+            "longtitude": 116.31777954101562,
+            "direction": "W->E"
+        },
+        {
+            "id": 196,
+            "name": "联想桥西",
+            "latitude": 39.97309112548828,
+            "longtitude": 116.33677673339844,
+            "direction": "E->W,W->E"
+        },
+        {
+            "id": 197,
+            "name": "五方桥西",
+            "latitude": 39.8763427734375,
+            "longtitude": 116.53092956542969,
+            "direction": "W->E"
+        },
+        {
+            "id": 198,
+            "name": "白家楼桥西",
+            "latitude": 39.929725646972656,
+            "longtitude": 116.54571533203125,
+            "direction": "W->E,E->W"
+        },
+        {
+            "id": 199,
+            "name": "大羊坊桥",
+            "latitude": 39.823822021484375,
+            "longtitude": 116.50574493408203,
+            "direction": "W->E,E->W"
+        },
+        {
+            "id": 200,
+            "name": "七棵树路五环路西",
+            "latitude": 39.970298767089844,
+            "longtitude": 116.53211975097656,
+            "direction": "W->E,E->W"
+        },
+        {
+            "id": 201,
+            "name": "平房桥西",
+            "latitude": 39.94773483276367,
+            "longtitude": 116.53878784179688,
+            "direction": "W->E"
+        },
+        {
+            "id": 202,
+            "name": "京通快速",
+            "latitude": 39.91565704345703,
+            "longtitude": 116.58343505859375,
+            "direction": "W->E,E->W"
+        },
+        {
+            "id": 203,
+            "name": "朝阳门桥",
+            "latitude": 39.93038558959961,
+            "longtitude": 116.44208526611328,
+            "direction": "W->E,E->W"
+        },
+        {
+            "id": 204,
+            "name": "安华桥南",
+            "latitude": 39.97241973876953,
+            "longtitude": 116.40105438232422,
+            "direction": "N->S"
+        },
+        {
+            "id": 205,
+            "name": "黑庄户桥",
+            "latitude": 39.87309646606445,
+            "longtitude": 116.59588623046875,
+            "direction": "W->E,E->W"
+        },
+        {
+            "id": 206,
+            "name": "林翠桥南",
+            "latitude": 40.025882720947266,
+            "longtitude": 116.381103515625,
+            "direction": "S->N,N->S"
+        },
+        {
+            "id": 207,
+            "name": "化工桥北",
+            "latitude": 39.86305618286133,
+            "longtitude": 116.55571746826172,
+            "direction": "W->E"
+        },
+        {
+            "id": 208,
+            "name": "大黄庄桥西天桥",
+            "latitude": 39.922359466552734,
+            "longtitude": 116.54627227783203,
+            "direction": "W->E"
+        },
+        {
+            "id": 209,
+            "name": "安贞桥南天桥",
+            "latitude": 39.971866607666016,
+            "longtitude": 116.4141845703125,
+            "direction": "S->N"
+        },
+        {
+            "id": 210,
+            "name": "潘家园桥西",
+            "latitude": 39.881866455078125,
+            "longtitude": 116.46656799316406,
+            "direction": "E->W"
+        },
+        {
+            "id": 211,
+            "name": "奥林西桥",
+            "latitude": 40.02706527709961,
+            "longtitude": 116.39068603515625,
+            "direction": "N->S"
+        },
+        {
+            "id": 212,
+            "name": "金盏桥北",
+            "latitude": 40.01020431518555,
+            "longtitude": 116.60108947753906,
+            "direction": "S->N"
+        },
+        {
+            "id": 213,
+            "name": "双桥东天桥",
+            "latitude": 39.91509246826172,
+            "longtitude": 116.59486389160156,
+            "direction": "E->W"
+        },
+        {
+            "id": 214,
+            "name": "京良桥",
+            "latitude": 39.78080749511719,
+            "longtitude": 116.16939544677734,
+            "direction": "S->N,N->S"
+        },
+        {
+            "id": 215,
+            "name": "方庄桥",
+            "latitude": 39.8648567199707,
+            "longtitude": 116.44535827636719,
+            "direction": "E->W"
+        },
+        {
+            "id": 216,
+            "name": "铁营桥",
+            "latitude": 39.864559173583984,
+            "longtitude": 116.43865966796875,
+            "direction": "S->N,N->S"
+        },
+        {
+            "id": 217,
+            "name": "大红门桥",
+            "latitude": 39.83861541748047,
+            "longtitude": 116.41339874267578,
+            "direction": "W->E"
+        },
+        {
+            "id": 218,
+            "name": "西沙桥",
+            "latitude": 40.170326232910156,
+            "longtitude": 116.2520980834961,
+            "direction": "N->S,S->N"
+        },
+        {
+            "id": 219,
+            "name": "立水桥北路 ",
+            "latitude": 40.059329986572266,
+            "longtitude": 116.41970825195312,
+            "direction": "S->N"
+        },
+        {
+            "id": 220,
+            "name": "二拨子桥",
+            "latitude": 40.09634017944336,
+            "longtitude": 116.30707550048828,
+            "direction": "S->N"
+        },
+        {
+            "id": 221,
+            "name": "百葛桥",
+            "latitude": 40.17777633666992,
+            "longtitude": 116.2488021850586,
+            "direction": "N->S"
+        },
+        {
+            "id": 222,
+            "name": "积水潭桥",
+            "latitude": 39.95457077026367,
+            "longtitude": 116.37848663330078,
+            "direction": "W->E"
+        },
+        {
+            "id": 223,
+            "name": "虎坊桥 ",
+            "latitude": 39.89568328857422,
+            "longtitude": 116.3911361694336,
+            "direction": "S->N"
+        },
+        {
+            "id": 224,
+            "name": "北京站东街东口",
+            "latitude": 39.91105651855469,
+            "longtitude": 116.44038391113281,
+            "direction": "W->E"
+        },
+        {
+            "id": 225,
+            "name": "海运仓胡同东口",
+            "latitude": 39.94258117675781,
+            "longtitude": 116.43984985351562,
+            "direction": "W->E"
+        },
+        {
+            "id": 226,
+            "name": "金星桥南天桥",
+            "latitude": 39.76502227783203,
+            "longtitude": 116.34999084472656,
+            "direction": "N->S,S->N"
+        },
+        {
+            "id": 227,
+            "name": "双源桥北天桥",
+            "latitude": 39.71088790893555,
+            "longtitude": 116.33914947509766,
+            "direction": "N->S"
+        },
+        {
+            "id": 228,
+            "name": "德茂桥",
+            "latitude": 39.78941345214844,
+            "longtitude": 116.43294525146484,
+            "direction": "N->S"
+        },
+        {
+            "id": 229,
+            "name": "衙门口桥",
+            "latitude": 39.89753723144531,
+            "longtitude": 116.2147445678711,
+            "direction": "W->E"
+        },
+        {
+            "id": 230,
+            "name": "八角桥东天桥",
+            "latitude": 39.91307830810547,
+            "longtitude": 116.22075653076172,
+            "direction": "W->E"
+        },
+        {
+            "id": 231,
+            "name": "鲁谷桥",
+            "latitude": 39.91309356689453,
+            "longtitude": 116.22077178955078,
+            "direction": "W->E"
+        },
+        {
+            "id": 232,
+            "name": "丰北桥北",
+            "latitude": 39.87553024291992,
+            "longtitude": 116.2878646850586,
+            "direction": "N->S"
+        },
+        {
+            "id": 233,
+            "name": "闵西桥",
+            "latitude": 39.978729248046875,
+            "longtitude": 116.23352813720703,
+            "direction": "E->W,W->E"
+        },
+        {
+            "id": 234,
+            "name": "马甸桥南天桥",
+            "latitude": 39.96988296508789,
+            "longtitude": 116.38631439208984,
+            "direction": "S->N,N->S"
+        },
+        {
+            "id": 235,
+            "name": "安贞桥",
+            "latitude": 39.97520446777344,
+            "longtitude": 116.41551971435547,
+            "direction": "W->E"
+        },
+        {
+            "id": 236,
+            "name": "和平西桥",
+            "latitude": 39.97480392456055,
+            "longtitude": 116.42449188232422,
+            "direction": "S->N"
+        },
+        {
+            "id": 237,
+            "name": "农展桥北",
+            "latitude": 39.9501953125,
+            "longtitude": 116.46830749511719,
+            "direction": "N->S"
+        },
+        {
+            "id": 238,
+            "name": "莲花桥",
+            "latitude": 39.90306854248047,
+            "longtitude": 116.31700134277344,
+            "direction": "W->E,E->W"
+        },
+        {
+            "id": 239,
+            "name": "桦皮厂胡同北口",
+            "latitude": 39.94999313354492,
+            "longtitude": 116.36553955078125,
+            "direction": "S->N"
+        },
+        {
+            "id": 240,
+            "name": "小街桥",
+            "latitude": 39.95510482788086,
+            "longtitude": 116.43193817138672,
+            "direction": "N->S"
+        },
+        {
+            "id": 241,
+            "name": "东四十条西天桥",
+            "latitude": 39.939666748046875,
+            "longtitude": 116.43742370605469,
+            "direction": "W->E,E->W"
+        },
+        {
+            "id": 242,
+            "name": "正义路南口",
+            "latitude": 39.90765380859375,
+            "longtitude": 116.41311645507812,
+            "direction": "N->S"
+        },
+        {
+            "id": 243,
+            "name": "复兴门",
+            "latitude": 39.91250228881836,
+            "longtitude": 116.36284637451172,
+            "direction": "N->S,S->N"
+        },
+        {
+            "id": 244,
+            "name": "车公庄东天桥",
+            "latitude": 39.93815612792969,
+            "longtitude": 116.36542510986328,
+            "direction": "E->W"
+        },
+        {
+            "id": 245,
+            "name": "西四",
+            "latitude": 39.9300537109375,
+            "longtitude": 116.3797607421875,
+            "direction": "W->E,E->W"
+        },
+        {
+            "id": 246,
+            "name": "美术馆路口",
+            "latitude": 39.93061828613281,
+            "longtitude": 116.41712951660156,
+            "direction": "W->E"
+        },
+        {
+            "id": 247,
+            "name": "南沙窝桥",
+            "latitude": 39.903289794921875,
+            "longtitude": 116.28034210205078,
+            "direction": "W->E,E->W"
+        },
+        {
+            "id": 248,
+            "name": "岳各庄北桥",
+            "latitude": 39.891361236572266,
+            "longtitude": 116.28091430664062,
+            "direction": "S->N"
+        },
+        {
+            "id": 249,
+            "name": "小红门桥",
+            "latitude": 39.83885192871094,
+            "longtitude": 116.46556854248047,
+            "direction": "W->E"
+        },
+        {
+            "id": 250,
+            "name": "窑洼湖桥",
+            "latitude": 39.890777587890625,
+            "longtitude": 116.49614715576172,
+            "direction": "N->S"
+        },
+        {
+            "id": 251,
+            "name": "宵云桥南天桥",
+            "latitude": 39.970340728759766,
+            "longtitude": 116.48628997802734,
+            "direction": "S->N,N->S"
+        },
+        {
+            "id": 252,
+            "name": "望和桥南京承高速1.7km",
+            "latitude": 39.9908447265625,
+            "longtitude": 116.44728088378906,
+            "direction": "N->S"
+        },
+        {
+            "id": 253,
+            "name": "学清路北口",
+            "latitude": 40.02768325805664,
+            "longtitude": 116.3582992553711,
+            "direction": "S->N"
+        },
+        {
+            "id": 254,
+            "name": "功德寺桥",
+            "latitude": 40.007667541503906,
+            "longtitude": 116.26364135742188,
+            "direction": "N->S"
+        },
+        {
+            "id": 255,
+            "name": "七星园北门",
+            "latitude": 39.90620803833008,
+            "longtitude": 116.21945190429688,
+            "direction": "W->E,E->W"
+        },
+        {
+            "id": 256,
+            "name": "大瓦窑桥",
+            "latitude": 39.86525344848633,
+            "longtitude": 116.2438735961914,
+            "direction": "E->W"
+        },
+        {
+            "id": 257,
+            "name": "金西桥",
+            "latitude": 39.77750015258789,
+            "longtitude": 116.38026428222656,
+            "direction": "W->E"
+        },
+        {
+            "id": 258,
+            "name": "环铁桥",
+            "latitude": 39.98420333862305,
+            "longtitude": 116.52465057373047,
+            "direction": "W->E"
+        },
+        {
+            "id": 259,
+            "name": "广顺桥",
+            "latitude": 40.02080535888672,
+            "longtitude": 116.4738998413086,
+            "direction": "N->S"
+        },
+        {
+            "id": 260,
+            "name": "马驹桥",
+            "latitude": 39.75822067260742,
+            "longtitude": 116.57544708251953,
+            "direction": "N->S"
+        },
+        {
+            "id": 261,
+            "name": "五元桥南天桥",
+            "latitude": 40.00362777709961,
+            "longtitude": 116.50408935546875,
+            "direction": "N->S"
+        },
+        {
+            "id": 262,
+            "name": "京通快速路3.28km",
+            "latitude": 39.91425323486328,
+            "longtitude": 116.50639343261719,
+            "direction": "E->W"
+        },
+        {
+            "id": 263,
+            "name": "顾家庄桥南路口南",
+            "latitude": 40.02238845825195,
+            "longtitude": 116.44649505615234,
+            "direction": "S->N"
+        },
+        {
+            "id": 264,
+            "name": "三元桥西北外环",
+            "latitude": 39.96411895751953,
+            "longtitude": 116.45964813232422,
+            "direction": "E->W"
+        },
+        {
+            "id": 265,
+            "name": "鲁瞳桥",
+            "latitude": 40.11139678955078,
+            "longtitude": 116.48983001708984,
+            "direction": "S->N"
+        },
+        {
+            "id": 266,
+            "name": "管庄桥北天桥",
+            "latitude": 39.91545104980469,
+            "longtitude": 116.60708618164062,
+            "direction": "S->N,N->S"
+        },
+        {
+            "id": 267,
+            "name": "西单路口",
+            "latitude": 39.913265228271484,
+            "longtitude": 116.38069915771484,
+            "direction": "N->S"
+        },
+        {
+            "id": 268,
+            "name": "宣武门路口",
+            "latitude": 39.905799865722656,
+            "longtitude": 116.38076782226562,
+            "direction": "W->E"
+        },
+        {
+            "id": 269,
+            "name": "右安门桥",
+            "latitude": 39.8751106262207,
+            "longtitude": 116.37081909179688,
+            "direction": "N->S"
+        },
+        {
+            "id": 270,
+            "name": "陶然桥北",
+            "latitude": 39.879608154296875,
+            "longtitude": 116.39411163330078,
+            "direction": "N->S"
+        },
+        {
+            "id": 271,
+            "name": "广渠门桥西",
+            "latitude": 39.8995246887207,
+            "longtitude": 116.4444580078125,
+            "direction": "西向东"
+        },
+        {
+            "id": 272,
+            "name": "首都机场南路与小天竺路交叉路口",
+            "latitude": 40.055145263671875,
+            "longtitude": 116.59346771240234,
+            "direction": "S->N"
+        },
+        {
+            "id": 273,
+            "name": "安定门桥南",
+            "latitude": 39.95417022705078,
+            "longtitude": 116.41458892822266,
+            "direction": "N->S"
+        },
+        {
+            "id": 274,
+            "name": "北京市东城区玉蜓桥北过街天桥",
+            "latitude": 39.881553649902344,
+            "longtitude": 116.42767333984375,
+            "direction": "N->S"
+        },
+        {
+            "id": 275,
+            "name": "开阳桥北天桥",
+            "latitude": 39.87980270385742,
+            "longtitude": 116.38096618652344,
+            "direction": "S->N"
+        },
+        {
+            "id": 276,
+            "name": "杏坛路",
+            "latitude": 39.97160339355469,
+            "longtitude": 116.36753845214844,
+            "direction": "N->S"
+        },
+        {
+            "id": 277,
+            "name": "李营桥北",
+            "latitude": 39.7955322265625,
+            "longtitude": 116.32044219970703,
+            "direction": "S->N"
+        }
+    ]
+}

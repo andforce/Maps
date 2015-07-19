@@ -30,7 +30,7 @@
 
         <activity
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:name="org.zarroboogs.maps.LocationModeSourceActivity" >
+            android:name=".MapsActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

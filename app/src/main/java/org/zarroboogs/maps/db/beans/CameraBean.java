@@ -3,7 +3,7 @@ package org.zarroboogs.maps.db.beans;
 /**
  * Created by wangdiyuan on 15-7-13.
  */
-public class PaperCameraBean {
+public class CameraBean {
     private int id;
     private String name;
     private String direction;

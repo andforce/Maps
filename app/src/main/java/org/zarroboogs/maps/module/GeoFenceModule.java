@@ -7,7 +7,7 @@ import com.amap.api.maps.MapView;
 import com.amap.api.maps.model.LatLng;
 
 import org.zarroboogs.maps.beans.GeoFenceInfo;
-import org.zarroboogs.maps.db.beans.PaperCameraBean;
+import org.zarroboogs.maps.db.beans.CameraBean;
 import org.zarroboogs.maps.utils.FileUtils;
 import org.zarroboogs.maps.utils.JsonUtils;
 
@@ -39,10 +39,10 @@ public class GeoFenceModule {
 
 
     public void onCreate() {
-        ArrayList<PaperCameraBean> cameras = JsonUtils.prasePaperCameras(FileUtils.readStringFromAsset(mContext, "db.json"));
+        ArrayList<CameraBean> cameras = JsonUtils.prasePaperCameras(FileUtils.readStringFromAsset(mContext, "db.json"));
         ArrayList<GeoFenceInfo> infs = new ArrayList<>();
 
-        for (PaperCameraBean paperCameraBean : cameras) {
+        for (CameraBean paperCameraBean : cameras) {
             GeoFenceInfo geoFenceInfo = new GeoFenceInfo(mContext, new LatLng(paperCameraBean.getLatitude(), paperCameraBean.getLongtitude()), paperCameraBean.getId());
             infs.add(geoFenceInfo);
         }

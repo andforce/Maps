@@ -12,15 +12,14 @@ import com.amap.api.location.LocationProviderProxy;
 import com.amap.api.maps.AMap;
 import com.amap.api.maps.LocationSource;
 import com.amap.api.maps.MapView;
-import com.amap.api.maps.MapsInitializer;
 
-import org.zarroboogs.maps.utils.OffLineMapUtils;
+import org.zarroboogs.maps.ui.MapsModule;
 
 
 /**
  * AMapV2地图中介绍定位三种模式的使用，包括定位，追随，旋转
  */
-public class LocationModeSourceActivity extends BaseActivity implements LocationSource,
+public class MapsActivity extends BaseActivity implements LocationSource,
         AMapLocationListener, OnCheckedChangeListener {
     private AMap aMap;
     private MapView mapView;
@@ -28,25 +27,26 @@ public class LocationModeSourceActivity extends BaseActivity implements Location
     private LocationManagerProxy mAMapLocationManager;
     private RadioGroup mGPSModeGroup;
 
+    private MapsModule mMapsModule;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.locationmodesource_activity);
-        /*
-         * 设置离线地图存储目录，在下载离线地图或初始化地图设置;
-         * 使用过程中可自行设置, 若自行设置了离线地图存储的路径，
-         * 则需要在离线地图下载和使用地图页面都进行路径设置
-         * */
-        //Demo中为了其他界面可以使用下载的离线地图，使用默认位置存储，屏蔽了自定义设置
-//        MapsInitializer.sdcardDir = OffLineMapUtils.getSdCacheDir(this);
 
         mapView = (MapView) findViewById(R.id.map);
         mapView.onCreate(savedInstanceState);// 此方法必须重写
         init();
+
+
+        mMapsModule = new MapsModule(this);
     }
 
+    public AMap getGaoDeMap(){
+        return aMap;
+    }
 
     /**
      * 初始化
