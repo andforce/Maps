@@ -1,6 +1,7 @@
 package org.zarroboogs.maps.ui;
 
 import com.amap.api.maps.AMap;
+import com.amap.api.maps.UiSettings;
 import com.amap.api.maps.model.Marker;
 import com.amap.api.maps.model.MarkerOptions;
 
@@ -16,12 +17,21 @@ public class MapsModule implements IGaoDeMapsView, AMap.OnMapLoadedListener {
     private ArrayList<Marker> mMarkers = new ArrayList<>();
 
     private MapsPresenter mMapsPresenter;
+    private UiSettings mUiSetting;
+
 
     public MapsModule(MapsActivity mapsActivity) {
         this.mMapsActivity = mapsActivity;
 
         mMapsPresenter = new MapsPresenterImpl(this);
         mMapsActivity.getGaoDeMap().setOnMapLoadedListener(this);
+        mUiSetting = mMapsActivity.getGaoDeMap().getUiSettings();
+    }
+
+    public void init(){
+        mUiSetting.setCompassEnabled(true);
+        mUiSetting.setZoomControlsEnabled(false);
+        mUiSetting.setMyLocationButtonEnabled(false);
 
     }
 

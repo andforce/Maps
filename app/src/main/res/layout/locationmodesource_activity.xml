@@ -7,40 +7,8 @@
     <com.amap.api.maps.MapView
         android:id="@+id/map"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"></com.amap.api.maps.MapView>
+        android:layout_height="match_parent" />
 
-    <RadioGroup
-        android:id="@+id/gps_radio_group"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="top|left"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="10dp"
-        android:background="@color/grey"
-        android:orientation="horizontal">
-
-        <RadioButton
-            android:id="@+id/gps_locate_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:checked="true"
-            android:text="@string/gpslocate"
-            android:textColor="@android:color/black" />
-
-        <RadioButton
-            android:id="@+id/gps_follow_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/gpsfollow"
-            android:textColor="@android:color/black" />
-
-        <RadioButton
-            android:id="@+id/gps_rotate_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/gpsrotate"
-            android:textColor="@android:color/black" />
-    </RadioGroup>
 
     <RelativeLayout
         android:layout_width="match_parent"

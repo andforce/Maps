@@ -20,12 +20,11 @@ import org.zarroboogs.maps.ui.MapsModule;
  * AMapV2地图中介绍定位三种模式的使用，包括定位，追随，旋转
  */
 public class MapsActivity extends BaseActivity implements LocationSource,
-        AMapLocationListener, OnCheckedChangeListener {
+        AMapLocationListener {
     private AMap aMap;
     private MapView mapView;
     private OnLocationChangedListener mListener;
     private LocationManagerProxy mAMapLocationManager;
-    private RadioGroup mGPSModeGroup;
 
     private MapsModule mMapsModule;
 
@@ -42,6 +41,8 @@ public class MapsActivity extends BaseActivity implements LocationSource,
 
 
         mMapsModule = new MapsModule(this);
+        mMapsModule.init();
+
     }
 
     public AMap getGaoDeMap(){
@@ -56,8 +57,6 @@ public class MapsActivity extends BaseActivity implements LocationSource,
             aMap = mapView.getMap();
             setUpMap();
         }
-        mGPSModeGroup = (RadioGroup) findViewById(R.id.gps_radio_group);
-        mGPSModeGroup.setOnCheckedChangeListener(this);
     }
 
     /**
@@ -71,24 +70,6 @@ public class MapsActivity extends BaseActivity implements LocationSource,
         aMap.setMyLocationType(AMap.LOCATION_TYPE_LOCATE);
     }
 
-    @Override
-    public void onCheckedChanged(RadioGroup group, int checkedId) {
-        switch (checkedId) {
-            case R.id.gps_locate_button:
-                //设置定位的类型为定位模式
-                aMap.setMyLocationType(AMap.LOCATION_TYPE_LOCATE);
-                break;
-            case R.id.gps_follow_button:
-                //设置定位的类型为 跟随模式
-                aMap.setMyLocationType(AMap.LOCATION_TYPE_MAP_FOLLOW);
-                break;
-            case R.id.gps_rotate_button:
-                //设置定位的类型为根据地图面向方向旋转
-                aMap.setMyLocationType(AMap.LOCATION_TYPE_MAP_ROTATE);
-                break;
-        }
-
-    }
 
     /**
      * 方法必须重写
