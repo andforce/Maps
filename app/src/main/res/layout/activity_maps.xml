@@ -13,24 +13,38 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
         <ImageButton
             android:id="@+id/ori_compass"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@android:color/transparent"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="18px"
+            android:background="@android:color/transparent"
             android:elevation="2dp"
             android:src="@mipmap/maps_dav_compass_needle_large" />
 
 
         <ImageButton
-            android:id="@+id/poi_search_btn"
+            android:id="@+id/navi_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:layout_marginTop="36px"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="36px"
             android:layout_marginRight="36px"
+            android:background="@drawable/circle_btn_bg"
+            android:elevation="2dp"
+            android:src="@mipmap/ic_qu_direction_mylocation" />
+
+        <ImageButton
+            android:id="@+id/poi_search_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="36px"
+            android:layout_marginLeft="36px"
             android:background="@drawable/circle_btn_bg"
             android:elevation="2dp"
             android:src="@mipmap/ic_qu_direction_mylocation" />
@@ -41,7 +55,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:layout_alignParentRight="true"
+            android:layout_centerHorizontal="true"
             android:layout_marginBottom="36px"
             android:layout_marginRight="36px"
             android:background="@drawable/circle_btn_bg"
