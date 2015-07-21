@@ -1,6 +1,11 @@
 package org.zarroboogs.maps;
 
+import android.content.Context;
 import android.content.Intent;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
 import android.location.Location;
 import android.media.Image;
 import android.os.Bundle;
@@ -31,12 +36,21 @@ public class MapsActivity extends BaseActivity implements LocationSource,
 
     private MapsModule mMapsModule;
 
+    private SensorManager mSensorManager;
+    private Sensor mSensor;
+    private MySensorEventListener mEventListener = new MySensorEventListener();
+    private float mDevicesDirection = 0f;
+    private ImageButton mCompass;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_maps);
+
+        mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
+        mCompass = (ImageButton) findViewById(R.id.ori_compass);
 
         mapView = (MapView) findViewById(R.id.map);
         mapView.onCreate(savedInstanceState);// 此方法必须重写
@@ -88,8 +102,28 @@ public class MapsActivity extends BaseActivity implements LocationSource,
     protected void onResume() {
         super.onResume();
         mapView.onResume();
+        mSensor = mSensorManager.getDefaultSensor(Sensor.TYPE_ORIENTATION);
+        mSensorManager.registerListener(mEventListener, mSensor, SensorManager.SENSOR_DELAY_UI);
     }
 
+    class MySensorEventListener implements SensorEventListener {
+
+        @Override
+        public void onSensorChanged(SensorEvent sensorEvent) {
+            if (sensorEvent.sensor.getType() == Sensor.TYPE_ORIENTATION) {
+                float x = sensorEvent.values[SensorManager.DATA_X];
+                if (Math.abs(x - mDevicesDirection) > 5){
+                    mCompass.setRotation(-x);
+                    mDevicesDirection = x;
+                }
+            }
+        }
+
+        @Override
+        public void onAccuracyChanged(Sensor sensor, int i) {
+
+        }
+    }
     /**
      * 方法必须重写
      */
@@ -97,6 +131,7 @@ public class MapsActivity extends BaseActivity implements LocationSource,
     protected void onPause() {
         super.onPause();
         mapView.onPause();
+        mSensorManager.unregisterListener(mEventListener);
         deactivate();
     }
 

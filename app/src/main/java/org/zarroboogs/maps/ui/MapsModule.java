@@ -29,7 +29,7 @@ public class MapsModule implements IGaoDeMapsView, AMap.OnMapLoadedListener {
     }
 
     public void init(){
-        mUiSetting.setCompassEnabled(true);
+        mUiSetting.setCompassEnabled(false);
         mUiSetting.setZoomControlsEnabled(false);
         mUiSetting.setMyLocationButtonEnabled(false);
 
