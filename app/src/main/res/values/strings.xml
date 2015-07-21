@@ -151,4 +151,7 @@
     <string name="city">市</string>
     <string name="district">区/县</string>
 
+
+    <string name="app_name">Maps</string>
+
 </resources>
