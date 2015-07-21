@@ -36,4 +36,12 @@ public class FileUtils {
     public static void writeSharedPreference(String key, String value) {
         sPreference.edit().putString(key, value).commit();
     }
+
+    public static int readIntFromSharedPreference(String key) {
+        return sPreference.getInt(key, -1);
+    }
+
+    public static void writeIntToSharedPreference(String key, int value) {
+        sPreference.edit().putInt(key, value).commit();
+    }
 }

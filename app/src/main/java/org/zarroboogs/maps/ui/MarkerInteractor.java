@@ -11,14 +11,15 @@ import java.util.ArrayList;
  */
 public interface MarkerInteractor {
 
-    interface OnMarkerCreatedListener{
+    interface OnMarkerCreatedListener {
         void onMarkerCreated(ArrayList<MarkerOptions> markerOptions);
     }
 
 
-    interface OnReadCamerasListener{
+    interface OnReadCamerasListener {
         void onReadCameras(ArrayList<CameraBean> cameraBeans);
     }
+
     void createMarkers(OnMarkerCreatedListener listener);
 
     void readCameras(OnReadCamerasListener listener);

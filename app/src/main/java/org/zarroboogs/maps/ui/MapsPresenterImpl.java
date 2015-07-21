@@ -14,18 +14,21 @@ import java.util.ArrayList;
 /**
  * Created by andforce on 15/7/19.
  */
-public class MapsPresenterImpl implements MapsPresenter, OnMarkerCreatedListener, MarkerInteractor.OnReadCamerasListener {
+public class MapsPresenterImpl implements MapsPresenter, OnMarkerCreatedListener, MarkerInteractor.OnReadCamerasListener, MapsActionInteractor.OnMyLocationModeChangedListener {
 
     private static final boolean DEBUG = true;
 
     private IGaoDeMapsView mGaodeMapsView;
     private MarkerInteractor mMapsInteractor;
 
+    private MapsActionInteractor mMapsActionInteractor;
+
     private GeoFenceManager manager;
 
     public MapsPresenterImpl(IGaoDeMapsView gaoDeMapsView) {
         this.mGaodeMapsView = gaoDeMapsView;
         this.mMapsInteractor = new MarkerInteractorImpl();
+        this.mMapsActionInteractor = new MapsActionInteractorImpl();
     }
 
     @Override
@@ -43,6 +46,16 @@ public class MapsPresenterImpl implements MapsPresenter, OnMarkerCreatedListener
         if (manager != null){
             manager.removeAllGeoFenceAlert();
         }
+    }
+
+    @Override
+    public void changeMyLocationMode(int mode) {
+        mMapsActionInteractor.changeMyLocationMode(mode, this);
+    }
+
+    @Override
+    public void stopFollowMode() {
+
     }
 
     @Override
@@ -75,5 +88,15 @@ public class MapsPresenterImpl implements MapsPresenter, OnMarkerCreatedListener
         }
 
 
+    }
+
+    @Override
+    public void onMyLocationChanged(int mode) {
+        mGaodeMapsView.changeMyLocationMode(mode);
+    }
+
+    @Override
+    public void onFollowModeStoped() {
+        mGaodeMapsView.stopFollowMode();
     }
 }

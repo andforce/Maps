@@ -10,4 +10,8 @@ public interface MapsPresenter {
 
     public void disableDefaultGeoFences();
 
+    public void changeMyLocationMode(int mode);
+
+    public void stopFollowMode();
+
 }

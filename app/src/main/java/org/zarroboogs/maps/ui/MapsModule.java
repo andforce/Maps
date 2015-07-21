@@ -1,5 +1,7 @@
 package org.zarroboogs.maps.ui;
 
+import android.view.MotionEvent;
+
 import com.amap.api.maps.AMap;
 import com.amap.api.maps.UiSettings;
 import com.amap.api.maps.model.Marker;
@@ -12,7 +14,7 @@ import java.util.ArrayList;
 /**
  * Created by andforce on 15/7/19.
  */
-public class MapsModule implements IGaoDeMapsView, AMap.OnMapLoadedListener {
+public class MapsModule implements IGaoDeMapsView, AMap.OnMapLoadedListener , AMap.OnMapTouchListener{
     private MapsActivity mMapsActivity;
     private ArrayList<Marker> mMarkers = new ArrayList<>();
 
@@ -25,6 +27,7 @@ public class MapsModule implements IGaoDeMapsView, AMap.OnMapLoadedListener {
 
         mMapsPresenter = new MapsPresenterImpl(this);
         mMapsActivity.getGaoDeMap().setOnMapLoadedListener(this);
+        mMapsActivity.getGaoDeMap().setOnMapTouchListener(this);
         mUiSetting = mMapsActivity.getGaoDeMap().getUiSettings();
     }
 
@@ -53,8 +56,25 @@ public class MapsModule implements IGaoDeMapsView, AMap.OnMapLoadedListener {
     }
 
     @Override
+    public void changeMyLocationMode(int mode) {
+        mMapsActivity.getGaoDeMap().setMyLocationType(mode);
+    }
+
+    @Override
+    public void stopFollowMode() {
+        mMapsActivity.getGaoDeMap().setMyLocationType(AMap.LOCATION_TYPE_LOCATE);
+    }
+
+    @Override
     public void onMapLoaded() {
         mMapsPresenter.loadDefaultCameraMarkers();
         mMapsPresenter.enableDefaultGeoFences();
+    }
+
+    @Override
+    public void onTouch(MotionEvent motionEvent) {
+        if (motionEvent.getAction() == MotionEvent.ACTION_UP ){
+            mMapsPresenter.changeMyLocationMode(AMap.LOCATION_TYPE_MAP_ROTATE);
+        }
     }
 }
