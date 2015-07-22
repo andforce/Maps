@@ -11,6 +11,7 @@ import com.amap.api.location.AMapLocationListener;
 import com.amap.api.location.LocationManagerProxy;
 import com.amap.api.location.LocationProviderProxy;
 import com.amap.api.maps.AMap;
+import com.amap.api.maps.CameraUpdateFactory;
 import com.amap.api.maps.LocationSource;
 import com.amap.api.maps.UiSettings;
 import com.amap.api.maps.model.Marker;
@@ -75,8 +76,21 @@ public class MapsModule implements IGaoDeMapsView, AMap.OnMapLoadedListener , AM
     }
 
     @Override
-    public void changeMyLocationMode(int mode) {
-        mMapsActivity.getGaoDeMap().setMyLocationType(mode);
+    public void changeMyLocationMode(final int mode) {
+//        mMapsActivity.getGaoDeMap().setMyLocationType(mode);
+
+        if (mode == AMap.LOCATION_TYPE_MAP_FOLLOW){
+            // 旋转角度
+            mMapsActivity.getGaoDeMap().animateCamera(CameraUpdateFactory.changeBearing(0));
+
+            mMapsActivity.getGaoDeMap().animateCamera(CameraUpdateFactory.zoomTo(12f));
+
+            // 倾斜角度
+            mMapsActivity.getGaoDeMap().animateCamera(CameraUpdateFactory.changeTilt(0));
+        } else if (mode == AMap.LOCATION_TYPE_MAP_ROTATE){
+            mMapsActivity.getGaoDeMap().animateCamera(CameraUpdateFactory.zoomTo(10f));
+        }
+
     }
 
     @Override
