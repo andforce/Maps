@@ -130,10 +130,11 @@ public class MapsModule implements IGaoDeMapsView, AMap.OnMapLoadedListener , AM
     @Override
     public void onLocationChanged(AMapLocation aMapLocation) {
         if (mOnLocationChangeListener != null && mOnLocationChangeListener != null) {
-            if (mIsEnableMyLocation && (mLocation == null || (mLocation.getLatitude() != aMapLocation.getLatitude() || mLocation.getLongitude() != aMapLocation.getLongitude()))) {
+            if ((mLocation == null || (mLocation.getLatitude() != aMapLocation.getLatitude() || mLocation.getLongitude() != aMapLocation.getLongitude()))) {
                 Log.d("MapsAction", "onLocationChanged");
-                mOnLocationChangeListener.onLocationChanged(aMapLocation);// 显示系统小蓝点
-
+                if (mIsEnableMyLocation) {
+                    mOnLocationChangeListener.onLocationChanged(aMapLocation);// 显示系统小蓝点
+                }
                 mLocation = aMapLocation;
             }
         }
