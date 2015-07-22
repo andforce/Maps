@@ -12,17 +12,25 @@ public class MapsActionInteractorImpl implements MapsActionInteractor {
 
     private int readMyLocationMode() {
         int mode = FileUtils.readIntFromSharedPreference(MYLOCATION_KEY);
-        if (mode == -1) {
-            mode = AMap.LOCATION_TYPE_MAP_FOLLOW;
+        if (mode == AMap.LOCATION_TYPE_LOCATE){
+            return AMap.LOCATION_TYPE_MAP_FOLLOW;
+        } else if (mode == AMap.LOCATION_TYPE_MAP_FOLLOW){
+            return AMap.LOCATION_TYPE_MAP_ROTATE;
+        } else if(mode == AMap.LOCATION_TYPE_MAP_ROTATE){
+            return AMap.LOCATION_TYPE_LOCATE;
+        } else {
+            return AMap.LOCATION_TYPE_MAP_FOLLOW;
         }
-        return mode;
     }
 
     @Override
-    public void changeMyLocationMode(int mode, OnMyLocationModeChangedListener listener) {
+    public void changeMyLocationMode(OnMyLocationModeChangedListener listener) {
         if (listener != null) {
+
+            int mode = readMyLocationMode();
+
             FileUtils.writeIntToSharedPreference(MYLOCATION_KEY,mode);
-            listener.onMyLocationChanged(mode);
+            listener.onMyLocationModeChanged(mode);
         }
     }
 
@@ -30,7 +38,7 @@ public class MapsActionInteractorImpl implements MapsActionInteractor {
     public void stopFollowMode(OnMyLocationModeChangedListener listener) {
         if (listener != null) {
             FileUtils.writeIntToSharedPreference(MYLOCATION_KEY,AMap.LOCATION_TYPE_LOCATE);
-            listener.onMyLocationChanged(AMap.LOCATION_TYPE_LOCATE);
+            listener.onMyLocationModeChanged(AMap.LOCATION_TYPE_LOCATE);
         }
     }
 

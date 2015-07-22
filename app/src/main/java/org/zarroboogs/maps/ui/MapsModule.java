@@ -163,9 +163,13 @@ public class MapsModule implements IGaoDeMapsView, AMap.OnMapLoadedListener , AM
     @Override
     public void onClick(View view) {
         if (view.getId() == R.id.my_location_btn){
-            mIsEnableMyLocation = true;
-            if (mOnLocationChangeListener != null && mLocation != null) {
-                mOnLocationChangeListener.onLocationChanged(mLocation);// 显示系统小蓝点
+            if (!mIsEnableMyLocation) {
+                mIsEnableMyLocation = true;
+                if (mOnLocationChangeListener != null && mLocation != null) {
+                    mOnLocationChangeListener.onLocationChanged(mLocation);// 显示系统小蓝点
+                }
+            } else{
+                mMapsPresenter.changeMyLocationMode();
             }
         }
     }

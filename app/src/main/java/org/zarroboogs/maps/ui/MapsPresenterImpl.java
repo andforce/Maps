@@ -55,8 +55,8 @@ public class MapsPresenterImpl implements MapsPresenter, OnMarkerCreatedListener
     }
 
     @Override
-    public void changeMyLocationMode(int mode) {
-        mMapsActionInteractor.changeMyLocationMode(mode, this);
+    public void changeMyLocationMode() {
+        mMapsActionInteractor.changeMyLocationMode( this);
     }
 
     @Override
@@ -98,7 +98,7 @@ public class MapsPresenterImpl implements MapsPresenter, OnMarkerCreatedListener
     }
 
     @Override
-    public void onMyLocationChanged(int mode) {
+    public void onMyLocationModeChanged(int mode) {
         mGaodeMapsView.changeMyLocationMode(mode);
     }
 
