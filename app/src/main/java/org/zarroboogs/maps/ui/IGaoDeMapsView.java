@@ -16,6 +16,7 @@ public interface IGaoDeMapsView {
     public void removeMarker(int markerId);
 
     public void changeMyLocationMode(int mode);
+
     public void stopFollowMode();
 
 }

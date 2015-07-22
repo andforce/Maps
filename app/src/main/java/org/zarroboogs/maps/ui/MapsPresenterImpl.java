@@ -1,5 +1,10 @@
 package org.zarroboogs.maps.ui;
 
+import android.location.Location;
+import android.os.Bundle;
+
+import com.amap.api.location.AMapLocation;
+import com.amap.api.location.AMapLocationListener;
 import com.amap.api.maps.model.LatLng;
 import com.amap.api.maps.model.MarkerOptions;
 
@@ -14,7 +19,8 @@ import java.util.ArrayList;
 /**
  * Created by andforce on 15/7/19.
  */
-public class MapsPresenterImpl implements MapsPresenter, OnMarkerCreatedListener, MarkerInteractor.OnReadCamerasListener, MapsActionInteractor.OnMyLocationModeChangedListener {
+public class MapsPresenterImpl implements MapsPresenter, OnMarkerCreatedListener, MarkerInteractor.OnReadCamerasListener,
+        MapsActionInteractor.OnMyLocationModeChangedListener , AMapLocationListener{
 
     private static final boolean DEBUG = true;
 
@@ -55,8 +61,9 @@ public class MapsPresenterImpl implements MapsPresenter, OnMarkerCreatedListener
 
     @Override
     public void stopFollowMode() {
-
+        mMapsActionInteractor.stopFollowMode(this);
     }
+
 
     @Override
     public void onMarkerCreated(ArrayList<MarkerOptions> markerOptions) {
@@ -98,5 +105,30 @@ public class MapsPresenterImpl implements MapsPresenter, OnMarkerCreatedListener
     @Override
     public void onFollowModeStoped() {
         mGaodeMapsView.stopFollowMode();
+    }
+
+    @Override
+    public void onLocationChanged(AMapLocation aMapLocation) {
+
+    }
+
+    @Override
+    public void onLocationChanged(Location location) {
+
+    }
+
+    @Override
+    public void onStatusChanged(String s, int i, Bundle bundle) {
+
+    }
+
+    @Override
+    public void onProviderEnabled(String s) {
+
+    }
+
+    @Override
+    public void onProviderDisabled(String s) {
+
     }
 }

@@ -1,8 +1,16 @@
 package org.zarroboogs.maps.ui;
 
+import android.location.Location;
+import android.os.Bundle;
+import android.util.Log;
 import android.view.MotionEvent;
 
+import com.amap.api.location.AMapLocation;
+import com.amap.api.location.AMapLocationListener;
+import com.amap.api.location.LocationManagerProxy;
+import com.amap.api.location.LocationProviderProxy;
 import com.amap.api.maps.AMap;
+import com.amap.api.maps.LocationSource;
 import com.amap.api.maps.UiSettings;
 import com.amap.api.maps.model.Marker;
 import com.amap.api.maps.model.MarkerOptions;
@@ -14,13 +22,14 @@ import java.util.ArrayList;
 /**
  * Created by andforce on 15/7/19.
  */
-public class MapsModule implements IGaoDeMapsView, AMap.OnMapLoadedListener , AMap.OnMapTouchListener{
+public class MapsModule implements IGaoDeMapsView, AMap.OnMapLoadedListener , AMap.OnMapTouchListener, LocationSource, AMapLocationListener {
     private MapsActivity mMapsActivity;
     private ArrayList<Marker> mMarkers = new ArrayList<>();
 
     private MapsPresenter mMapsPresenter;
     private UiSettings mUiSetting;
-
+    private OnLocationChangedListener mOnLocationChangeListener;
+    private LocationManagerProxy mAMapLocationManager;
 
     public MapsModule(MapsActivity mapsActivity) {
         this.mMapsActivity = mapsActivity;
@@ -28,6 +37,10 @@ public class MapsModule implements IGaoDeMapsView, AMap.OnMapLoadedListener , AM
         mMapsPresenter = new MapsPresenterImpl(this);
         mMapsActivity.getGaoDeMap().setOnMapLoadedListener(this);
         mMapsActivity.getGaoDeMap().setOnMapTouchListener(this);
+        // location
+        mMapsActivity.getGaoDeMap().setLocationSource(this);
+        mMapsActivity.getGaoDeMap().setMyLocationEnabled(true);
+
         mUiSetting = mMapsActivity.getGaoDeMap().getUiSettings();
     }
 
@@ -62,7 +75,7 @@ public class MapsModule implements IGaoDeMapsView, AMap.OnMapLoadedListener , AM
 
     @Override
     public void stopFollowMode() {
-        mMapsActivity.getGaoDeMap().setMyLocationType(AMap.LOCATION_TYPE_LOCATE);
+        mMapsActivity.getGaoDeMap().setMyLocationEnabled(false);
     }
 
     @Override
@@ -74,7 +87,67 @@ public class MapsModule implements IGaoDeMapsView, AMap.OnMapLoadedListener , AM
     @Override
     public void onTouch(MotionEvent motionEvent) {
         if (motionEvent.getAction() == MotionEvent.ACTION_UP ){
-            mMapsPresenter.changeMyLocationMode(AMap.LOCATION_TYPE_MAP_ROTATE);
+            Log.d("MapsOnTouch", "LOCATION_TYPE_LOCATE");
+            mMapsPresenter.stopFollowMode();
         }
     }
+
+
+
+    // Location start
+    @Override
+    public void activate(OnLocationChangedListener onLocationChangedListener) {
+        mOnLocationChangeListener = onLocationChangedListener;
+        if (mAMapLocationManager == null) {
+            mAMapLocationManager = LocationManagerProxy.getInstance(this.mMapsActivity.getApplicationContext());
+            /*
+			 * mAMapLocManager.setGpsEnable(false);
+			 * 1.0.2版本新增方法，设置true表示混合定位中包含gps定位，false表示纯网络定位，默认是true Location
+			 * API定位采用GPS和网络混合定位方式
+			 * ，第一个参数是定位provider，第二个参数时间最短是2000毫秒，第三个参数距离间隔单位是米，第四个参数是定位监听者
+			 */
+            mAMapLocationManager.requestLocationData(
+                    LocationProviderProxy.AMapNetwork, 2000, 10, this);
+        }
+
+    }
+
+    @Override
+    public void deactivate() {
+        mOnLocationChangeListener = null;
+        if (mAMapLocationManager != null) {
+            mAMapLocationManager.removeUpdates(this);
+            mAMapLocationManager.destroy();
+        }
+        mAMapLocationManager = null;
+    }
+
+    @Override
+    public void onLocationChanged(AMapLocation aMapLocation) {
+        if (mOnLocationChangeListener != null && mOnLocationChangeListener != null) {
+            Log.d("MapsAction","onLocationChanged");
+            mOnLocationChangeListener.onLocationChanged(aMapLocation);// 显示系统小蓝点
+        }
+    }
+
+    @Override
+    public void onLocationChanged(Location location) {
+
+    }
+
+    @Override
+    public void onStatusChanged(String s, int i, Bundle bundle) {
+
+    }
+
+    @Override
+    public void onProviderEnabled(String s) {
+
+    }
+
+    @Override
+    public void onProviderDisabled(String s) {
+
+    }
+    // Location end
 }
