@@ -31,6 +31,8 @@ public class MapsActivity extends BaseActivity implements View.OnClickListener {
     private float mDevicesDirection = 0f;
     private ImageButton mCompass;
 
+    private ImageButton mMyLocation;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -40,6 +42,7 @@ public class MapsActivity extends BaseActivity implements View.OnClickListener {
 
         mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         mCompass = (ImageButton) findViewById(R.id.ori_compass);
+        mMyLocation = (ImageButton) findViewById(R.id.my_location_btn);
 
         mapView = (MapView) findViewById(R.id.map);
         mapView.onCreate(savedInstanceState);// 此方法必须重写
@@ -62,6 +65,9 @@ public class MapsActivity extends BaseActivity implements View.OnClickListener {
         return aMap;
     }
 
+    public ImageButton getMyLocationBtn(){
+        return mMyLocation;
+    }
     /**
      * 初始化
      */

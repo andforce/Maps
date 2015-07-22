@@ -4,6 +4,7 @@ import android.location.Location;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MotionEvent;
+import android.view.View;
 
 import com.amap.api.location.AMapLocation;
 import com.amap.api.location.AMapLocationListener;
@@ -16,13 +17,14 @@ import com.amap.api.maps.model.Marker;
 import com.amap.api.maps.model.MarkerOptions;
 
 import org.zarroboogs.maps.MapsActivity;
+import org.zarroboogs.maps.R;
 
 import java.util.ArrayList;
 
 /**
  * Created by andforce on 15/7/19.
  */
-public class MapsModule implements IGaoDeMapsView, AMap.OnMapLoadedListener , AMap.OnMapTouchListener, LocationSource, AMapLocationListener {
+public class MapsModule implements IGaoDeMapsView, AMap.OnMapLoadedListener , AMap.OnMapTouchListener, LocationSource, AMapLocationListener , View.OnClickListener{
     private MapsActivity mMapsActivity;
     private ArrayList<Marker> mMarkers = new ArrayList<>();
 
@@ -30,6 +32,8 @@ public class MapsModule implements IGaoDeMapsView, AMap.OnMapLoadedListener , AM
     private UiSettings mUiSetting;
     private OnLocationChangedListener mOnLocationChangeListener;
     private LocationManagerProxy mAMapLocationManager;
+    private boolean mIsEnableMyLocation = true;
+    private AMapLocation mLocation;
 
     public MapsModule(MapsActivity mapsActivity) {
         this.mMapsActivity = mapsActivity;
@@ -40,6 +44,8 @@ public class MapsModule implements IGaoDeMapsView, AMap.OnMapLoadedListener , AM
         // location
         mMapsActivity.getGaoDeMap().setLocationSource(this);
         mMapsActivity.getGaoDeMap().setMyLocationEnabled(true);
+
+        mMapsActivity.getMyLocationBtn().setOnClickListener(this);
 
         mUiSetting = mMapsActivity.getGaoDeMap().getUiSettings();
     }
@@ -86,9 +92,8 @@ public class MapsModule implements IGaoDeMapsView, AMap.OnMapLoadedListener , AM
 
     @Override
     public void onTouch(MotionEvent motionEvent) {
-        if (motionEvent.getAction() == MotionEvent.ACTION_UP ){
-            Log.d("MapsOnTouch", "LOCATION_TYPE_LOCATE");
-            mMapsPresenter.stopFollowMode();
+        if (motionEvent.getAction() == MotionEvent.ACTION_DOWN){
+            mIsEnableMyLocation = false;
         }
     }
 
@@ -125,8 +130,12 @@ public class MapsModule implements IGaoDeMapsView, AMap.OnMapLoadedListener , AM
     @Override
     public void onLocationChanged(AMapLocation aMapLocation) {
         if (mOnLocationChangeListener != null && mOnLocationChangeListener != null) {
-            Log.d("MapsAction","onLocationChanged");
-            mOnLocationChangeListener.onLocationChanged(aMapLocation);// 显示系统小蓝点
+            if (mIsEnableMyLocation && (mLocation == null || (mLocation.getLatitude() != aMapLocation.getLatitude() || mLocation.getLongitude() != aMapLocation.getLongitude()))) {
+                Log.d("MapsAction", "onLocationChanged");
+                mOnLocationChangeListener.onLocationChanged(aMapLocation);// 显示系统小蓝点
+
+                mLocation = aMapLocation;
+            }
         }
     }
 
@@ -148,6 +157,16 @@ public class MapsModule implements IGaoDeMapsView, AMap.OnMapLoadedListener , AM
     @Override
     public void onProviderDisabled(String s) {
 
+    }
+
+    @Override
+    public void onClick(View view) {
+        if (view.getId() == R.id.my_location_btn){
+            mIsEnableMyLocation = true;
+            if (mOnLocationChangeListener != null && mLocation != null) {
+                mOnLocationChangeListener.onLocationChanged(mLocation);// 显示系统小蓝点
+            }
+        }
     }
     // Location end
 }
