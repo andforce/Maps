@@ -25,7 +25,7 @@ import java.util.ArrayList;
 /**
  * Created by andforce on 15/7/19.
  */
-public class MapsModule implements IGaoDeMapsView, AMap.OnMapLoadedListener , AMap.OnMapTouchListener, LocationSource, AMapLocationListener , View.OnClickListener{
+public class MapsModule implements IGaoDeMapsView, AMap.OnMapLoadedListener, AMap.OnMapTouchListener, LocationSource, AMapLocationListener, View.OnClickListener {
     private MapsActivity mMapsActivity;
     private ArrayList<Marker> mMarkers = new ArrayList<>();
 
@@ -51,7 +51,7 @@ public class MapsModule implements IGaoDeMapsView, AMap.OnMapLoadedListener , AM
         mUiSetting = mMapsActivity.getGaoDeMap().getUiSettings();
     }
 
-    public void init(){
+    public void init() {
         mUiSetting.setCompassEnabled(false);
         mUiSetting.setZoomControlsEnabled(false);
         mUiSetting.setMyLocationButtonEnabled(false);
@@ -77,18 +77,55 @@ public class MapsModule implements IGaoDeMapsView, AMap.OnMapLoadedListener , AM
 
     @Override
     public void changeMyLocationMode(final int mode) {
-//        mMapsActivity.getGaoDeMap().setMyLocationType(mode);
 
-        if (mode == AMap.LOCATION_TYPE_MAP_FOLLOW){
+        if (mode == AMap.LOCATION_TYPE_MAP_FOLLOW) {
             // 旋转角度
-            mMapsActivity.getGaoDeMap().animateCamera(CameraUpdateFactory.changeBearing(0));
+            mMapsActivity.getGaoDeMap().animateCamera(CameraUpdateFactory.changeBearing(0), new AMap.CancelableCallback() {
+                @Override
+                public void onFinish() {
+                    // 倾斜角度
+                    mMapsActivity.getGaoDeMap().animateCamera(CameraUpdateFactory.changeTilt(0), new AMap.CancelableCallback() {
+                        @Override
+                        public void onFinish() {
+                            mMapsActivity.getGaoDeMap().setMyLocationType(mode);
+                        }
 
-            mMapsActivity.getGaoDeMap().animateCamera(CameraUpdateFactory.zoomTo(12f));
+                        @Override
+                        public void onCancel() {
+                            mMapsActivity.getGaoDeMap().setMyLocationType(mode);
+                        }
+                    });
+                }
 
-            // 倾斜角度
-            mMapsActivity.getGaoDeMap().animateCamera(CameraUpdateFactory.changeTilt(0));
-        } else if (mode == AMap.LOCATION_TYPE_MAP_ROTATE){
-            mMapsActivity.getGaoDeMap().animateCamera(CameraUpdateFactory.zoomTo(10f));
+                @Override
+                public void onCancel() {
+                    mMapsActivity.getGaoDeMap().setMyLocationType(mode);
+                }
+            });
+
+        } else if (mode == AMap.LOCATION_TYPE_MAP_ROTATE) {
+            mMapsActivity.getGaoDeMap().animateCamera(CameraUpdateFactory.changeTilt(45f), new AMap.CancelableCallback() {
+                @Override
+                public void onFinish() {
+                    // 倾斜角度
+                    mMapsActivity.getGaoDeMap().animateCamera(CameraUpdateFactory.changeBearing(mMapsActivity.getDevicesDirection()), new AMap.CancelableCallback() {
+                        @Override
+                        public void onFinish() {
+                            mMapsActivity.getGaoDeMap().setMyLocationType(mode);
+                        }
+
+                        @Override
+                        public void onCancel() {
+                            mMapsActivity.getGaoDeMap().setMyLocationType(mode);
+                        }
+                    });
+                }
+
+                @Override
+                public void onCancel() {
+                    mMapsActivity.getGaoDeMap().setMyLocationType(mode);
+                }
+            });
         }
 
     }
@@ -106,11 +143,10 @@ public class MapsModule implements IGaoDeMapsView, AMap.OnMapLoadedListener , AM
 
     @Override
     public void onTouch(MotionEvent motionEvent) {
-        if (motionEvent.getAction() == MotionEvent.ACTION_DOWN){
+        if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
             mIsEnableMyLocation = false;
         }
     }
-
 
 
     // Location start
@@ -120,7 +156,7 @@ public class MapsModule implements IGaoDeMapsView, AMap.OnMapLoadedListener , AM
         if (mAMapLocationManager == null) {
             mAMapLocationManager = LocationManagerProxy.getInstance(this.mMapsActivity.getApplicationContext());
             /*
-			 * mAMapLocManager.setGpsEnable(false);
+             * mAMapLocManager.setGpsEnable(false);
 			 * 1.0.2版本新增方法，设置true表示混合定位中包含gps定位，false表示纯网络定位，默认是true Location
 			 * API定位采用GPS和网络混合定位方式
 			 * ，第一个参数是定位provider，第二个参数时间最短是2000毫秒，第三个参数距离间隔单位是米，第四个参数是定位监听者
@@ -176,13 +212,13 @@ public class MapsModule implements IGaoDeMapsView, AMap.OnMapLoadedListener , AM
 
     @Override
     public void onClick(View view) {
-        if (view.getId() == R.id.my_location_btn){
+        if (view.getId() == R.id.my_location_btn) {
             if (!mIsEnableMyLocation) {
                 mIsEnableMyLocation = true;
                 if (mOnLocationChangeListener != null && mLocation != null) {
                     mOnLocationChangeListener.onLocationChanged(mLocation);// 显示系统小蓝点
                 }
-            } else{
+            } else {
                 mMapsPresenter.changeMyLocationMode();
             }
         }

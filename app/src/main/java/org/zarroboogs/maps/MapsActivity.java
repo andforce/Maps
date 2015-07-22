@@ -68,6 +68,10 @@ public class MapsActivity extends BaseActivity implements View.OnClickListener {
     public ImageButton getMyLocationBtn(){
         return mMyLocation;
     }
+
+    public float getDevicesDirection(){
+        return mDevicesDirection;
+    }
     /**
      * 初始化
      */
