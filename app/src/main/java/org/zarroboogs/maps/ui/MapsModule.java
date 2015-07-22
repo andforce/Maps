@@ -14,6 +14,8 @@ import com.amap.api.maps.AMap;
 import com.amap.api.maps.CameraUpdateFactory;
 import com.amap.api.maps.LocationSource;
 import com.amap.api.maps.UiSettings;
+import com.amap.api.maps.model.CameraPosition;
+import com.amap.api.maps.model.LatLng;
 import com.amap.api.maps.model.Marker;
 import com.amap.api.maps.model.MarkerOptions;
 
@@ -79,22 +81,11 @@ public class MapsModule implements IGaoDeMapsView, AMap.OnMapLoadedListener, AMa
     public void changeMyLocationMode(final int mode) {
 
         if (mode == AMap.LOCATION_TYPE_MAP_FOLLOW) {
-            // 旋转角度
-            mMapsActivity.getGaoDeMap().animateCamera(CameraUpdateFactory.changeBearing(0), new AMap.CancelableCallback() {
+            CameraPosition cameraPosition = new CameraPosition(new LatLng(mLocation.getLatitude(),mLocation.getLongitude() ),18,0,0);
+            mMapsActivity.getGaoDeMap().animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition), new AMap.CancelableCallback() {
                 @Override
                 public void onFinish() {
-                    // 倾斜角度
-                    mMapsActivity.getGaoDeMap().animateCamera(CameraUpdateFactory.changeTilt(0), new AMap.CancelableCallback() {
-                        @Override
-                        public void onFinish() {
-                            mMapsActivity.getGaoDeMap().setMyLocationType(mode);
-                        }
-
-                        @Override
-                        public void onCancel() {
-                            mMapsActivity.getGaoDeMap().setMyLocationType(mode);
-                        }
-                    });
+                    mMapsActivity.getGaoDeMap().setMyLocationType(mode);
                 }
 
                 @Override
@@ -104,21 +95,12 @@ public class MapsModule implements IGaoDeMapsView, AMap.OnMapLoadedListener, AMa
             });
 
         } else if (mode == AMap.LOCATION_TYPE_MAP_ROTATE) {
-            mMapsActivity.getGaoDeMap().animateCamera(CameraUpdateFactory.changeTilt(45f), new AMap.CancelableCallback() {
+
+            CameraPosition cameraPosition = new CameraPosition(new LatLng(mLocation.getLatitude(),mLocation.getLongitude() ),18,45,mMapsActivity.getDevicesDirection());
+            mMapsActivity.getGaoDeMap().animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition), new AMap.CancelableCallback() {
                 @Override
                 public void onFinish() {
-                    // 倾斜角度
-                    mMapsActivity.getGaoDeMap().animateCamera(CameraUpdateFactory.changeBearing(mMapsActivity.getDevicesDirection()), new AMap.CancelableCallback() {
-                        @Override
-                        public void onFinish() {
-                            mMapsActivity.getGaoDeMap().setMyLocationType(mode);
-                        }
-
-                        @Override
-                        public void onCancel() {
-                            mMapsActivity.getGaoDeMap().setMyLocationType(mode);
-                        }
-                    });
+                    mMapsActivity.getGaoDeMap().setMyLocationType(mode);
                 }
 
                 @Override
@@ -183,6 +165,7 @@ public class MapsModule implements IGaoDeMapsView, AMap.OnMapLoadedListener, AMa
             if ((mLocation == null || (mLocation.getLatitude() != aMapLocation.getLatitude() || mLocation.getLongitude() != aMapLocation.getLongitude()))) {
                 Log.d("MapsAction", "onLocationChanged");
                 if (mIsEnableMyLocation) {
+                    LatLng latLng = new LatLng(aMapLocation.getLatitude(), aMapLocation.getLongitude());
                     mOnLocationChangeListener.onLocationChanged(aMapLocation);// 显示系统小蓝点
                 }
                 mLocation = aMapLocation;
