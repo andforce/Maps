@@ -9,7 +9,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.KeyEvent;
 
-import org.zarroboogs.maps.MapsActivity;
+import org.zarroboogs.maps.MapsMainActivity;
 import org.zarroboogs.maps.R;
 import org.zarroboogs.maps.module.TTSController;
 
@@ -54,7 +54,7 @@ public class NaviEmulatorActivity extends Activity implements
 	@Override
 	public void onNaviCancel() {
 		Intent intent = new Intent(NaviEmulatorActivity.this,
-				MapsActivity.class);
+				MapsMainActivity.class);
 		intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
 		startActivity(intent);
 		finish();
@@ -82,7 +82,7 @@ public class NaviEmulatorActivity extends Activity implements
 
 		if (keyCode == KeyEvent.KEYCODE_BACK) {
 			Intent intent = new Intent(NaviEmulatorActivity.this,
-					MapsActivity.class);
+					MapsMainActivity.class);
 			intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
 			startActivity(intent);
 			finish();

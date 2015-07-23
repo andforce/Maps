@@ -1,7 +1,9 @@
 package org.zarroboogs.maps.ui;
 
+import android.content.Context;
 import android.location.Location;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
@@ -19,7 +21,7 @@ import com.amap.api.maps.model.LatLng;
 import com.amap.api.maps.model.Marker;
 import com.amap.api.maps.model.MarkerOptions;
 
-import org.zarroboogs.maps.MapsActivity;
+import org.zarroboogs.maps.MapsFragment;
 import org.zarroboogs.maps.R;
 
 import java.util.ArrayList;
@@ -28,7 +30,6 @@ import java.util.ArrayList;
  * Created by andforce on 15/7/19.
  */
 public class MapsModule implements IGaoDeMapsView, AMap.OnMapLoadedListener, AMap.OnMapTouchListener, LocationSource, AMapLocationListener, View.OnClickListener {
-    private MapsActivity mMapsActivity;
     private ArrayList<Marker> mMarkers = new ArrayList<>();
 
     private MapsPresenter mMapsPresenter;
@@ -37,20 +38,23 @@ public class MapsModule implements IGaoDeMapsView, AMap.OnMapLoadedListener, AMa
     private LocationManagerProxy mAMapLocationManager;
     private boolean mIsEnableMyLocation = true;
     private AMapLocation mLocation;
+    private AMap mGaodeMap;
+    private MapsFragment mMapsFragment;
 
-    public MapsModule(MapsActivity mapsActivity) {
-        this.mMapsActivity = mapsActivity;
 
+    public MapsModule(MapsFragment fragment ,AMap map) {
+        this.mMapsFragment = fragment;
+        this.mGaodeMap = map;
         mMapsPresenter = new MapsPresenterImpl(this);
-        mMapsActivity.getGaoDeMap().setOnMapLoadedListener(this);
-        mMapsActivity.getGaoDeMap().setOnMapTouchListener(this);
+        mGaodeMap.setOnMapLoadedListener(this);
+        mGaodeMap.setOnMapTouchListener(this);
         // location
-        mMapsActivity.getGaoDeMap().setLocationSource(this);
-        mMapsActivity.getGaoDeMap().setMyLocationEnabled(true);
+        mGaodeMap.setLocationSource(this);
+        mGaodeMap.setMyLocationEnabled(true);
 
-        mMapsActivity.getMyLocationBtn().setOnClickListener(this);
+        mMapsFragment.getMyLocationBtn().setOnClickListener(this);
 
-        mUiSetting = mMapsActivity.getGaoDeMap().getUiSettings();
+        mUiSetting = mGaodeMap.getUiSettings();
     }
 
     public void init() {
@@ -62,14 +66,14 @@ public class MapsModule implements IGaoDeMapsView, AMap.OnMapLoadedListener, AMa
 
     @Override
     public void addMarker(MarkerOptions marker) {
-        Marker addedMarker = mMapsActivity.getGaoDeMap().addMarker(marker);
+        Marker addedMarker = mGaodeMap.addMarker(marker);
 
     }
 
     @Override
     public void addMarkers(ArrayList<MarkerOptions> markers) {
         // false 不移动到中心
-        mMapsActivity.getGaoDeMap().addMarkers(markers, false);
+        mGaodeMap.addMarkers(markers, false);
     }
 
     @Override
@@ -82,30 +86,30 @@ public class MapsModule implements IGaoDeMapsView, AMap.OnMapLoadedListener, AMa
 
         if (mode == AMap.LOCATION_TYPE_MAP_FOLLOW) {
             CameraPosition cameraPosition = new CameraPosition(new LatLng(mLocation.getLatitude(),mLocation.getLongitude() ),18,0,0);
-            mMapsActivity.getGaoDeMap().animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition), new AMap.CancelableCallback() {
+            mGaodeMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition), new AMap.CancelableCallback() {
                 @Override
                 public void onFinish() {
-                    mMapsActivity.getGaoDeMap().setMyLocationType(mode);
+                    mGaodeMap.setMyLocationType(mode);
                 }
 
                 @Override
                 public void onCancel() {
-                    mMapsActivity.getGaoDeMap().setMyLocationType(mode);
+                    mGaodeMap.setMyLocationType(mode);
                 }
             });
 
         } else if (mode == AMap.LOCATION_TYPE_MAP_ROTATE) {
 
-            CameraPosition cameraPosition = new CameraPosition(new LatLng(mLocation.getLatitude(),mLocation.getLongitude() ),18,45,mMapsActivity.getDevicesDirection());
-            mMapsActivity.getGaoDeMap().animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition), new AMap.CancelableCallback() {
+            CameraPosition cameraPosition = new CameraPosition(new LatLng(mLocation.getLatitude(),mLocation.getLongitude() ),18,45,mMapsFragment.getDevicesDirection());
+            mGaodeMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition), new AMap.CancelableCallback() {
                 @Override
                 public void onFinish() {
-                    mMapsActivity.getGaoDeMap().setMyLocationType(mode);
+                    mGaodeMap.setMyLocationType(mode);
                 }
 
                 @Override
                 public void onCancel() {
-                    mMapsActivity.getGaoDeMap().setMyLocationType(mode);
+                    mGaodeMap.setMyLocationType(mode);
                 }
             });
         }
@@ -114,7 +118,7 @@ public class MapsModule implements IGaoDeMapsView, AMap.OnMapLoadedListener, AMa
 
     @Override
     public void stopFollowMode() {
-        mMapsActivity.getGaoDeMap().setMyLocationEnabled(false);
+        mGaodeMap.setMyLocationEnabled(false);
     }
 
     @Override
@@ -136,7 +140,7 @@ public class MapsModule implements IGaoDeMapsView, AMap.OnMapLoadedListener, AMa
     public void activate(OnLocationChangedListener onLocationChangedListener) {
         mOnLocationChangeListener = onLocationChangedListener;
         if (mAMapLocationManager == null) {
-            mAMapLocationManager = LocationManagerProxy.getInstance(this.mMapsActivity.getApplicationContext());
+            mAMapLocationManager = LocationManagerProxy.getInstance(this.mMapsFragment.getActivity().getApplicationContext());
             /*
              * mAMapLocManager.setGpsEnable(false);
 			 * 1.0.2版本新增方法，设置true表示混合定位中包含gps定位，false表示纯网络定位，默认是true Location

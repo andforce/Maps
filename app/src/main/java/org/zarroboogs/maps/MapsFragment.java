@@ -1,12 +1,25 @@
 package org.zarroboogs.maps;
 
 import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
+
+import com.amap.api.maps.AMap;
+import com.amap.api.maps.MapView;
+
+import org.zarroboogs.maps.poi.PoiKeywordSearchActivity;
+import org.zarroboogs.maps.ui.MapsModule;
 
 
 /**
@@ -17,7 +30,7 @@ import android.view.ViewGroup;
  * Use the {@link MapsFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class MapsFragment extends Fragment {
+public class MapsFragment extends Fragment implements View.OnClickListener{
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -26,6 +39,19 @@ public class MapsFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+    private AMap aMap;
+    private MapView mapView;
+    private MapsModule mMapsModule;
+
+    private SensorManager mSensorManager;
+    private Sensor mSensor;
+    private MySensorEventListener mEventListener = new MySensorEventListener();
+    private float mDevicesDirection = 0f;
+    private ImageButton mCompass;
+
+    private ImageButton mMyLocation;
+
 
     private OnFragmentInteractionListener mListener;
 
@@ -58,6 +84,7 @@ public class MapsFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+        mSensorManager = (SensorManager) getActivity().getApplicationContext().getSystemService(Context.SENSOR_SERVICE);
     }
 
     @Override
@@ -65,6 +92,75 @@ public class MapsFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_maps, container, false);
+    }
+
+    @Override
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        mCompass = (ImageButton) view.findViewById(R.id.ori_compass);
+        mMyLocation = (ImageButton) view.findViewById(R.id.my_location_btn);
+
+        mapView = (MapView) view.findViewById(R.id.map);
+        mapView.onCreate(savedInstanceState);// 此方法必须重写
+        init();
+
+
+        mMapsModule = new MapsModule(this, aMap);
+        mMapsModule.init();
+
+
+        aMap.setMyLocationType(AMap.LOCATION_TYPE_MAP_ROTATE);
+
+        ImageButton searchBtn = (ImageButton) view.findViewById(R.id.poi_search_btn);
+        searchBtn.setOnClickListener(this);
+    }
+
+    public AMap getGaoDeMap() {
+        return aMap;
+    }
+
+    public ImageButton getMyLocationBtn(){
+        return mMyLocation;
+    }
+
+    public float getDevicesDirection(){
+        return mDevicesDirection;
+    }
+    /**
+     * 初始化
+     */
+    private void init() {
+        if (aMap == null) {
+            aMap = mapView.getMap();
+        }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        mapView.onResume();
+        mSensor = mSensorManager.getDefaultSensor(Sensor.TYPE_ORIENTATION);
+        mSensorManager.registerListener(mEventListener, mSensor, SensorManager.SENSOR_DELAY_UI);
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        mapView.onSaveInstanceState(outState);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        mapView.onDestroy();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        mapView.onPause();
+        mSensorManager.unregisterListener(mEventListener);
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -91,6 +187,12 @@ public class MapsFragment extends Fragment {
         mListener = null;
     }
 
+    @Override
+    public void onClick(View view) {
+        Intent intent = new Intent(getActivity(), PoiKeywordSearchActivity.class);
+        startActivity(intent);
+    }
+
     /**
      * This interface must be implemented by activities that contain this
      * fragment to allow an interaction in this fragment to be communicated
@@ -104,6 +206,26 @@ public class MapsFragment extends Fragment {
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         public void onFragmentInteraction(Uri uri);
+    }
+
+
+    class MySensorEventListener implements SensorEventListener {
+
+        @Override
+        public void onSensorChanged(SensorEvent sensorEvent) {
+            if (sensorEvent.sensor.getType() == Sensor.TYPE_ORIENTATION) {
+                float x = sensorEvent.values[SensorManager.DATA_X];
+                if (Math.abs(x - mDevicesDirection) > 5) {
+                    mCompass.setRotation(-x);
+                    mDevicesDirection = x;
+                }
+            }
+        }
+
+        @Override
+        public void onAccuracyChanged(Sensor sensor, int i) {
+
+        }
     }
 
 }

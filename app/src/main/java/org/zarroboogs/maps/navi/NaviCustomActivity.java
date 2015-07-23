@@ -14,7 +14,7 @@ import com.amap.api.navi.model.AMapNaviInfo;
 import com.amap.api.navi.model.AMapNaviLocation;
 import com.amap.api.navi.model.NaviInfo;
 
-import org.zarroboogs.maps.MapsActivity;
+import org.zarroboogs.maps.MapsMainActivity;
 import org.zarroboogs.maps.R;
 import org.zarroboogs.maps.module.TTSController;
 import org.zarroboogs.maps.utils.Utils;
@@ -193,7 +193,7 @@ public class NaviCustomActivity extends Activity implements
 	@Override
 	public void onNaviCancel() {
 		Intent intent = new Intent(NaviCustomActivity.this,
-				MapsActivity.class);
+				MapsMainActivity.class);
 		intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
 		startActivity(intent);
 		finish();
@@ -213,7 +213,7 @@ public class NaviCustomActivity extends Activity implements
 		bundle.putBoolean(Utils.CAMERA, mCameraFlag);
 		bundle.putBoolean(Utils.SCREEN, mScreenFlag);
 		Intent intent = new Intent(NaviCustomActivity.this,
-				MapsActivity.class);
+				MapsMainActivity.class);
 		intent.putExtras(bundle);
 		startActivity(intent);
 
@@ -267,7 +267,7 @@ public class NaviCustomActivity extends Activity implements
 
 		if (keyCode == KeyEvent.KEYCODE_BACK) {
 			Intent intent = new Intent(NaviCustomActivity.this,
-					MapsActivity.class);
+					MapsMainActivity.class);
 			intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
 			startActivity(intent);
 			finish();
