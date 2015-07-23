@@ -3,6 +3,7 @@ package org.zarroboogs.maps;
 import android.app.Activity;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -10,7 +11,7 @@ import android.view.WindowManager;
 /**
  * Created by andforce on 15/7/18.
  */
-public class BaseActivity extends Activity {
+public class BaseActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -19,14 +20,14 @@ public class BaseActivity extends Activity {
         //透明导航栏
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
 
-        //去掉标题栏
-        this.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        //去掉信息栏
-        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+//        //去掉标题栏
+//        this.requestWindowFeature(Window.FEATURE_NO_TITLE);
+//        //去掉信息栏
+//        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         super.onCreate(savedInstanceState);
 
-        toggleHideyBar();
+//        toggleHideyBar();
     }
 
     public void toggleHideyBar() {
