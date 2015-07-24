@@ -28,8 +28,6 @@ public class MapsMainActivity extends BaseActivity implements MapsFragment.OnFra
 
         mDrawerLayout = (DrawerLayout) findViewById(R.id.maps_drawer_layout);
 
-        mDrawerLayout.openDrawer(Gravity.START);
-
         mDrawerLayout.setDrawerListener(new DrawerLayout.DrawerListener() {
             @Override
             public void onDrawerSlide(View drawerView, float slideOffset) {

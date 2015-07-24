@@ -44,7 +44,13 @@
 
         <activity
             android:name=".poi.PoiKeywordSearchActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize" />
+            android:configChanges="orientation|keyboardHidden|screenSize">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
 
         <activity
             android:name=".navi.NaviEmulatorActivity"
@@ -56,16 +62,6 @@
 
         <activity
             android:name=".MapsMainActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-
-        <activity
-            android:name=".MapsActivity"
             android:configChanges="orientation|keyboardHidden|screenSize">
 
         </activity>

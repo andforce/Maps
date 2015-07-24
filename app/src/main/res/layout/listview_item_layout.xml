@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageButton
+        android:id="@+id/search_location"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:background="@android:color/transparent"
+        android:src="@drawable/ic_qu_place" />
+
+
+    <ImageButton
+        android:id="@+id/search_navi"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:background="@android:color/transparent"
+        android:src="@drawable/ic_qu_navigation" />
+
+    <TextView
+        android:id="@+id/search_result_name"
+        android:layout_width="wrap_content"
+        android:layout_marginTop="5dp"
+        android:textSize="15sp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:textColor="@color/search_result_title"
+        android:layout_toEndOf="@+id/search_location"
+        android:text="搜索结果" />
+
+    <TextView
+        android:id="@+id/search_result_summary"
+        android:layout_width="wrap_content"
+        android:textSize="12sp"
+
+        android:textColor="@color/search_result_sum"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignStart="@+id/search_result_name"
+        android:layout_marginBottom="5dp"
+        android:text="具体位置"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+</RelativeLayout>

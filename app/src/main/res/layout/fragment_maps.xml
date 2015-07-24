@@ -9,8 +9,15 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
+    <View
+        android:id="@+id/search_result_rl"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#EEEEEE"
+        android:visibility="gone" />
 
     <RelativeLayout
+        android:id="@+id/top_action"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fitsSystemWindows="true">
@@ -23,8 +30,7 @@
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:layout_marginTop="10dp"
-            android:background="@drawable/new_card"
-            android:elevation="2dp">
+            android:background="@drawable/new_card">
 
             <ImageButton
                 android:id="@+id/left_drawer_switch"
@@ -47,12 +53,14 @@
                 android:src="@drawable/ic_qu_search" />
 
             <AutoCompleteTextView
-                android:layout_centerInParent="true"
                 android:id="@+id/poi_search_in_maps"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
+                android:layout_centerInParent="true"
                 android:layout_marginLeft="5.0dip"
                 android:layout_marginRight="5.0dip"
+                android:layout_toLeftOf="@+id/cancel_search"
+                android:layout_toRightOf="@+id/left_drawer_switch"
                 android:background="@android:color/transparent"
                 android:completionThreshold="1"
                 android:dropDownVerticalOffset="1.0dip"
@@ -60,49 +68,35 @@
                 android:imeOptions="actionSearch"
                 android:inputType="text|textAutoComplete"
                 android:maxLength="20"
-                android:layout_toRightOf="@+id/left_drawer_switch"
-                android:layout_toLeftOf="@+id/cancel_search"
                 android:singleLine="true"
                 android:textColor="#000000"
                 android:textSize="16.0sp" />
 
         </RelativeLayout>
 
+        <ListView
+            android:id="@+id/search_result_list_view"
+            android:layout_alignLeft="@+id/search_maps_bar"
+            android:layout_alignEnd="@+id/search_maps_bar"
+            android:layout_below="@+id/search_maps_bar"
+            android:background="@drawable/new_card"
+            android:layout_width="match_parent"
+            android:layout_height="100dp">
+
+        </ListView>
+
+
         <ImageButton
             android:id="@+id/ori_compass"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
+            android:layout_alignParentEnd="true"
+            android:layout_below="@+id/search_maps_bar"
+            android:layout_marginRight="36px"
             android:layout_marginTop="18px"
             android:background="@android:color/transparent"
-            android:elevation="2dp"
-            android:src="@mipmap/maps_dav_compass_needle_large"
-            android:visibility="gone" />
 
-
-        <ImageButton
-            android:id="@+id/navi_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentRight="true"
-            android:layout_marginBottom="36px"
-            android:layout_marginRight="36px"
-            android:background="@drawable/circle_button_with_shadow"
-            android:elevation="2dp"
-            android:src="@mipmap/ic_qu_direction_mylocation" />
-
-        <ImageButton
-            android:id="@+id/poi_search_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentLeft="true"
-            android:layout_marginBottom="36px"
-            android:layout_marginLeft="36px"
-            android:background="@drawable/circle_button_with_shadow"
-            android:elevation="2dp"
-            android:src="@mipmap/ic_qu_direction_mylocation" />
+            android:src="@mipmap/maps_dav_compass_needle_large" />
 
 
         <ImageButton
@@ -110,11 +104,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
+            android:layout_alignParentEnd="true"
             android:layout_marginBottom="36px"
             android:layout_marginRight="36px"
             android:background="@drawable/circle_button_with_shadow"
-            android:elevation="2dp"
+
             android:src="@mipmap/ic_qu_direction_mylocation" />
     </RelativeLayout>
+
+
 </FrameLayout>

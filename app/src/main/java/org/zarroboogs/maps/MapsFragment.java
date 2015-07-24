@@ -14,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.ListView;
 
 import com.amap.api.maps.AMap;
 import com.amap.api.maps.MapView;
@@ -58,6 +59,9 @@ public class MapsFragment extends Fragment implements View.OnClickListener, Draw
 
     private OnFragmentInteractionListener mListener;
 
+    private ListView mListView;
+    private PoiSearchAdapter mPoiSearchAdapter;
+
     /**
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
@@ -89,6 +93,8 @@ public class MapsFragment extends Fragment implements View.OnClickListener, Draw
         }
         mSensorManager = (SensorManager) getActivity().getApplicationContext().getSystemService(Context.SENSOR_SERVICE);
         mSearchMapsPresenter = new SearchMapsPresenter(this);
+
+        mPoiSearchAdapter = new PoiSearchAdapter();
     }
 
     @Override
@@ -115,11 +121,11 @@ public class MapsFragment extends Fragment implements View.OnClickListener, Draw
 
         aMap.setMyLocationType(AMap.LOCATION_TYPE_MAP_ROTATE);
 
-        ImageButton searchBtn = (ImageButton) view.findViewById(R.id.poi_search_btn);
-        searchBtn.setOnClickListener(this);
-
         mDrawerSwitch = (ImageButton) view.findViewById(R.id.left_drawer_switch);
         mDrawerSwitch.setOnClickListener(this);
+
+        mListView = (ListView) view.findViewById(R.id.search_result_list_view);
+        mListView.setAdapter(mPoiSearchAdapter);
     }
 
     public AMap getGaoDeMap() {

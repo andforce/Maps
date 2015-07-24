@@ -4,4 +4,8 @@
     <color name="grey"> #ebebeb</color>
 
     <color name="draw_text_color">#FF616161</color>
+
+    <color name="search_result_title">#FF232323</color>
+    <color name="search_result_sum">#FF757575</color>
+
 </resources>
