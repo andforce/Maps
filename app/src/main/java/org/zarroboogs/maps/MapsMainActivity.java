@@ -70,6 +70,13 @@ public class MapsMainActivity extends BaseActivity implements MapsFragment.OnFra
 
     }
 
+    public void openLeftDrawer(){
+        mDrawerLayout.openDrawer(Gravity.START);
+    }
+
+    public void closeLeftDrawer(){
+        mDrawerLayout.closeDrawer(Gravity.END);
+    }
 
     private MapsFragment getMapsFragment() {
         MapsFragment mapsFragment = (MapsFragment) getSupportFragmentManager().findFragmentByTag(MapsFragment.class.getName());

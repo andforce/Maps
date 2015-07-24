@@ -19,7 +19,9 @@ import com.amap.api.maps.AMap;
 import com.amap.api.maps.MapView;
 
 import org.zarroboogs.maps.poi.PoiKeywordSearchActivity;
+import org.zarroboogs.maps.ui.ISearchMapsView;
 import org.zarroboogs.maps.ui.MapsModule;
+import org.zarroboogs.maps.ui.SearchMapsPresenter;
 
 
 /**
@@ -30,7 +32,7 @@ import org.zarroboogs.maps.ui.MapsModule;
  * Use the {@link MapsFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class MapsFragment extends Fragment implements View.OnClickListener, DrawerStateListener{
+public class MapsFragment extends Fragment implements View.OnClickListener, DrawerStateListener, ISearchMapsView{
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -51,7 +53,8 @@ public class MapsFragment extends Fragment implements View.OnClickListener, Draw
     private ImageButton mCompass;
 
     private ImageButton mMyLocation;
-
+    private ImageButton mDrawerSwitch;
+    private SearchMapsPresenter mSearchMapsPresenter;
 
     private OnFragmentInteractionListener mListener;
 
@@ -85,6 +88,7 @@ public class MapsFragment extends Fragment implements View.OnClickListener, Draw
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
         mSensorManager = (SensorManager) getActivity().getApplicationContext().getSystemService(Context.SENSOR_SERVICE);
+        mSearchMapsPresenter = new SearchMapsPresenter(this);
     }
 
     @Override
@@ -113,6 +117,9 @@ public class MapsFragment extends Fragment implements View.OnClickListener, Draw
 
         ImageButton searchBtn = (ImageButton) view.findViewById(R.id.poi_search_btn);
         searchBtn.setOnClickListener(this);
+
+        mDrawerSwitch = (ImageButton) view.findViewById(R.id.left_drawer_switch);
+        mDrawerSwitch.setOnClickListener(this);
     }
 
     public AMap getGaoDeMap() {
@@ -189,8 +196,12 @@ public class MapsFragment extends Fragment implements View.OnClickListener, Draw
 
     @Override
     public void onClick(View view) {
-        Intent intent = new Intent(getActivity(), PoiKeywordSearchActivity.class);
-        startActivity(intent);
+        if (view.getId() == R.id.left_drawer_switch){
+            mSearchMapsPresenter.openDrawer();
+        } else {
+            Intent intent = new Intent(getActivity(), PoiKeywordSearchActivity.class);
+            startActivity(intent);
+        }
     }
 
     // DrawerLayout state
@@ -211,6 +222,26 @@ public class MapsFragment extends Fragment implements View.OnClickListener, Draw
 
     @Override
     public void onDrawerStateChanged(int newState) {
+
+    }
+
+    @Override
+    public void openDrawer() {
+        ((MapsMainActivity)getActivity()).openLeftDrawer();
+    }
+
+    @Override
+    public void closeDrawer() {
+        ((MapsMainActivity)getActivity()).closeLeftDrawer();
+    }
+
+    @Override
+    public void enterSearch() {
+
+    }
+
+    @Override
+    public void exitSearch() {
 
     }
     // DrawerLayout state
