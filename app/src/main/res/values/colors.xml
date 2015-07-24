@@ -2,6 +2,6 @@
 <resources>
 
     <color name="grey"> #ebebeb</color>
-    
 
+    <color name="draw_text_color">#FF616161</color>
 </resources>

@@ -5,4 +5,17 @@
         <!-- Customize your theme here. -->
     </style>
 
+    <style name="drawerMenuButton">
+        <item name="android:textSize">@dimen/drawerTextSize</item>
+        <item name="android:textColor">@color/draw_text_color</item>
+        <item name="android:gravity">left|center</item>
+        <item name="android:background">@drawable/button_background_selector</item>
+        <item name="android:paddingLeft">8.0dip</item>
+        <item name="android:paddingRight">8.0dip</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_height">50.0dip</item>
+        <item name="android:drawablePadding">8.0dip</item>
+    </style>
+
 </resources>

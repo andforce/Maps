@@ -157,4 +157,7 @@
 <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
+    <string name="left_drawer_setting">设置</string>
+    <string name="left_drawer_satellite">卫星图像</string>
+
 </resources>
