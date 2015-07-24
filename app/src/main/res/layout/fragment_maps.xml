@@ -11,10 +11,23 @@
 
 
     <RelativeLayout
+        android:fitsSystemWindows="true"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <RelativeLayout
+            android:id="@+id/search_maps_bar"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="18px"
+            android:background="@drawable/new_card"
+            android:elevation="2dp" />
+
         <ImageButton
+            android:visibility="gone"
             android:id="@+id/ori_compass"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
