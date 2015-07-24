@@ -11,23 +11,33 @@
 
 
     <RelativeLayout
-        android:fitsSystemWindows="true"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true">
 
         <RelativeLayout
             android:id="@+id/search_maps_bar"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_centerHorizontal="true"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
-            android:layout_width="match_parent"
-            android:layout_height="64dp"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="18px"
+            android:layout_marginTop="10dp"
             android:background="@drawable/new_card"
-            android:elevation="2dp" />
+            android:elevation="2dp">
+
+            <ImageButton
+                android:layout_margin="2dp"
+                android:layout_centerVertical="true"
+                android:id="@+id/left_drawer_switch"
+                android:layout_width="50dp"
+                android:layout_height="match_parent"
+                android:background="@drawable/button_background_selector"
+                android:src="@drawable/ic_qu_menu_grabber" />
+
+        </RelativeLayout>
 
         <ImageButton
-            android:visibility="gone"
             android:id="@+id/ori_compass"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -35,15 +45,16 @@
             android:layout_marginTop="18px"
             android:background="@android:color/transparent"
             android:elevation="2dp"
-            android:src="@mipmap/maps_dav_compass_needle_large" />
+            android:src="@mipmap/maps_dav_compass_needle_large"
+            android:visibility="gone" />
 
 
         <ImageButton
             android:id="@+id/navi_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
             android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
             android:layout_marginBottom="36px"
             android:layout_marginRight="36px"
             android:background="@drawable/circle_button_with_shadow"
@@ -54,8 +65,8 @@
             android:id="@+id/poi_search_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
             android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
             android:layout_marginBottom="36px"
             android:layout_marginLeft="36px"
             android:background="@drawable/circle_button_with_shadow"
