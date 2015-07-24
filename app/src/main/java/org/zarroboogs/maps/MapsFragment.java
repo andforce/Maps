@@ -30,7 +30,7 @@ import org.zarroboogs.maps.ui.MapsModule;
  * Use the {@link MapsFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class MapsFragment extends Fragment implements View.OnClickListener{
+public class MapsFragment extends Fragment implements View.OnClickListener, DrawerStateListener{
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -192,6 +192,28 @@ public class MapsFragment extends Fragment implements View.OnClickListener{
         Intent intent = new Intent(getActivity(), PoiKeywordSearchActivity.class);
         startActivity(intent);
     }
+
+    // DrawerLayout state
+    @Override
+    public void onDrawerSlide(View drawerView, float slideOffset) {
+
+    }
+
+    @Override
+    public void onDrawerOpened(View drawerView) {
+
+    }
+
+    @Override
+    public void onDrawerClosed(View drawerView) {
+
+    }
+
+    @Override
+    public void onDrawerStateChanged(int newState) {
+
+    }
+    // DrawerLayout state
 
     /**
      * This interface must be implemented by activities that contain this
