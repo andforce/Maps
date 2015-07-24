@@ -76,12 +76,13 @@
 
         <ListView
             android:id="@+id/search_result_list_view"
-            android:layout_alignLeft="@+id/search_maps_bar"
+            android:layout_alignStart="@+id/search_maps_bar"
             android:layout_alignEnd="@+id/search_maps_bar"
             android:layout_below="@+id/search_maps_bar"
             android:background="@drawable/new_card"
+            android:minHeight="100dp"
             android:layout_width="match_parent"
-            android:layout_height="100dp">
+            android:layout_height="wrap_content">
 
         </ListView>
 

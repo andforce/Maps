@@ -1,5 +1,6 @@
 package org.zarroboogs.maps;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,6 +23,11 @@ public class PoiSearchAdapter extends BaseAdapter {
     private List<Tip> mTips = new ArrayList<>();
     private LayoutInflater mInflater;
 
+    public PoiSearchAdapter(Context context){
+        if (mInflater == null){
+            mInflater = LayoutInflater.from(context.getApplicationContext());
+        }
+    }
     public void addResultTips(List<Tip> tips){
         mTips.clear();
         mTips.addAll(tips);
@@ -47,10 +53,6 @@ public class PoiSearchAdapter extends BaseAdapter {
     @Override
     public View getView(int i, View convertView, ViewGroup viewGroup) {
         ViewHolder holder = null;
-
-        if (mInflater == null){
-            mInflater = LayoutInflater.from(convertView.getContext().getApplicationContext());
-        }
 
         if (convertView == null) {
             convertView = mInflater.inflate(R.layout.listview_item_layout,null);

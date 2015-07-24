@@ -10,19 +10,29 @@ import android.hardware.SensorManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.ImageButton;
 import android.widget.ListView;
 
 import com.amap.api.maps.AMap;
 import com.amap.api.maps.MapView;
+import com.amap.api.services.core.AMapException;
+import com.amap.api.services.help.Inputtips;
+import com.amap.api.services.help.Tip;
 
 import org.zarroboogs.maps.poi.PoiKeywordSearchActivity;
 import org.zarroboogs.maps.ui.ISearchMapsView;
 import org.zarroboogs.maps.ui.MapsModule;
 import org.zarroboogs.maps.ui.SearchMapsPresenter;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -59,6 +69,8 @@ public class MapsFragment extends Fragment implements View.OnClickListener, Draw
 
     private OnFragmentInteractionListener mListener;
 
+    private AutoCompleteTextView mSearchText;// 输入搜索关键字
+
     private ListView mListView;
     private PoiSearchAdapter mPoiSearchAdapter;
 
@@ -94,7 +106,7 @@ public class MapsFragment extends Fragment implements View.OnClickListener, Draw
         mSensorManager = (SensorManager) getActivity().getApplicationContext().getSystemService(Context.SENSOR_SERVICE);
         mSearchMapsPresenter = new SearchMapsPresenter(this);
 
-        mPoiSearchAdapter = new PoiSearchAdapter();
+        mPoiSearchAdapter = new PoiSearchAdapter(getActivity().getApplicationContext());
     }
 
     @Override
@@ -123,6 +135,44 @@ public class MapsFragment extends Fragment implements View.OnClickListener, Draw
 
         mDrawerSwitch = (ImageButton) view.findViewById(R.id.left_drawer_switch);
         mDrawerSwitch.setOnClickListener(this);
+
+        mSearchText = (AutoCompleteTextView) view.findViewById(R.id.poi_search_in_maps);
+        mSearchText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                String newText = charSequence.toString().trim();
+                Inputtips inputTips = new Inputtips(getActivity().getApplicationContext(),
+                        new Inputtips.InputtipsListener() {
+
+                            @Override
+                            public void onGetInputtips(List<Tip> tipList, int rCode) {
+                                if (rCode == 0) {// 正确返回
+                                    List<String> listString = new ArrayList<String>();
+                                    for (int i = 0; i < tipList.size(); i++) {
+                                        listString.add(tipList.get(i).getName());
+                                    }
+                                    mPoiSearchAdapter.addResultTips(tipList);
+                                }
+                            }
+                        });
+                try {
+                    inputTips.requestInputtips(newText, "北京");// 第一个参数表示提示关键字，第二个参数默认代表全国，也可以为城市区号
+
+                } catch (AMapException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
 
         mListView = (ListView) view.findViewById(R.id.search_result_list_view);
         mListView.setAdapter(mPoiSearchAdapter);
