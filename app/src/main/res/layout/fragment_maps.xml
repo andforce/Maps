@@ -27,13 +27,24 @@
             android:elevation="2dp">
 
             <ImageButton
-                android:layout_margin="2dp"
-                android:layout_centerVertical="true"
                 android:id="@+id/left_drawer_switch"
                 android:layout_width="50dp"
                 android:layout_height="match_parent"
+                android:layout_centerVertical="true"
+                android:layout_margin="2dp"
                 android:background="@drawable/button_background_selector"
                 android:src="@drawable/ic_qu_menu_grabber" />
+
+
+            <ImageButton
+                android:id="@+id/cancel_search"
+                android:layout_width="50dp"
+                android:layout_height="match_parent"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_margin="2dp"
+                android:background="@drawable/button_background_selector"
+                android:src="@drawable/ic_qu_search" />
 
         </RelativeLayout>
 
