@@ -46,6 +46,26 @@
                 android:background="@drawable/button_background_selector"
                 android:src="@drawable/ic_qu_search" />
 
+            <AutoCompleteTextView
+                android:layout_centerInParent="true"
+                android:id="@+id/poi_search_in_maps"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="5.0dip"
+                android:layout_marginRight="5.0dip"
+                android:background="@android:color/transparent"
+                android:completionThreshold="1"
+                android:dropDownVerticalOffset="1.0dip"
+                android:hint="请输入关键字"
+                android:imeOptions="actionSearch"
+                android:inputType="text|textAutoComplete"
+                android:maxLength="20"
+                android:layout_toRightOf="@+id/left_drawer_switch"
+                android:layout_toLeftOf="@+id/cancel_search"
+                android:singleLine="true"
+                android:textColor="#000000"
+                android:textSize="16.0sp" />
+
         </RelativeLayout>
 
         <ImageButton
