@@ -196,15 +196,16 @@ public class MapsFragment extends Fragment implements View.OnClickListener, Draw
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 hideKeyboard(mSearchEditText);
-                mSearchEditText.setKeyListener(null);
+//                mSearchEditText.setKeyListener(null);
 
                 PoiSearchAdapter adapter = (PoiSearchAdapter) parent.getAdapter();
                 Tip tip = ((Tip)adapter.getItem(position));
                 mSearchEditText.setText(tip.getName());
+                mSearchEditText.setSelection(mSearchEditText.getText().toString().length());
                 mSearchMapsPresenter.searchPoi(getActivity().getApplicationContext(), tip.getName(), tip.getDistrict());
                 Toast.makeText(getActivity().getApplicationContext(), "", Toast.LENGTH_LONG).show();
 
-                mSearchEditText.setOnKeyListener(MapsFragment.this);
+//                mSearchEditText.setOnKeyListener(MapsFragment.this);
             }
         });
         
@@ -393,8 +394,8 @@ public class MapsFragment extends Fragment implements View.OnClickListener, Draw
             myLocationView.setVisibility(View.VISIBLE);
             searchMaskView.setVisibility(View.GONE);
             drawerSwitch.setImageResource(R.drawable.ic_qu_menu_grabber);
-            searchEditText.setCursorVisible(false);
             searchEditText.setText("");
+            searchEditText.setCursorVisible(false);
             hideKeyboard(searchEditText);
         }
 
@@ -403,9 +404,9 @@ public class MapsFragment extends Fragment implements View.OnClickListener, Draw
             listView.setVisibility(View.GONE);
             compassView.setVisibility(View.GONE);
             myLocationView.setVisibility(View.GONE);
+            searchEditText.setCursorVisible(false);
             searchMaskView.setVisibility(View.GONE);
             drawerSwitch.setImageResource(R.drawable.ic_qu_appbar_back);
-            searchEditText.setCursorVisible(true);
         }
     }
 

@@ -54,12 +54,12 @@
 
             <AutoCompleteTextView
                 android:id="@+id/poi_search_in_maps"
+                android:cursorVisible="false"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_centerInParent="true"
                 android:layout_marginLeft="5.0dip"
                 android:layout_marginRight="5.0dip"
-                android:cursorVisible="false"
                 android:layout_toLeftOf="@+id/cancel_search"
                 android:layout_toRightOf="@+id/left_drawer_switch"
                 android:background="@android:color/transparent"
