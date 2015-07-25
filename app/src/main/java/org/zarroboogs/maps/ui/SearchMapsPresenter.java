@@ -1,29 +1,51 @@
 package org.zarroboogs.maps.ui;
 
+import android.content.Context;
+
+import com.amap.api.services.core.PoiItem;
+
+import java.util.List;
+
 /**
  * Created by wangdiyuan on 15-7-24.
  */
-public class SearchMapsPresenter {
+public class SearchMapsPresenter implements SearchMapsInteractor.OnPoiSearchFinishedListener{
 
 
     private ISearchMapsView mSearchMapsView;
+    private SearchMapsInteractor mSearchInteractor;
 
-    public SearchMapsPresenter(ISearchMapsView searchMapsView){
+
+    public SearchMapsPresenter(ISearchMapsView searchMapsView) {
         this.mSearchMapsView = searchMapsView;
+        this.mSearchInteractor = new SearchMapsInteractorImpl();
     }
 
-    public void openDrawer(){
+    public void openDrawer() {
         mSearchMapsView.openDrawer();
     }
-    public void closeDrawer(){
+
+    public void closeDrawer() {
         mSearchMapsView.closeDrawer();
     }
 
-    public void enterSearch(){
+    public void enterSearch() {
         mSearchMapsView.enterSearch();
     }
+
+
     public void exitSearch(){
         mSearchMapsView.exitSearch();
     }
 
+    public void exitSearch(Context context ,String keyWord, String city) {
+        mSearchMapsView.showSearchProgress();
+        mSearchInteractor.poiSearch(context, keyWord, city,this);
+    }
+
+    @Override
+    public void onPoiSearchFinished(List<PoiItem> poiItems) {
+        mSearchMapsView.hideSearchProgress();
+        mSearchMapsView.showSearchResult(poiItems);
+    }
 }

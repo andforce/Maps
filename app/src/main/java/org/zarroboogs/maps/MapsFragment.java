@@ -24,7 +24,9 @@ import android.widget.Toast;
 
 import com.amap.api.maps.AMap;
 import com.amap.api.maps.MapView;
+import com.amap.api.maps.overlay.PoiOverlay;
 import com.amap.api.services.core.AMapException;
+import com.amap.api.services.core.PoiItem;
 import com.amap.api.services.help.Inputtips;
 import com.amap.api.services.help.Tip;
 
@@ -282,7 +284,12 @@ public class MapsFragment extends Fragment implements View.OnClickListener, Draw
             }
 
         } else if (id == R.id.cancel_search){
-            mSearchMapsPresenter.enterSearch();
+            if (mSearchViewHelper.isInSearch()){
+                mSearchMapsPresenter.exitSearch(getActivity().getApplicationContext(), mSearchEditText.getText().toString(),"");
+            } else{
+                mSearchMapsPresenter.enterSearch();
+            }
+
         } else if (id == R.id.poi_search_in_maps){
             mSearchMapsPresenter.enterSearch();
         }
@@ -373,7 +380,7 @@ public class MapsFragment extends Fragment implements View.OnClickListener, Draw
 
     private void hideKeyboard(View view){
         InputMethodManager manager = (InputMethodManager) getActivity().getApplicationContext().getSystemService(Context.INPUT_METHOD_SERVICE);
-        manager.hideSoftInputFromWindow(view.getWindowToken(),0);
+        manager.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
 
     private void showKeyboard(View view){
@@ -391,6 +398,27 @@ public class MapsFragment extends Fragment implements View.OnClickListener, Draw
         mSearchViewHelper.exitSearch();
 
     }
+
+    @Override
+    public void showSearchResult(List<PoiItem> poiItems) {
+        mSearchMapsPresenter.exitSearch();
+        aMap.clear();// 清理之前的图标
+        PoiOverlay poiOverlay = new PoiOverlay(aMap, poiItems);
+        poiOverlay.removeFromMap();
+        poiOverlay.addToMap();
+        poiOverlay.zoomToSpan();
+    }
+
+    @Override
+    public void showSearchProgress() {
+
+    }
+
+    @Override
+    public void hideSearchProgress() {
+
+    }
+
     // DrawerLayout state
 
     /**

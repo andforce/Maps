@@ -1,5 +1,11 @@
 package org.zarroboogs.maps.ui;
 
+import android.content.Context;
+
+import com.amap.api.services.core.PoiItem;
+
+import java.util.List;
+
 /**
  * Created by wangdiyuan on 15-7-24.
  */
@@ -10,4 +16,7 @@ public interface ISearchMapsView {
     public void enterSearch();
     public void exitSearch();
 
+    public void showSearchResult(List<PoiItem> poiItems);
+    public void showSearchProgress();
+    public void hideSearchProgress();
 }
