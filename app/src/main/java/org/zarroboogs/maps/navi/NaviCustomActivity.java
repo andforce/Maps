@@ -243,8 +243,7 @@ public class NaviCustomActivity extends Activity implements
 	private void processBundle(Bundle bundle) {
 
 		if (bundle != null) {
-			mDayNightFlag = bundle.getBoolean(Utils.DAY_NIGHT_MODE,
-					mDayNightFlag);
+			mDayNightFlag = bundle.getBoolean(Utils.DAY_NIGHT_MODE, mDayNightFlag);
 			mDeviationFlag = bundle.getBoolean(Utils.DEVIATION, mDeviationFlag);
 			mJamFlag = bundle.getBoolean(Utils.JAM, mJamFlag);
 			mTrafficFlag = bundle.getBoolean(Utils.TRAFFIC, mTrafficFlag);

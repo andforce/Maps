@@ -49,6 +49,10 @@
         </activity>
 
         <activity
+            android:name=".navi.NaviRouteActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize" />
+
+        <activity
             android:name=".navi.NaviEmulatorActivity"
             android:configChanges="orientation|keyboardHidden|screenSize" />
 

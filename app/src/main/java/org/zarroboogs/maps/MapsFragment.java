@@ -35,6 +35,9 @@ import com.amap.api.services.core.PoiItem;
 import com.amap.api.services.help.Inputtips;
 import com.amap.api.services.help.Tip;
 
+import org.zarroboogs.maps.navi.NaviCustomActivity;
+import org.zarroboogs.maps.navi.NaviEmulatorActivity;
+import org.zarroboogs.maps.navi.NaviRouteActivity;
 import org.zarroboogs.maps.poi.PoiKeywordSearchActivity;
 import org.zarroboogs.maps.ui.ISearchMapsView;
 import org.zarroboogs.maps.ui.MapsModule;
@@ -535,13 +538,15 @@ public class MapsFragment extends Fragment implements View.OnClickListener, Draw
         mLineBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent intent = new Intent(getActivity(), NaviRouteActivity.class);
+                getActivity().startActivity(intent);
             }
         });
         mNaviBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent intent = new Intent(getActivity(), NaviEmulatorActivity.class);
+                getActivity().startActivity(intent);
             }
         });
     }

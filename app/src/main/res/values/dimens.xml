@@ -3,4 +3,27 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="drawerTextSize">16.0dip</dimen>
+
+
+    <dimen name="navibar_text_size">14sp</dimen>
+    <dimen name="navibar_margin_right">25dp</dimen>
+    <dimen name="navibar_margin_left">25dp</dimen>
+    <dimen name="navibar_margin_method">30dp</dimen>
+    <dimen name="navibar_start_left">40dp</dimen>
+    <dimen name="start_content_font_size">18sp</dimen>
+    <dimen name="navibar_margin_top">15dp</dimen>
+    <dimen name="navibar_edit_height">35dp</dimen>
+    <dimen name="navibar_button_height">40dp</dimen>
+    <dimen name="naviroute_navi_height">45dp</dimen>
+    <dimen name="navisetting_margin_bottom">5dp</dimen>
+    <dimen name="navisetting_subtext_size">20sp</dimen>
+    <dimen name="titletext_size">30sp</dimen>
+    <dimen name="margin_right">5dp</dimen>
+    <dimen name="margin_left">5dp</dimen>
+    <dimen name="margin_top">5dp</dimen>
+    <dimen name="margin_bottom">5dp</dimen>
+    <dimen name="setting_margin_top">10dp</dimen>
+    <dimen name="setting_margin_bottom">10dp</dimen>
+
+    <dimen name="route_text_size">20sp</dimen>
 </resources>
