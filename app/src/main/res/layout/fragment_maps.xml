@@ -10,7 +10,7 @@
         android:layout_height="match_parent" />
 
     <View
-        android:id="@+id/search_result_rl"
+        android:id="@+id/search_mask"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#EEEEEE"
@@ -59,6 +59,7 @@
                 android:layout_centerInParent="true"
                 android:layout_marginLeft="5.0dip"
                 android:layout_marginRight="5.0dip"
+                android:cursorVisible="false"
                 android:layout_toLeftOf="@+id/cancel_search"
                 android:layout_toRightOf="@+id/left_drawer_switch"
                 android:background="@android:color/transparent"
@@ -75,12 +76,14 @@
         </RelativeLayout>
 
         <ListView
+            android:visibility="gone"
+            android:clickable="true"
+            android:focusable="true"
             android:id="@+id/search_result_list_view"
             android:layout_alignStart="@+id/search_maps_bar"
             android:layout_alignEnd="@+id/search_maps_bar"
             android:layout_below="@+id/search_maps_bar"
             android:background="@drawable/new_card"
-            android:minHeight="100dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 

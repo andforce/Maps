@@ -19,4 +19,11 @@ public class SearchMapsPresenter {
         mSearchMapsView.closeDrawer();
     }
 
+    public void enterSearch(){
+        mSearchMapsView.enterSearch();
+    }
+    public void exitSearch(){
+        mSearchMapsView.exitSearch();
+    }
+
 }

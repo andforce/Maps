@@ -15,7 +15,7 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
+import android.widget.AdapterView;
 import android.widget.AutoCompleteTextView;
 import android.widget.ImageButton;
 import android.widget.ListView;
@@ -65,6 +65,8 @@ public class MapsFragment extends Fragment implements View.OnClickListener, Draw
 
     private ImageButton mMyLocation;
     private ImageButton mDrawerSwitch;
+    private ImageButton mSearchBtn;
+
     private SearchMapsPresenter mSearchMapsPresenter;
 
     private OnFragmentInteractionListener mListener;
@@ -73,7 +75,8 @@ public class MapsFragment extends Fragment implements View.OnClickListener, Draw
 
     private ListView mListView;
     private PoiSearchAdapter mPoiSearchAdapter;
-
+    private SearchViewHelper mSearchViewHelper;
+    
     /**
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
@@ -135,7 +138,12 @@ public class MapsFragment extends Fragment implements View.OnClickListener, Draw
 
         mDrawerSwitch = (ImageButton) view.findViewById(R.id.left_drawer_switch);
         mDrawerSwitch.setOnClickListener(this);
+        mSearchBtn = (ImageButton) view.findViewById(R.id.cancel_search);
+        mSearchBtn.setOnClickListener(this);
 
+
+        mSearchViewHelper = new SearchViewHelper(view);
+        
         mSearchText = (AutoCompleteTextView) view.findViewById(R.id.poi_search_in_maps);
         mSearchText.addTextChangedListener(new TextWatcher() {
             @Override
@@ -176,6 +184,15 @@ public class MapsFragment extends Fragment implements View.OnClickListener, Draw
 
         mListView = (ListView) view.findViewById(R.id.search_result_list_view);
         mListView.setAdapter(mPoiSearchAdapter);
+
+        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+            }
+        });
+        
+        
     }
 
     public AMap getGaoDeMap() {
@@ -252,9 +269,19 @@ public class MapsFragment extends Fragment implements View.OnClickListener, Draw
 
     @Override
     public void onClick(View view) {
-        if (view.getId() == R.id.left_drawer_switch){
-            mSearchMapsPresenter.openDrawer();
-        } else {
+        int id = view.getId();
+        if (id == R.id.left_drawer_switch){
+            if (mSearchViewHelper.isInSearch()){
+                mSearchMapsPresenter.exitSearch();
+            } else{
+                mSearchMapsPresenter.openDrawer();
+            }
+
+        } else if (id == R.id.cancel_search){
+            mSearchMapsPresenter.enterSearch();
+        }
+
+        else {
             Intent intent = new Intent(getActivity(), PoiKeywordSearchActivity.class);
             startActivity(intent);
         }
@@ -291,13 +318,57 @@ public class MapsFragment extends Fragment implements View.OnClickListener, Draw
         ((MapsMainActivity)getActivity()).closeLeftDrawer();
     }
 
+    class SearchViewHelper {
+        View compassView;
+        View myLocationView;
+        View searchMaskView;
+        ImageButton drawerSwitch;
+        AutoCompleteTextView searchEditText;
+        ListView listView;
+
+        private boolean isInSearch = false;
+
+        public boolean isInSearch(){
+            return isInSearch;
+        }
+        public SearchViewHelper(View rootView){
+            compassView = rootView.findViewById(R.id.ori_compass);
+            myLocationView = rootView.findViewById(R.id.my_location_btn);
+            searchMaskView = rootView.findViewById(R.id.search_mask);
+            drawerSwitch = (ImageButton) rootView.findViewById(R.id.left_drawer_switch);
+            searchEditText = (AutoCompleteTextView) rootView.findViewById(R.id.poi_search_in_maps);
+            listView = (ListView) rootView.findViewById(R.id.search_result_list_view);
+
+        }
+
+        public void enterSearch(){
+            isInSearch = true;
+            listView.setVisibility(View.VISIBLE);
+            compassView.setVisibility(View.GONE);
+            myLocationView.setVisibility(View.GONE);
+            searchMaskView.setVisibility(View.VISIBLE);
+            drawerSwitch.setImageResource(R.drawable.ic_qu_appbar_back);
+            searchEditText.setCursorVisible(true);
+        }
+        public void exitSearch(){
+            isInSearch = false;
+            listView.setVisibility(View.GONE);
+            compassView.setVisibility(View.GONE);
+            myLocationView.setVisibility(View.GONE);
+            searchMaskView.setVisibility(View.GONE);
+            drawerSwitch.setImageResource(R.drawable.ic_qu_menu_grabber);
+            searchEditText.setCursorVisible(false);
+        }
+    }
+
     @Override
     public void enterSearch() {
-
+        mSearchViewHelper.enterSearch();
     }
 
     @Override
     public void exitSearch() {
+        mSearchViewHelper.exitSearch();
 
     }
     // DrawerLayout state
