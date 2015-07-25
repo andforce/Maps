@@ -427,18 +427,28 @@ public class MapsFragment extends Fragment implements View.OnClickListener, Draw
 
     @Override
     public void exitSearch() {
+        if (mPoiOverlay != null){
+            mPoiOverlay.removeFromMap();
+            mPoiOverlay = null;
+        }
         mSearchViewHelper.exitSearch();
 
     }
 
+    private PoiOverlay mPoiOverlay;
     @Override
     public void showSearchResult(List<PoiItem> poiItems) {
         mSearchViewHelper.showSearchResult();
-        aMap.clear();// 清理之前的图标
+        if (mPoiOverlay != null){
+            mPoiOverlay.removeFromMap();
+            mPoiOverlay = null;
+        }
+
         PoiOverlay poiOverlay = new PoiOverlay(aMap, poiItems);
-        poiOverlay.removeFromMap();
         poiOverlay.addToMap();
         poiOverlay.zoomToSpan();
+
+        mPoiOverlay = poiOverlay;
     }
 
     @Override
