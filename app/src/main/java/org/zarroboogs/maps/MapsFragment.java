@@ -15,6 +15,7 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.AutoCompleteTextView;
 import android.widget.ImageButton;
@@ -66,6 +67,7 @@ public class MapsFragment extends Fragment implements View.OnClickListener, Draw
     private ImageButton mMyLocation;
     private ImageButton mDrawerSwitch;
     private ImageButton mSearchBtn;
+    private AutoCompleteTextView mSearchEditText;
 
     private SearchMapsPresenter mSearchMapsPresenter;
 
@@ -140,7 +142,8 @@ public class MapsFragment extends Fragment implements View.OnClickListener, Draw
         mDrawerSwitch.setOnClickListener(this);
         mSearchBtn = (ImageButton) view.findViewById(R.id.cancel_search);
         mSearchBtn.setOnClickListener(this);
-
+        mSearchEditText = (AutoCompleteTextView) view.findViewById(R.id.poi_search_in_maps);
+        mSearchEditText.setOnClickListener(this);
 
         mSearchViewHelper = new SearchViewHelper(view);
         
@@ -279,6 +282,8 @@ public class MapsFragment extends Fragment implements View.OnClickListener, Draw
 
         } else if (id == R.id.cancel_search){
             mSearchMapsPresenter.enterSearch();
+        } else if (id == R.id.poi_search_in_maps){
+            mSearchMapsPresenter.enterSearch();
         }
 
         else {
@@ -349,7 +354,9 @@ public class MapsFragment extends Fragment implements View.OnClickListener, Draw
             searchMaskView.setVisibility(View.VISIBLE);
             drawerSwitch.setImageResource(R.drawable.ic_qu_appbar_back);
             searchEditText.setCursorVisible(true);
+            showKeyboard(searchEditText);
         }
+
         public void exitSearch(){
             isInSearch = false;
             listView.setVisibility(View.GONE);
@@ -358,7 +365,19 @@ public class MapsFragment extends Fragment implements View.OnClickListener, Draw
             searchMaskView.setVisibility(View.GONE);
             drawerSwitch.setImageResource(R.drawable.ic_qu_menu_grabber);
             searchEditText.setCursorVisible(false);
+            searchEditText.setText("");
+            hideKeyboard(searchEditText);
         }
+    }
+
+    private void hideKeyboard(View view){
+        InputMethodManager manager = (InputMethodManager) getActivity().getApplicationContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+        manager.hideSoftInputFromWindow(view.getWindowToken(),0);
+    }
+
+    private void showKeyboard(View view){
+        InputMethodManager manager = (InputMethodManager) getActivity().getApplicationContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+        manager.showSoftInput(view, InputMethodManager.SHOW_FORCED);
     }
 
     @Override
