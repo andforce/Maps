@@ -1,6 +1,7 @@
 package org.zarroboogs.maps.ui;
 
 import android.content.Context;
+import android.text.TextUtils;
 
 import com.amap.api.services.core.PoiItem;
 import com.amap.api.services.core.SuggestionCity;
@@ -34,8 +35,12 @@ public class SearchMapsInteractorImpl implements SearchMapsInteractor, PoiSearch
             this.mContext = context;
         }
 
-        query = new PoiSearch.Query(keyWord, "", city);// 第一个参数表示搜索字符串，第二个参数表示poi搜索类型，第三个参数表示poi搜索区域（空字符串代表全国）
-        query.setPageSize(20);// 设置每页最多返回多少条poiitem
+        query = new PoiSearch.Query(keyWord, "地名地址信息", city);// 第一个参数表示搜索字符串，第二个参数表示poi搜索类型，第三个参数表示poi搜索区域（空字符串代表全国）
+        if (!TextUtils.isEmpty(city)){
+            query.setPageSize(1);// 设置每页最多返回多少条poiitem
+        } else{
+            query.setPageSize(10);// 设置每页最多返回多少条poiitem
+        }
         query.setPageNum(0);// 设置查第一页
 
         poiSearch = new PoiSearch(context, query);

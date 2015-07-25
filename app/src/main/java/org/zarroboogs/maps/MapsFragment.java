@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,7 +23,6 @@ import android.widget.AdapterView;
 import android.widget.AutoCompleteTextView;
 import android.widget.ImageButton;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.amap.api.maps.AMap;
 import com.amap.api.maps.MapView;
@@ -176,7 +176,7 @@ public class MapsFragment extends Fragment implements View.OnClickListener, Draw
                             }
                         });
                 try {
-                    inputTips.requestInputtips(newText, "北京");// 第一个参数表示提示关键字，第二个参数默认代表全国，也可以为城市区号
+                    inputTips.requestInputtips(newText, "");// 第一个参数表示提示关键字，第二个参数默认代表全国，也可以为城市区号
 
                 } catch (AMapException e) {
                     e.printStackTrace();
@@ -196,16 +196,15 @@ public class MapsFragment extends Fragment implements View.OnClickListener, Draw
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 hideKeyboard(mSearchEditText);
-//                mSearchEditText.setKeyListener(null);
 
                 PoiSearchAdapter adapter = (PoiSearchAdapter) parent.getAdapter();
                 Tip tip = ((Tip)adapter.getItem(position));
                 mSearchEditText.setText(tip.getName());
                 mSearchEditText.setSelection(mSearchEditText.getText().toString().length());
-                mSearchMapsPresenter.searchPoi(getActivity().getApplicationContext(), tip.getName(), tip.getDistrict());
-                Toast.makeText(getActivity().getApplicationContext(), "", Toast.LENGTH_LONG).show();
 
-//                mSearchEditText.setOnKeyListener(MapsFragment.this);
+                Log.d("Search_OnItemClick ", "" + tip.toString());
+                mSearchMapsPresenter.searchPoi(getActivity().getApplicationContext(), tip.getName(), tip.getAdcode());
+
             }
         });
         
