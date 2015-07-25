@@ -19,4 +19,6 @@ public interface ISearchMapsView {
     public void showSearchResult(List<PoiItem> poiItems);
     public void showSearchProgress();
     public void hideSearchProgress();
+
+    public void showPoiFloatWindow(PoiItem poiItem);
 }

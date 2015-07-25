@@ -48,4 +48,8 @@ public class SearchMapsPresenter implements SearchMapsInteractor.OnPoiSearchFini
         mSearchMapsView.hideSearchProgress();
         mSearchMapsView.showSearchResult(poiItems);
     }
+
+    public void showPoiFloatWindow(PoiItem poiItem){
+        mSearchMapsView.showPoiFloatWindow(poiItem);
+    }
 }

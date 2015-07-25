@@ -11,6 +11,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -23,6 +24,8 @@ import android.widget.AdapterView;
 import android.widget.AutoCompleteTextView;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.amap.api.maps.AMap;
 import com.amap.api.maps.MapView;
@@ -49,7 +52,7 @@ import java.util.List;
  * Use the {@link MapsFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class MapsFragment extends Fragment implements View.OnClickListener, DrawerStateListener, ISearchMapsView, OnKeyListener{
+public class MapsFragment extends Fragment implements View.OnClickListener, DrawerStateListener, ISearchMapsView, OnKeyListener {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -81,7 +84,16 @@ public class MapsFragment extends Fragment implements View.OnClickListener, Draw
     private ListView mListView;
     private PoiSearchAdapter mPoiSearchAdapter;
     private SearchViewHelper mSearchViewHelper;
-    
+
+
+    // float window
+    private RelativeLayout mSearchFloatWindow;
+    private TextView mSearchPoiTitle;
+    private TextView mSearchPoiSummary;
+    private TextView mSearchPoiTel;
+    private ImageButton mLineBtn;
+    private ImageButton mNaviBtn;
+
     /**
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
@@ -166,7 +178,7 @@ public class MapsFragment extends Fragment implements View.OnClickListener, Draw
 
                             @Override
                             public void onGetInputtips(List<Tip> tipList, int rCode) {
-                                if (rCode == 0) {// 正确返回
+                                if (rCode == 0 && tipList != null) {// 正确返回
                                     List<String> listString = new ArrayList<String>();
                                     for (int i = 0; i < tipList.size(); i++) {
                                         listString.add(tipList.get(i).getName());
@@ -198,7 +210,7 @@ public class MapsFragment extends Fragment implements View.OnClickListener, Draw
                 hideKeyboard(mSearchEditText);
 
                 PoiSearchAdapter adapter = (PoiSearchAdapter) parent.getAdapter();
-                Tip tip = ((Tip)adapter.getItem(position));
+                Tip tip = ((Tip) adapter.getItem(position));
                 mSearchEditText.setText(tip.getName());
                 mSearchEditText.setSelection(mSearchEditText.getText().toString().length());
 
@@ -207,21 +219,27 @@ public class MapsFragment extends Fragment implements View.OnClickListener, Draw
 
             }
         });
-        
-        
+
+        mSearchFloatWindow = (RelativeLayout) view.findViewById(R.id.search_float_rl);
+        mSearchPoiTitle = (TextView) view.findViewById(R.id.search_result_title);
+        mSearchPoiSummary = (TextView) view.findViewById(R.id.search_poi_summary);
+        mLineBtn = (ImageButton) view.findViewById(R.id.maps_drive_line_btn);
+        mNaviBtn = (ImageButton) view.findViewById(R.id.maps_navi_btn);
+        mSearchPoiTel = (TextView) view.findViewById(R.id.search_poi_tel);
     }
 
     public AMap getGaoDeMap() {
         return aMap;
     }
 
-    public ImageButton getMyLocationBtn(){
+    public ImageButton getMyLocationBtn() {
         return mMyLocation;
     }
 
-    public float getDevicesDirection(){
+    public float getDevicesDirection() {
         return mDevicesDirection;
     }
+
     /**
      * 初始化
      */
@@ -286,25 +304,23 @@ public class MapsFragment extends Fragment implements View.OnClickListener, Draw
     @Override
     public void onClick(View view) {
         int id = view.getId();
-        if (id == R.id.left_drawer_switch){
-            if (mSearchViewHelper.isInSearch()){
+        if (id == R.id.left_drawer_switch) {
+            if (mSearchViewHelper.isInSearch()) {
                 mSearchMapsPresenter.exitSearch();
-            } else{
+            } else {
                 mSearchMapsPresenter.openDrawer();
             }
 
-        } else if (id == R.id.cancel_search){
-            if (mSearchViewHelper.isInSearch()){
+        } else if (id == R.id.cancel_search) {
+            if (mSearchViewHelper.isInSearch()) {
                 mSearchMapsPresenter.searchPoi(getActivity().getApplicationContext(), mSearchEditText.getText().toString(), "");
-            } else{
+            } else {
                 mSearchMapsPresenter.enterSearch();
             }
 
-        } else if (id == R.id.poi_search_in_maps){
+        } else if (id == R.id.poi_search_in_maps) {
             mSearchMapsPresenter.enterSearch();
-        }
-
-        else {
+        } else {
             Intent intent = new Intent(getActivity(), PoiKeywordSearchActivity.class);
             startActivity(intent);
         }
@@ -333,17 +349,17 @@ public class MapsFragment extends Fragment implements View.OnClickListener, Draw
 
     @Override
     public void openDrawer() {
-        ((MapsMainActivity)getActivity()).openLeftDrawer();
+        ((MapsMainActivity) getActivity()).openLeftDrawer();
     }
 
     @Override
     public void closeDrawer() {
-        ((MapsMainActivity)getActivity()).closeLeftDrawer();
+        ((MapsMainActivity) getActivity()).closeLeftDrawer();
     }
 
     @Override
     public boolean onKey(View v, int keyCode, KeyEvent event) {
-        if (keyCode == KeyEvent.KEYCODE_ENTER){
+        if (keyCode == KeyEvent.KEYCODE_ENTER) {
             hideKeyboard(mSearchEditText);
             mSearchMapsPresenter.searchPoi(getActivity().getApplicationContext(), mSearchEditText.getText().toString(), "");
             return true;
@@ -359,24 +375,26 @@ public class MapsFragment extends Fragment implements View.OnClickListener, Draw
         ImageButton drawerSwitch;
         AutoCompleteTextView searchEditText;
         ListView listView;
-
+        private View floatWindow;
         private boolean isInSearch = false;
 
-        public boolean isInSearch(){
+        public boolean isInSearch() {
             return isInSearch;
         }
-        public SearchViewHelper(View rootView){
+
+        public SearchViewHelper(View rootView) {
             compassView = rootView.findViewById(R.id.ori_compass);
             myLocationView = rootView.findViewById(R.id.my_location_btn);
             searchMaskView = rootView.findViewById(R.id.search_mask);
             drawerSwitch = (ImageButton) rootView.findViewById(R.id.left_drawer_switch);
             searchEditText = (AutoCompleteTextView) rootView.findViewById(R.id.poi_search_in_maps);
             listView = (ListView) rootView.findViewById(R.id.search_result_list_view);
-
+            floatWindow =  rootView.findViewById(R.id.search_float_rl);
         }
 
-        public void enterSearch(){
+        public void enterSearch() {
             isInSearch = true;
+            floatWindow.setVisibility(View.GONE);
             listView.setVisibility(View.VISIBLE);
             compassView.setVisibility(View.GONE);
             myLocationView.setVisibility(View.GONE);
@@ -386,8 +404,9 @@ public class MapsFragment extends Fragment implements View.OnClickListener, Draw
             showKeyboard(searchEditText);
         }
 
-        public void exitSearch(){
+        public void exitSearch() {
             isInSearch = false;
+            floatWindow.setVisibility(View.GONE);
             listView.setVisibility(View.GONE);
             compassView.setVisibility(View.VISIBLE);
             myLocationView.setVisibility(View.VISIBLE);
@@ -398,23 +417,25 @@ public class MapsFragment extends Fragment implements View.OnClickListener, Draw
             hideKeyboard(searchEditText);
         }
 
-        public void showSearchResult(){
+        public void showSuggestTips() {
             isInSearch = true;
+            floatWindow.setVisibility(View.GONE);
             listView.setVisibility(View.GONE);
             compassView.setVisibility(View.GONE);
             myLocationView.setVisibility(View.GONE);
             searchEditText.setCursorVisible(false);
             searchMaskView.setVisibility(View.GONE);
             drawerSwitch.setImageResource(R.drawable.ic_qu_appbar_back);
+
         }
     }
 
-    private void hideKeyboard(View view){
+    private void hideKeyboard(View view) {
         InputMethodManager manager = (InputMethodManager) getActivity().getApplicationContext().getSystemService(Context.INPUT_METHOD_SERVICE);
         manager.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
 
-    private void showKeyboard(View view){
+    private void showKeyboard(View view) {
         InputMethodManager manager = (InputMethodManager) getActivity().getApplicationContext().getSystemService(Context.INPUT_METHOD_SERVICE);
         manager.showSoftInput(view, InputMethodManager.SHOW_FORCED);
     }
@@ -427,7 +448,7 @@ public class MapsFragment extends Fragment implements View.OnClickListener, Draw
 
     @Override
     public void exitSearch() {
-        if (mPoiOverlay != null){
+        if (mPoiOverlay != null) {
             mPoiOverlay.removeFromMap();
             mPoiOverlay = null;
         }
@@ -436,10 +457,11 @@ public class MapsFragment extends Fragment implements View.OnClickListener, Draw
     }
 
     private PoiOverlay mPoiOverlay;
+
     @Override
     public void showSearchResult(List<PoiItem> poiItems) {
-        mSearchViewHelper.showSearchResult();
-        if (mPoiOverlay != null){
+        mSearchViewHelper.showSuggestTips();
+        if (mPoiOverlay != null) {
             mPoiOverlay.removeFromMap();
             mPoiOverlay = null;
         }
@@ -449,6 +471,9 @@ public class MapsFragment extends Fragment implements View.OnClickListener, Draw
         poiOverlay.zoomToSpan();
 
         mPoiOverlay = poiOverlay;
+
+
+        mSearchMapsPresenter.showPoiFloatWindow(poiItems.get(0));
     }
 
     @Override
@@ -459,6 +484,66 @@ public class MapsFragment extends Fragment implements View.OnClickListener, Draw
     @Override
     public void hideSearchProgress() {
 
+    }
+
+    @Override
+    public void showPoiFloatWindow(PoiItem poiItem) {
+        mSearchFloatWindow.setVisibility(View.VISIBLE);
+
+        PoiItem item = poiItem;
+
+        if (true){
+            Log.d("showPoiFloatWindow     adCode                -"  , poiItem.getAdCode());
+            Log.d("showPoiFloatWindow     adName                -"  , poiItem.getAdName());
+            Log.d("showPoiFloatWindow     CityCOde              -"  , poiItem.getCityCode());
+            Log.d("showPoiFloatWindow     cityName              -"  , poiItem.getCityName());
+            Log.d("showPoiFloatWindow     direction             -"  , poiItem.getDirection());
+            Log.d("showPoiFloatWindow     email                 -"  , poiItem.getEmail());
+            Log.d("showPoiFloatWindow     poid                  -"  , poiItem.getPoiId());
+            Log.d("showPoiFloatWindow     postCode              -"  , poiItem.getPostcode());
+            Log.d("showPoiFloatWindow     provinceCode          -"  , poiItem.getProvinceCode());
+            Log.d("showPoiFloatWindow     provincename          -"  , poiItem.getProvinceName());
+            Log.d("showPoiFloatWindow     snippet               -"  , poiItem.getSnippet());
+            Log.d("showPoiFloatWindow     tel                   -"  , poiItem.getTel());
+            Log.d("showPoiFloatWindow     title                 -"  , poiItem.getTitle());
+            Log.d("showPoiFloatWindow     typedes               -"  , poiItem.getTypeDes());
+            Log.d("showPoiFloatWindow     website               -"  , poiItem.getWebsite());
+        }
+
+        Log.d("showPoiFloatWindow     distance              -", " " + poiItem.getDistance());
+        
+        mSearchPoiTitle.setText(poiItem.getTitle());
+        String sum = "";
+        if (!TextUtils.isEmpty(poiItem.getProvinceName())){
+            sum += poiItem.getProvinceName();
+        }
+
+        if (!TextUtils.isEmpty(poiItem.getCityName())){
+            sum += "-" + poiItem.getCityName();
+        }
+
+        if (!TextUtils.isEmpty(poiItem.getAdName())){
+            sum += "-" + poiItem.getAdName();
+        }
+
+        if (!TextUtils.isEmpty(poiItem.getSnippet())){
+            sum += "-" + poiItem.getSnippet();
+        }
+
+        mSearchPoiSummary.setText(sum);
+        mSearchPoiTel.setText(poiItem.getTel());
+        mLineBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+        mNaviBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
     }
 
     // DrawerLayout state
