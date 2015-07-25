@@ -38,7 +38,7 @@ public class SearchMapsPresenter implements SearchMapsInteractor.OnPoiSearchFini
         mSearchMapsView.exitSearch();
     }
 
-    public void exitSearch(Context context ,String keyWord, String city) {
+    public void searchPoi(Context context ,String keyWord, String city) {
         mSearchMapsView.showSearchProgress();
         mSearchInteractor.poiSearch(context, keyWord, city,this);
     }

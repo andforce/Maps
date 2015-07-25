@@ -12,8 +12,10 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnKeyListener;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
@@ -47,7 +49,7 @@ import java.util.List;
  * Use the {@link MapsFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class MapsFragment extends Fragment implements View.OnClickListener, DrawerStateListener, ISearchMapsView{
+public class MapsFragment extends Fragment implements View.OnClickListener, DrawerStateListener, ISearchMapsView, OnKeyListener{
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -75,8 +77,6 @@ public class MapsFragment extends Fragment implements View.OnClickListener, Draw
     private SearchMapsPresenter mSearchMapsPresenter;
 
     private OnFragmentInteractionListener mListener;
-
-    private AutoCompleteTextView mSearchText;// 输入搜索关键字
 
     private ListView mListView;
     private PoiSearchAdapter mPoiSearchAdapter;
@@ -149,9 +149,10 @@ public class MapsFragment extends Fragment implements View.OnClickListener, Draw
         mSearchEditText.setOnClickListener(this);
 
         mSearchViewHelper = new SearchViewHelper(view);
-        
-        mSearchText = (AutoCompleteTextView) view.findViewById(R.id.poi_search_in_maps);
-        mSearchText.addTextChangedListener(new TextWatcher() {
+
+        mSearchEditText = (AutoCompleteTextView) view.findViewById(R.id.poi_search_in_maps);
+        mSearchEditText.setOnKeyListener(this);
+        mSearchEditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
@@ -194,7 +195,16 @@ public class MapsFragment extends Fragment implements View.OnClickListener, Draw
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                hideKeyboard(mSearchEditText);
+                mSearchEditText.setKeyListener(null);
+
+                PoiSearchAdapter adapter = (PoiSearchAdapter) parent.getAdapter();
+                Tip tip = ((Tip)adapter.getItem(position));
+                mSearchEditText.setText(tip.getName());
+                mSearchMapsPresenter.searchPoi(getActivity().getApplicationContext(), tip.getName(), tip.getDistrict());
                 Toast.makeText(getActivity().getApplicationContext(), "", Toast.LENGTH_LONG).show();
+
+                mSearchEditText.setOnKeyListener(MapsFragment.this);
             }
         });
         
@@ -285,7 +295,7 @@ public class MapsFragment extends Fragment implements View.OnClickListener, Draw
 
         } else if (id == R.id.cancel_search){
             if (mSearchViewHelper.isInSearch()){
-                mSearchMapsPresenter.exitSearch(getActivity().getApplicationContext(), mSearchEditText.getText().toString(),"");
+                mSearchMapsPresenter.searchPoi(getActivity().getApplicationContext(), mSearchEditText.getText().toString(), "");
             } else{
                 mSearchMapsPresenter.enterSearch();
             }
@@ -329,6 +339,17 @@ public class MapsFragment extends Fragment implements View.OnClickListener, Draw
     @Override
     public void closeDrawer() {
         ((MapsMainActivity)getActivity()).closeLeftDrawer();
+    }
+
+    @Override
+    public boolean onKey(View v, int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_ENTER){
+            hideKeyboard(mSearchEditText);
+            mSearchMapsPresenter.searchPoi(getActivity().getApplicationContext(), mSearchEditText.getText().toString(), "");
+            return true;
+        }
+
+        return false;
     }
 
     class SearchViewHelper {
@@ -376,6 +397,16 @@ public class MapsFragment extends Fragment implements View.OnClickListener, Draw
             searchEditText.setText("");
             hideKeyboard(searchEditText);
         }
+
+        public void showSearchResult(){
+            isInSearch = true;
+            listView.setVisibility(View.GONE);
+            compassView.setVisibility(View.GONE);
+            myLocationView.setVisibility(View.GONE);
+            searchMaskView.setVisibility(View.GONE);
+            drawerSwitch.setImageResource(R.drawable.ic_qu_appbar_back);
+            searchEditText.setCursorVisible(true);
+        }
     }
 
     private void hideKeyboard(View view){
@@ -387,6 +418,7 @@ public class MapsFragment extends Fragment implements View.OnClickListener, Draw
         InputMethodManager manager = (InputMethodManager) getActivity().getApplicationContext().getSystemService(Context.INPUT_METHOD_SERVICE);
         manager.showSoftInput(view, InputMethodManager.SHOW_FORCED);
     }
+
 
     @Override
     public void enterSearch() {
@@ -401,7 +433,7 @@ public class MapsFragment extends Fragment implements View.OnClickListener, Draw
 
     @Override
     public void showSearchResult(List<PoiItem> poiItems) {
-        mSearchMapsPresenter.exitSearch();
+        mSearchViewHelper.showSearchResult();
         aMap.clear();// 清理之前的图标
         PoiOverlay poiOverlay = new PoiOverlay(aMap, poiItems);
         poiOverlay.removeFromMap();
