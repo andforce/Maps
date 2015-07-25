@@ -360,8 +360,8 @@ public class MapsFragment extends Fragment implements View.OnClickListener, Draw
         public void exitSearch(){
             isInSearch = false;
             listView.setVisibility(View.GONE);
-            compassView.setVisibility(View.GONE);
-            myLocationView.setVisibility(View.GONE);
+            compassView.setVisibility(View.VISIBLE);
+            myLocationView.setVisibility(View.VISIBLE);
             searchMaskView.setVisibility(View.GONE);
             drawerSwitch.setImageResource(R.drawable.ic_qu_menu_grabber);
             searchEditText.setCursorVisible(false);
