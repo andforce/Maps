@@ -20,6 +20,7 @@ import android.widget.AdapterView;
 import android.widget.AutoCompleteTextView;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.amap.api.maps.AMap;
 import com.amap.api.maps.MapView;
@@ -187,11 +188,11 @@ public class MapsFragment extends Fragment implements View.OnClickListener, Draw
 
         mListView = (ListView) view.findViewById(R.id.search_result_list_view);
         mListView.setAdapter(mPoiSearchAdapter);
-
+        mListView.requestFocus();
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
+                Toast.makeText(getActivity().getApplicationContext(), "", Toast.LENGTH_LONG).show();
             }
         });
         

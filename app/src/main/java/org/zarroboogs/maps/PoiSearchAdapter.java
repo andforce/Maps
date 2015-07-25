@@ -9,6 +9,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.amap.api.services.help.Tip;
 
@@ -67,7 +68,19 @@ public class PoiSearchAdapter extends BaseAdapter {
         }
         holder.searchTitle.setText(mTips.get(i).getName());
         holder.searchSummary.setText(mTips.get(i).getDistrict());
+        holder.searchLocation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(v.getContext(),"Location", Toast.LENGTH_SHORT).show();
+            }
+        });
 
+        holder.searchNavi.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(v.getContext(),"Navi", Toast.LENGTH_SHORT).show();
+            }
+        });
         return convertView;
     }
 
