@@ -9,7 +9,6 @@ import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.text.TextUtils;
@@ -23,6 +22,7 @@ import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.AutoCompleteTextView;
+import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
@@ -38,7 +38,6 @@ import com.amap.api.services.core.PoiItem;
 import com.amap.api.services.help.Inputtips;
 import com.amap.api.services.help.Tip;
 
-import org.zarroboogs.maps.navi.NaviCustomActivity;
 import org.zarroboogs.maps.navi.NaviEmulatorActivity;
 import org.zarroboogs.maps.navi.NaviRouteActivity;
 import org.zarroboogs.maps.poi.PoiKeywordSearchActivity;
@@ -99,7 +98,6 @@ public class MapsFragment extends Fragment implements View.OnClickListener, Draw
     private TextView mSearchPoiSummary;
     private TextView mSearchPoiTel;
     private ImageButton mLineBtn;
-    private ImageButton mNaviBtn;
 
 
 
@@ -234,7 +232,6 @@ public class MapsFragment extends Fragment implements View.OnClickListener, Draw
         mSearchPoiTitle = (TextView) view.findViewById(R.id.search_result_title);
         mSearchPoiSummary = (TextView) view.findViewById(R.id.search_poi_summary);
         mLineBtn = (ImageButton) view.findViewById(R.id.maps_drive_line_btn);
-        mNaviBtn = (ImageButton) view.findViewById(R.id.maps_navi_btn);
         mSearchPoiTel = (TextView) view.findViewById(R.id.search_poi_tel);
     }
 
@@ -568,13 +565,13 @@ public class MapsFragment extends Fragment implements View.OnClickListener, Draw
                 getActivity().startActivity(intent);
             }
         });
-        mNaviBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), NaviEmulatorActivity.class);
-                getActivity().startActivity(intent);
-            }
-        });
+//        mNaviBtn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(getActivity(), NaviEmulatorActivity.class);
+//                getActivity().startActivity(intent);
+//            }
+//        });
     }
 
     // DrawerLayout state
