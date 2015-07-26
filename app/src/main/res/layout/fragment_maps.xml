@@ -104,7 +104,6 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
                 android:id="@+id/search_float_content"
                 android:layout_alignParentBottom="true"
                 android:background="@drawable/new_card">
@@ -140,6 +139,7 @@
                     android:layout_below="@+id/search_poi_summary"
                     android:layout_centerHorizontal="true"
                     android:layout_marginLeft="15dp"
+                    android:layout_marginBottom="15dp"
                     android:layout_marginRight="15dp"
                     android:layout_marginTop="10dp" />
 
