@@ -84,36 +84,39 @@
                     android:layout_gravity="center_horizontal"
                     android:paddingBottom="@dimen/margin_bottom"
                     android:paddingLeft="10dp"
-                    android:paddingTop="@dimen/margin_top"
+                    android:paddingTop="15dp"
                     android:text="@string/routeinfo_1"
                     android:textColor="@android:color/black"
                     android:textSize="@dimen/route_text_size" />
 
                 <TextView
+                    android:paddingTop="15dp"
                     android:id="@+id/navi_route_distance"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:paddingBottom="@dimen/margin_bottom"
                     android:layout_toRightOf="@id/navi_route_distance_before"
-                    android:paddingTop="@dimen/margin_top"
+                    android:layout_alignTop="@id/navi_route_distance_before"
                     android:text="@string/routeinfo_default"
                     android:textColor="@android:color/holo_red_dark"
-                    android:textSize="@dimen/route_text_size" />
+                    android:textSize="@dimen/route_text_size"
+                    tools:ignore="RtlHardcoded" />
 
                 <TextView
+                    android:paddingTop="15dp"
                     android:id="@+id/navi_route_time_before"
                     android:layout_toRightOf="@id/navi_route_distance"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:paddingBottom="@dimen/margin_bottom"
-                    android:paddingTop="@dimen/margin_top"
                     android:text="@string/routeinfo_2"
                     android:textColor="@android:color/black"
                     android:textSize="@dimen/route_text_size" />
 
                 <TextView
+                    android:paddingTop="15dp"
                     android:layout_toRightOf="@id/navi_route_time_before"
                     android:id="@+id/navi_route_time"
                     android:layout_width="wrap_content"
@@ -121,19 +124,18 @@
                     android:layout_gravity="center_horizontal"
                     android:paddingBottom="@dimen/margin_bottom"
                     android:paddingLeft="@dimen/margin_left"
-                    android:paddingTop="@dimen/margin_top"
                     android:text="@string/routeinfo_default"
                     android:textColor="@android:color/holo_red_dark"
                     android:textSize="@dimen/route_text_size" />
 
                 <TextView
+                    android:paddingTop="15dp"
                     android:layout_toRightOf="@id/navi_route_time"
                     android:id="@+id/navi_time"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:paddingBottom="@dimen/margin_bottom"
-                    android:paddingTop="@dimen/margin_top"
                     android:text="分钟"
                     android:textColor="@android:color/black"
                     android:textSize="@dimen/route_text_size" />
@@ -149,6 +151,7 @@
                     android:paddingBottom="@dimen/margin_bottom"
                     android:paddingTop="@dimen/margin_top"
                     android:text="收费"
+                    android:layout_marginBottom="10dp"
                     android:textColor="@android:color/black"
                     android:textSize="@dimen/route_text_size" />
 
