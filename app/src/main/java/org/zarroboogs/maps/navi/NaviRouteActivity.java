@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.text.InputType;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -18,18 +19,26 @@ import com.amap.api.maps.AMap;
 import com.amap.api.maps.AMap.OnMapLoadedListener;
 import com.amap.api.maps.MapView;
 import com.amap.api.navi.AMapNavi;
+import com.amap.api.navi.AMapNaviListener;
 import com.amap.api.navi.AMapNaviViewOptions;
+import com.amap.api.navi.model.AMapNaviInfo;
+import com.amap.api.navi.model.AMapNaviLocation;
 import com.amap.api.navi.model.AMapNaviPath;
+import com.amap.api.navi.model.NaviInfo;
+import com.amap.api.navi.model.NaviLatLng;
 import com.amap.api.navi.view.RouteOverLay;
 import org.zarroboogs.maps.MapsMainActivity;
 import org.zarroboogs.maps.R;
+import org.zarroboogs.maps.utils.ToastUtil;
 import org.zarroboogs.maps.utils.Utils;
+
+import java.util.List;
 
 /**
  * 路径规划结果展示界面
  */
 public class NaviRouteActivity extends Activity implements OnClickListener,
-		OnMapLoadedListener {
+		OnMapLoadedListener , AMapNaviListener{
 
 	// View
 	private Button mStartNaviButton;// 实时导航按钮
@@ -49,11 +58,33 @@ public class NaviRouteActivity extends Activity implements OnClickListener,
 
 	private boolean mIsMapLoaded = false;
 
+	private List<NaviLatLng> mEndNavi;
+	private List<NaviLatLng> mStartNavi;
+
+	public static final String NAVI_ENDS = "navi_ends";
+	public static final String NAVI_START = "navi_start";
+
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_route);
+
+		mEndNavi = getIntent().getParcelableArrayListExtra(NAVI_ENDS);
+		mStartNavi = getIntent().getParcelableArrayListExtra(NAVI_START);
+
+		Log.d("NaviRouteActivity ", "onCreate- " + mEndNavi.get(0).getLatitude());
+
 		initResources();
 		initView(savedInstanceState);
+
+
+		mAmapNavi = AMapNavi.getInstance(this);
+		mAmapNavi.setAMapNaviListener(this);
+		boolean startGps = mAmapNavi.startGPS();
+		Log.d("NaviRouteActivity ", "onCreate- startGps- " + startGps);
+
+		boolean iscalDrive = mAmapNavi.calculateDriveRoute(mStartNavi, mEndNavi, null, AMapNavi.DrivingDefault);
+
+		Log.d("NaviRouteActivity ", "onCreate- calculateDriveRoute- " + iscalDrive);
 	}
 
 	// -----------------------初始化----------------------------------
@@ -104,7 +135,6 @@ public class NaviRouteActivity extends Activity implements OnClickListener,
 	 */
 	private void initNavi() {
 		
-		mAmapNavi = AMapNavi.getInstance(this);
 		AMapNaviPath naviPath = mAmapNavi.getNaviPath();
 		if (naviPath == null) {
 			return;
@@ -205,7 +235,6 @@ public class NaviRouteActivity extends Activity implements OnClickListener,
 	public void onResume() {
 		super.onResume();
 		mMapView.onResume();
-		initNavi();
 	}
 
 	@Override
@@ -229,4 +258,84 @@ public class NaviRouteActivity extends Activity implements OnClickListener,
 		}
 	}
 
+	@Override
+	public void onInitNaviFailure() {
+
+	}
+
+	@Override
+	public void onInitNaviSuccess() {
+
+	}
+
+	@Override
+	public void onStartNavi(int i) {
+
+	}
+
+	@Override
+	public void onTrafficStatusUpdate() {
+
+	}
+
+	@Override
+	public void onLocationChange(AMapNaviLocation aMapNaviLocation) {
+
+	}
+
+	@Override
+	public void onGetNavigationText(int i, String s) {
+
+	}
+
+	@Override
+	public void onEndEmulatorNavi() {
+
+	}
+
+	@Override
+	public void onArriveDestination() {
+
+	}
+
+	@Override
+	public void onCalculateRouteSuccess() {
+		initNavi();
+		ToastUtil.show(getApplicationContext(), "规划成功");
+	}
+
+	@Override
+	public void onCalculateRouteFailure(int i) {
+		ToastUtil.show(getApplicationContext(), "规划失败");
+	}
+
+	@Override
+	public void onReCalculateRouteForYaw() {
+
+	}
+
+	@Override
+	public void onReCalculateRouteForTrafficJam() {
+
+	}
+
+	@Override
+	public void onArrivedWayPoint(int i) {
+
+	}
+
+	@Override
+	public void onGpsOpenStatus(boolean b) {
+
+	}
+
+	@Override
+	public void onNaviInfoUpdated(AMapNaviInfo aMapNaviInfo) {
+
+	}
+
+	@Override
+	public void onNaviInfoUpdate(NaviInfo naviInfo) {
+
+	}
 }

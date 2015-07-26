@@ -81,6 +81,10 @@ public class MapsModule implements IGaoDeMapsView, AMap.OnMapLoadedListener, AMa
 
     }
 
+    public AMapLocation getMyLocation(){
+        return mLocation;
+    }
+
     @Override
     public void changeMyLocationMode(final int mode) {
 

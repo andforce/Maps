@@ -9,6 +9,7 @@ import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.text.TextUtils;
@@ -30,6 +31,8 @@ import android.widget.TextView;
 import com.amap.api.maps.AMap;
 import com.amap.api.maps.MapView;
 import com.amap.api.maps.overlay.PoiOverlay;
+import com.amap.api.navi.AMapNavi;
+import com.amap.api.navi.model.NaviLatLng;
 import com.amap.api.services.core.AMapException;
 import com.amap.api.services.core.PoiItem;
 import com.amap.api.services.help.Inputtips;
@@ -98,6 +101,9 @@ public class MapsFragment extends Fragment implements View.OnClickListener, Draw
     private ImageButton mLineBtn;
     private ImageButton mNaviBtn;
 
+
+
+    private PoiItem mPoiItem;
     /**
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
@@ -482,6 +488,8 @@ public class MapsFragment extends Fragment implements View.OnClickListener, Draw
 
 
             mSearchMapsPresenter.showPoiFloatWindow(poiItems.get(0));
+
+            mPoiItem = poiItems.get(0);
         }
 
     }
@@ -545,7 +553,18 @@ public class MapsFragment extends Fragment implements View.OnClickListener, Draw
         mLineBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                AMapNavi aMapNavi = AMapNavi.getInstance(getActivity().getApplicationContext());
+                ArrayList<NaviLatLng> start = new ArrayList<>();
+                start.add(new NaviLatLng(mMapsModule.getMyLocation().getLatitude(), mMapsModule.getMyLocation().getLongitude()));
+
+                ArrayList<NaviLatLng> end = new ArrayList<>();
+                end.add(new NaviLatLng(mPoiItem.getLatLonPoint().getLatitude(), mPoiItem.getLatLonPoint().getLongitude()));
+
+                aMapNavi.calculateDriveRoute(end, null, AMapNavi.DrivingDefault);
+
                 Intent intent = new Intent(getActivity(), NaviRouteActivity.class);
+                intent.putParcelableArrayListExtra(NaviRouteActivity.NAVI_ENDS, end);
+                intent.putParcelableArrayListExtra(NaviRouteActivity.NAVI_START, start);
                 getActivity().startActivity(intent);
             }
         });
