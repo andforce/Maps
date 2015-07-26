@@ -7,6 +7,7 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -38,7 +39,7 @@ public class NaviRouteActivity extends BaseActivity implements OnClickListener,
 		OnMapLoadedListener , AMapNaviListener{
 
 	// View
-	private Button mStartNaviButton;// 实时导航按钮
+	private ImageButton mStartNaviButton;// 实时导航按钮
 	private MapView mMapView;// 地图控件
 	private ImageView mRouteBackView;// 返回按钮
 	private TextView mRouteDistanceView;// 距离显示控件
@@ -85,7 +86,7 @@ public class NaviRouteActivity extends BaseActivity implements OnClickListener,
 	 * 初始化控件
 	 */
 	private void initView(Bundle savedInstanceState) {
-		mStartNaviButton = (Button) findViewById(R.id.routestartnavi);
+		mStartNaviButton = (ImageButton) findViewById(R.id.routestartnavi);
 
 		mRouteBackView = (ImageView) findViewById(R.id.route_back_view);
 

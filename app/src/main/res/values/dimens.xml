@@ -25,5 +25,5 @@
     <dimen name="setting_margin_top">10dp</dimen>
     <dimen name="setting_margin_bottom">10dp</dimen>
 
-    <dimen name="route_text_size">20sp</dimen>
+    <dimen name="route_text_size">18sp</dimen>
 </resources>

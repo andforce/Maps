@@ -1,144 +1,201 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
-    android:background="@color/grey"
-    android:orientation="vertical" >
+    android:layout_height="match_parent">
 
-    <LinearLayout
+    <com.amap.api.maps.MapView
+        android:id="@+id/routemap"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/border" >
+        android:layout_height="match_parent" />
 
-        <ImageView
-            android:id="@+id/route_back_view"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/margin_bottom"
-            android:layout_marginTop="@dimen/margin_top"
-            android:src="@drawable/back_top" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/margin_bottom"
-            android:layout_marginTop="@dimen/margin_top"
-            android:layout_weight="1"
-            android:gravity="center_horizontal"
-            android:text="@string/routeshow"
-            android:textColor="@android:color/black"
-            android:textSize="@dimen/titletext_size" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:background="@drawable/border" >
-
-        <com.amap.api.maps.MapView
-            android:id="@+id/routemap"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:paddingBottom="@dimen/margin_bottom"
-            android:paddingLeft="@dimen/margin_left"
-            android:paddingTop="@dimen/margin_top"
-            android:text="@string/routeinfo_1"
-            android:textColor="@android:color/black"
-            android:textSize="@dimen/route_text_size" />
-
-        <TextView
-            android:id="@+id/navi_route_distance"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:paddingBottom="@dimen/margin_bottom"
-            android:paddingLeft="@dimen/margin_left"
-            android:paddingTop="@dimen/margin_top"
-            android:text="@string/routeinfo_default"
-            android:textColor="@android:color/holo_red_dark"
-            android:textSize="@dimen/route_text_size" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:paddingBottom="@dimen/margin_bottom"
-            android:paddingTop="@dimen/margin_top"
-            android:text="@string/routeinfo_2"
-            android:textColor="@android:color/black"
-            android:textSize="@dimen/route_text_size" />
-
-        <TextView
-            android:id="@+id/navi_route_time"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:paddingBottom="@dimen/margin_bottom"
-            android:paddingLeft="@dimen/margin_left"
-            android:paddingTop="@dimen/margin_top"
-            android:text="@string/routeinfo_default"
-            android:textColor="@android:color/holo_red_dark"
-            android:textSize="@dimen/route_text_size" />
-
-        <TextView
-            android:id="@+id/navi_route_cost_before"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:paddingBottom="@dimen/margin_bottom"
-            android:paddingTop="@dimen/margin_top"
-            android:text="@string/routeinfo_3"
-            android:textColor="@android:color/black"
-            android:textSize="@dimen/route_text_size" />
-
-        <TextView
-            android:id="@+id/navi_route_cost"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:paddingBottom="@dimen/margin_bottom"
-            android:paddingLeft="@dimen/margin_left"
-            android:paddingTop="@dimen/margin_top"
-            android:text="@string/routeinfo_default"
-            android:textColor="@android:color/holo_red_dark"
-            android:singleLine="true"
-            android:textSize="@dimen/route_text_size" />
-
-        <TextView
-            android:id="@+id/navi_route_cost_after"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:paddingBottom="@dimen/margin_bottom"
-            android:paddingTop="@dimen/margin_top"
-            android:text="@string/routeinfo_4"
-            android:textColor="@android:color/black"
-            android:textSize="@dimen/route_text_size" />
-    </LinearLayout>
 
     <RelativeLayout
+        android:id="@+id/top_action"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true">
 
-        <Button
-            android:id="@+id/routestartnavi"
-            android:layout_width="wrap_content"
-            android:layout_height="@dimen/naviroute_navi_height"
-            android:layout_alignParentRight="true"
-            android:text="@string/start_navi_navi" />
+
+        <RelativeLayout
+            android:id="@+id/search_maps_bar"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/new_card">
+
+            <ImageButton
+                android:id="@+id/route_back_view"
+                android:layout_width="50dp"
+                android:layout_height="match_parent"
+                android:layout_centerVertical="true"
+                android:layout_margin="2dp"
+                android:background="@drawable/button_background_selector"
+                android:src="@drawable/ic_qu_menu_grabber" />
+
+
+            <ImageButton
+                android:id="@+id/cancel_search"
+                android:layout_width="50dp"
+                android:layout_height="match_parent"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_margin="2dp"
+                android:background="@drawable/button_background_selector"
+                android:src="@drawable/ic_qu_search" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="@string/routeshow"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/titletext_size" />
+
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:visibility="visible">
+
+
+            <RelativeLayout
+
+                android:layout_alignParentBottom="true"
+                android:id="@+id/navi_cast_root_rl"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/new_card">
+
+
+                <TextView
+                    android:id="@+id/navi_route_distance_before"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:paddingBottom="@dimen/margin_bottom"
+                    android:paddingLeft="10dp"
+                    android:paddingTop="@dimen/margin_top"
+                    android:text="@string/routeinfo_1"
+                    android:textColor="@android:color/black"
+                    android:textSize="@dimen/route_text_size" />
+
+                <TextView
+                    android:id="@+id/navi_route_distance"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:paddingBottom="@dimen/margin_bottom"
+                    android:layout_toRightOf="@id/navi_route_distance_before"
+                    android:paddingTop="@dimen/margin_top"
+                    android:text="@string/routeinfo_default"
+                    android:textColor="@android:color/holo_red_dark"
+                    android:textSize="@dimen/route_text_size" />
+
+                <TextView
+                    android:id="@+id/navi_route_time_before"
+                    android:layout_toRightOf="@id/navi_route_distance"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:paddingBottom="@dimen/margin_bottom"
+                    android:paddingTop="@dimen/margin_top"
+                    android:text="@string/routeinfo_2"
+                    android:textColor="@android:color/black"
+                    android:textSize="@dimen/route_text_size" />
+
+                <TextView
+                    android:layout_toRightOf="@id/navi_route_time_before"
+                    android:id="@+id/navi_route_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:paddingBottom="@dimen/margin_bottom"
+                    android:paddingLeft="@dimen/margin_left"
+                    android:paddingTop="@dimen/margin_top"
+                    android:text="@string/routeinfo_default"
+                    android:textColor="@android:color/holo_red_dark"
+                    android:textSize="@dimen/route_text_size" />
+
+                <TextView
+                    android:layout_toRightOf="@id/navi_route_time"
+                    android:id="@+id/navi_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:paddingBottom="@dimen/margin_bottom"
+                    android:paddingTop="@dimen/margin_top"
+                    android:text="分钟"
+                    android:textColor="@android:color/black"
+                    android:textSize="@dimen/route_text_size" />
+
+
+                <TextView
+                    android:layout_below="@id/navi_route_distance_before"
+                    android:id="@+id/navi_route_cost_before"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginLeft="10dp"
+                    android:paddingBottom="@dimen/margin_bottom"
+                    android:paddingTop="@dimen/margin_top"
+                    android:text="收费"
+                    android:textColor="@android:color/black"
+                    android:textSize="@dimen/route_text_size" />
+
+                <TextView
+                    android:layout_toRightOf="@id/navi_route_cost_before"
+                    android:layout_alignTop="@id/navi_route_cost_before"
+                    android:id="@+id/navi_route_cost"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:paddingBottom="@dimen/margin_bottom"
+                    android:paddingTop="@dimen/margin_top"
+                    android:singleLine="true"
+                    android:text="@string/routeinfo_default"
+                    android:textColor="@android:color/holo_red_dark"
+                    android:textSize="@dimen/route_text_size" />
+
+                <TextView
+                    android:layout_toRightOf="@id/navi_route_cost"
+                    android:layout_alignTop="@id/navi_route_cost"
+                    android:id="@+id/navi_route_cost_after"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:paddingBottom="@dimen/margin_bottom"
+                    android:paddingTop="@dimen/margin_top"
+                    android:text="@string/routeinfo_4"
+                    android:textColor="@android:color/black"
+                    android:textSize="@dimen/route_text_size" />
+            </RelativeLayout>
+
+
+            <ImageButton
+                android:id="@+id/routestartnavi"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_alignTop="@+id/navi_cast_root_rl"
+                android:layout_marginTop="-25dp"
+                android:background="@drawable/circle_button_with_shadow"
+                android:src="@drawable/ic_qu_map"
+                tools:ignore="RtlHardcoded" />
+
+        </RelativeLayout>
+
 
     </RelativeLayout>
 
-</LinearLayout>
+
+</FrameLayout>
