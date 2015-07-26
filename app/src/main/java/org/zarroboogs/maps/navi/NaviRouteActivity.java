@@ -1,16 +1,11 @@
 package org.zarroboogs.maps.navi;
 
-import android.app.Activity;
 import android.content.Intent;
-import android.content.res.Resources;
 import android.os.Bundle;
-import android.text.InputType;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -27,6 +22,8 @@ import com.amap.api.navi.model.AMapNaviPath;
 import com.amap.api.navi.model.NaviInfo;
 import com.amap.api.navi.model.NaviLatLng;
 import com.amap.api.navi.view.RouteOverLay;
+
+import org.zarroboogs.maps.BaseActivity;
 import org.zarroboogs.maps.MapsMainActivity;
 import org.zarroboogs.maps.R;
 import org.zarroboogs.maps.utils.ToastUtil;
@@ -37,14 +34,12 @@ import java.util.List;
 /**
  * 路径规划结果展示界面
  */
-public class NaviRouteActivity extends Activity implements OnClickListener,
+public class NaviRouteActivity extends BaseActivity implements OnClickListener,
 		OnMapLoadedListener , AMapNaviListener{
 
 	// View
 	private Button mStartNaviButton;// 实时导航按钮
 	private MapView mMapView;// 地图控件
-	private AutoCompleteTextView mThemeText;// 选择导航界面的风格
-	private ImageView mThemeImage;// 选择按钮
 	private ImageView mRouteBackView;// 返回按钮
 	private TextView mRouteDistanceView;// 距离显示控件
 	private TextView mRouteTimeView;// 时间显示控件
@@ -53,8 +48,6 @@ public class NaviRouteActivity extends Activity implements OnClickListener,
 	private AMap mAmap;
 	private AMapNavi mAmapNavi;
 	private RouteOverLay mRouteOverLay;
-	// 主题数组
-	private String mTheme[];
 
 	private boolean mIsMapLoaded = false;
 
@@ -73,7 +66,6 @@ public class NaviRouteActivity extends Activity implements OnClickListener,
 
 		Log.d("NaviRouteActivity ", "onCreate- " + mEndNavi.get(0).getLatitude());
 
-		initResources();
 		initView(savedInstanceState);
 
 
@@ -90,16 +82,6 @@ public class NaviRouteActivity extends Activity implements OnClickListener,
 	// -----------------------初始化----------------------------------
 
 	/**
-	 * 初始化资源
-	 */
-	private void initResources() {
-		Resources res = getResources();
-		mTheme = new String[] { res.getString(R.string.theme_blue),
-				res.getString(R.string.theme_pink),
-				res.getString(R.string.theme_white) };
-	}
-
-	/**
 	 * 初始化控件
 	 */
 	private void initView(Bundle savedInstanceState) {
@@ -107,15 +89,7 @@ public class NaviRouteActivity extends Activity implements OnClickListener,
 
 		mRouteBackView = (ImageView) findViewById(R.id.route_back_view);
 
-		mThemeText = (AutoCompleteTextView) findViewById(R.id.navi_theme_text);
-		mThemeText.setInputType(InputType.TYPE_NULL);
-		ArrayAdapter<String> themeAdapter = new ArrayAdapter<String>(this,
-				R.layout.strategy_inputs, mTheme);
-		mThemeText.setAdapter(themeAdapter);
 
-		mThemeText.setDropDownBackgroundResource(R.drawable.whitedownborder);
-
-		mThemeImage = (ImageView) findViewById(R.id.navi_theme_image);
 		mRouteDistanceView = (TextView) findViewById(R.id.navi_route_distance);
 		mRouteTimeView = (TextView) findViewById(R.id.navi_route_time);
 		mRouteCostView = (TextView) findViewById(R.id.navi_route_cost);
@@ -123,8 +97,6 @@ public class NaviRouteActivity extends Activity implements OnClickListener,
 		mMapView.onCreate(savedInstanceState);
 		mAmap = mMapView.getMap();
 		mAmap.setOnMapLoadedListener(this);
-		mThemeImage.setOnClickListener(this);
-		mThemeText.setOnClickListener(this);
 		mStartNaviButton.setOnClickListener(this);
 		mRouteBackView.setOnClickListener(this);
 		mRouteOverLay = new RouteOverLay(mAmap, null);
@@ -156,22 +128,8 @@ public class NaviRouteActivity extends Activity implements OnClickListener,
 		mRouteCostView.setText(String.valueOf(cost));
 	}
 
-	/**
-	 * 获取导航界面主题样式
-	 * 
-	 * @param themeColor
-	 * @return
-	 */
-	private int getThemeStyle(String themeColor) {
-		int theme = AMapNaviViewOptions.BLUE_COLOR_TOPIC;
-		if (mTheme[0].equals(themeColor)) {
-			theme = AMapNaviViewOptions.BLUE_COLOR_TOPIC;
-		} else if (mTheme[1].equals(themeColor)) {
-			theme = AMapNaviViewOptions.PINK_COLOR_TOPIC;
-		} else if (mTheme[2].equals(themeColor)) {
-			theme = AMapNaviViewOptions.WHITE_COLOR_TOPIC;
-		}
-		return theme;
+	private int getThemeStyle() {
+		 return AMapNaviViewOptions.BLUE_COLOR_TOPIC;
 	}
 
 	// ------------------------------事件处理-----------------------------
@@ -181,8 +139,7 @@ public class NaviRouteActivity extends Activity implements OnClickListener,
 		// 实时导航操作
 		case R.id.routestartnavi:
 			Bundle bundle = new Bundle();
-			bundle.putInt(Utils.THEME, getThemeStyle(mThemeText.getText()
-					.toString()));
+			bundle.putInt(Utils.THEME, getThemeStyle());
 			Intent routeIntent = new Intent(NaviRouteActivity.this,
 					NaviCustomActivity.class);
 			routeIntent.putExtras(bundle);
@@ -195,11 +152,6 @@ public class NaviRouteActivity extends Activity implements OnClickListener,
 			startIntent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
 			startActivity(startIntent);
 			finish();
-			break;
-		// 主题选择
-		case R.id.navi_theme_image:
-		case R.id.navi_theme_text:
-			mThemeText.showDropDown();
 			break;
 		}
 

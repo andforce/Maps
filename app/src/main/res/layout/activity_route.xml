@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
     android:background="@color/grey"
     android:orientation="vertical" >
 
@@ -138,25 +139,6 @@
             android:layout_alignParentRight="true"
             android:text="@string/start_navi_navi" />
 
-        <AutoCompleteTextView
-            android:id="@+id/navi_theme_text"
-            android:layout_width="wrap_content"
-            android:layout_height="@dimen/naviroute_navi_height"
-            android:layout_alignParentLeft="true"
-            android:layout_toLeftOf="@id/routestartnavi"
-            android:focusable="false"
-            android:hint="@string/theme_blue" >
-        </AutoCompleteTextView>
-
-        <ImageView
-            android:id="@+id/navi_theme_image"
-            android:layout_width="wrap_content"
-            android:layout_height="@dimen/naviroute_navi_height"
-            android:layout_alignBottom="@+id/navi_theme_text"
-            android:layout_alignRight="@+id/navi_theme_text"
-            android:layout_alignTop="@id/navi_theme_text"
-            android:layout_marginRight="@dimen/margin_right"
-            android:src="@drawable/ic_qu_map" />
     </RelativeLayout>
 
 </LinearLayout>
