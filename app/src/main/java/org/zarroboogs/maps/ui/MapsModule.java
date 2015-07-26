@@ -84,6 +84,10 @@ public class MapsModule implements IGaoDeMapsView, AMap.OnMapLoadedListener, AMa
     @Override
     public void changeMyLocationMode(final int mode) {
 
+        if (mLocation == null){
+            return;
+        }
+
         if (mode == AMap.LOCATION_TYPE_MAP_FOLLOW) {
             CameraPosition cameraPosition = new CameraPosition(new LatLng(mLocation.getLatitude(),mLocation.getLongitude() ),18,0,0);
             mGaodeMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition), new AMap.CancelableCallback() {

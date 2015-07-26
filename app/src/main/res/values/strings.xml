@@ -183,4 +183,6 @@
     <string name="theme_pink">可爱粉</string>
     <string name="theme_white">简约白</string>
 
+    <string name="no_poi_search">没有搜索结果</string>
+
 </resources>

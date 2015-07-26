@@ -42,6 +42,7 @@ import org.zarroboogs.maps.poi.PoiKeywordSearchActivity;
 import org.zarroboogs.maps.ui.ISearchMapsView;
 import org.zarroboogs.maps.ui.MapsModule;
 import org.zarroboogs.maps.ui.SearchMapsPresenter;
+import org.zarroboogs.maps.utils.ToastUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -463,20 +464,26 @@ public class MapsFragment extends Fragment implements View.OnClickListener, Draw
 
     @Override
     public void showSearchResult(List<PoiItem> poiItems) {
-        mSearchViewHelper.showSuggestTips();
-        if (mPoiOverlay != null) {
-            mPoiOverlay.removeFromMap();
-            mPoiOverlay = null;
+
+        if (poiItems == null || poiItems.isEmpty()){
+            ToastUtil.show(getActivity().getApplicationContext(), R.string.no_poi_search);
+        } else {
+            mSearchViewHelper.showSuggestTips();
+            if (mPoiOverlay != null) {
+                mPoiOverlay.removeFromMap();
+                mPoiOverlay = null;
+            }
+
+            PoiOverlay poiOverlay = new PoiOverlay(aMap, poiItems);
+            poiOverlay.addToMap();
+            poiOverlay.zoomToSpan();
+
+            mPoiOverlay = poiOverlay;
+
+
+            mSearchMapsPresenter.showPoiFloatWindow(poiItems.get(0));
         }
 
-        PoiOverlay poiOverlay = new PoiOverlay(aMap, poiItems);
-        poiOverlay.addToMap();
-        poiOverlay.zoomToSpan();
-
-        mPoiOverlay = poiOverlay;
-
-
-        mSearchMapsPresenter.showPoiFloatWindow(poiItems.get(0));
     }
 
     @Override
