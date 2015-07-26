@@ -34,7 +34,7 @@
                 android:layout_centerVertical="true"
                 android:layout_margin="2dp"
                 android:background="@drawable/button_background_selector"
-                android:src="@drawable/ic_qu_menu_grabber" />
+                android:src="@drawable/ic_qu_appbar_back" />
 
 
             <ImageButton
@@ -45,7 +45,7 @@
                 android:layout_centerVertical="true"
                 android:layout_margin="2dp"
                 android:background="@drawable/button_background_selector"
-                android:src="@drawable/ic_qu_search" />
+                android:src="@drawable/ic_qu_menu_grabber" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -53,7 +53,7 @@
                 android:layout_centerInParent="true"
                 android:text="@string/routeshow"
                 android:textColor="@android:color/black"
-                android:textSize="@dimen/titletext_size" />
+                android:textSize="20dp" />
 
         </RelativeLayout>
 
@@ -192,7 +192,7 @@
                 android:layout_alignTop="@+id/navi_cast_root_rl"
                 android:layout_marginTop="-25dp"
                 android:background="@drawable/circle_button_with_shadow"
-                android:src="@drawable/ic_qu_map"
+                android:src="@drawable/ic_qu_navigation"
                 tools:ignore="RtlHardcoded" />
 
         </RelativeLayout>
