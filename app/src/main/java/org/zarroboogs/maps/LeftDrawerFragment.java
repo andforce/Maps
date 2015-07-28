@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 
 /**
@@ -17,7 +18,7 @@ import android.view.ViewGroup;
  * Use the {@link LeftDrawerFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class LeftDrawerFragment extends Fragment {
+public class LeftDrawerFragment extends Fragment implements View.OnClickListener{
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -26,6 +27,8 @@ public class LeftDrawerFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+    private Button mOfflineBtn;
 
     private OnFragmentInteractionListener mListener;
 
@@ -67,6 +70,14 @@ public class LeftDrawerFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_left_drawer, container, false);
     }
 
+    @Override
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        mOfflineBtn = (Button) view.findViewById(R.id.leftDrawerOfflineBtn);
+
+        mOfflineBtn.setOnClickListener(this);
+    }
+
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
@@ -89,6 +100,14 @@ public class LeftDrawerFragment extends Fragment {
     public void onDetach() {
         super.onDetach();
         mListener = null;
+    }
+
+    @Override
+    public void onClick(View view) {
+        int id = view.getId();
+        if (id == R.id.leftDrawerOfflineBtn){
+
+        }
     }
 
     /**
