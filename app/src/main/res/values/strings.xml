@@ -162,6 +162,7 @@
     <string name="left_drawer_offline">离线地图</string>
 
     <string name="routeshow">线路展示</string>
+    <string name="off_line_maps_download">离线地图</string>
 
 
     <string name="routeinfo">全程   --公里/--分钟    收费 --元</string>

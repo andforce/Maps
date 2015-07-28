@@ -12,7 +12,7 @@
         android:fitsSystemWindows="true">
 
         <RelativeLayout
-            android:id="@+id/search_maps_bar"
+            android:id="@+id/off_line_bar"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_centerHorizontal="true"
@@ -22,7 +22,7 @@
             android:background="@drawable/new_card">
 
             <ImageButton
-                android:id="@+id/route_back_view"
+                android:id="@+id/offline_back"
                 android:layout_width="50dp"
                 android:layout_height="match_parent"
                 android:layout_centerVertical="true"
@@ -30,22 +30,11 @@
                 android:background="@drawable/button_background_selector"
                 android:src="@drawable/ic_qu_appbar_back" />
 
-
-            <ImageButton
-                android:id="@+id/cancel_search"
-                android:layout_width="50dp"
-                android:layout_height="match_parent"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:layout_margin="2dp"
-                android:background="@drawable/button_background_selector"
-                android:src="@drawable/ic_qu_menu_grabber" />
-
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
-                android:text="@string/routeshow"
+                android:text="@string/off_line_maps_download"
                 android:textColor="@android:color/black"
                 android:textSize="20dp" />
 
@@ -53,7 +42,7 @@
 
 
         <ExpandableListView
-            android:layout_below="@id/search_maps_bar"
+            android:layout_below="@id/off_line_bar"
             android:id="@+id/list"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
