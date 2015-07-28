@@ -44,6 +44,11 @@
         <!--24163234088d4f3eb8350898bf9c18ec-->
 
         <activity
+            android:name=".offlinemaps.OfflineMapActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize">
+        </activity>
+
+        <activity
             android:name=".poi.PoiKeywordSearchActivity"
             android:configChanges="orientation|keyboardHidden|screenSize">
 

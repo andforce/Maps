@@ -1,6 +1,7 @@
 package org.zarroboogs.maps;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -8,6 +9,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+
+import org.zarroboogs.maps.offlinemaps.OfflineMapActivity;
 
 
 /**
@@ -106,6 +109,8 @@ public class LeftDrawerFragment extends Fragment implements View.OnClickListener
     public void onClick(View view) {
         int id = view.getId();
         if (id == R.id.leftDrawerOfflineBtn){
+            Intent intent = new Intent(getActivity(), OfflineMapActivity.class);
+            getActivity().startActivity(intent);
 
         }
     }
