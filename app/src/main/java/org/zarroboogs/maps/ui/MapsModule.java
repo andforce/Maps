@@ -17,6 +17,7 @@ import com.amap.api.maps.AMapOptions;
 import com.amap.api.maps.CameraUpdateFactory;
 import com.amap.api.maps.LocationSource;
 import com.amap.api.maps.UiSettings;
+import com.amap.api.maps.model.BitmapDescriptorFactory;
 import com.amap.api.maps.model.CameraPosition;
 import com.amap.api.maps.model.LatLng;
 import com.amap.api.maps.model.Marker;
@@ -30,14 +31,14 @@ import java.util.ArrayList;
 /**
  * Created by andforce on 15/7/19.
  */
-public class MapsModule implements IGaoDeMapsView, AMap.OnMapLoadedListener, AMap.OnMapTouchListener, LocationSource, AMapLocationListener, View.OnClickListener {
+public class MapsModule implements IGaoDeMapsView, AMap.OnMapLoadedListener, AMap.OnMapTouchListener, AMapLocationListener, View.OnClickListener {
     private ArrayList<Marker> mMarkers = new ArrayList<>();
 
     private MapsPresenter mMapsPresenter;
     private UiSettings mUiSetting;
-    private OnLocationChangedListener mOnLocationChangeListener;
     private LocationManagerProxy mAMapLocationManager;
     private boolean mIsEnableMyLocation = true;
+    private boolean mIsFirstLocation = true;
     private AMapLocation mLocation;
     private AMap mGaodeMap;
     private MapsFragment mMapsFragment;
@@ -50,12 +51,13 @@ public class MapsModule implements IGaoDeMapsView, AMap.OnMapLoadedListener, AMa
         mGaodeMap.setOnMapLoadedListener(this);
         mGaodeMap.setOnMapTouchListener(this);
         // location
-        mGaodeMap.setLocationSource(this);
         mGaodeMap.setMyLocationEnabled(true);
 
         mMapsFragment.getMyLocationBtn().setOnClickListener(this);
 
         mUiSetting = mGaodeMap.getUiSettings();
+
+        activateLocation();
     }
 
     public void init() {
@@ -146,26 +148,22 @@ public class MapsModule implements IGaoDeMapsView, AMap.OnMapLoadedListener, AMa
 
 
     // Location start
-    @Override
-    public void activate(OnLocationChangedListener onLocationChangedListener) {
-        mOnLocationChangeListener = onLocationChangedListener;
+    public void activateLocation() {
         if (mAMapLocationManager == null) {
             mAMapLocationManager = LocationManagerProxy.getInstance(this.mMapsFragment.getActivity().getApplicationContext());
-            /*
+        }
+
+              /*
              * mAMapLocManager.setGpsEnable(false);
 			 * 1.0.2版本新增方法，设置true表示混合定位中包含gps定位，false表示纯网络定位，默认是true Location
 			 * API定位采用GPS和网络混合定位方式
 			 * ，第一个参数是定位provider，第二个参数时间最短是2000毫秒，第三个参数距离间隔单位是米，第四个参数是定位监听者
 			 */
-            mAMapLocationManager.requestLocationData(
-                    LocationProviderProxy.AMapNetwork, 2000, 10, this);
-        }
-
+        mAMapLocationManager.requestLocationData(
+                LocationProviderProxy.AMapNetwork, 2000, 10, this);
     }
 
-    @Override
     public void deactivate() {
-        mOnLocationChangeListener = null;
         if (mAMapLocationManager != null) {
             mAMapLocationManager.removeUpdates(this);
             mAMapLocationManager.destroy();
@@ -175,14 +173,20 @@ public class MapsModule implements IGaoDeMapsView, AMap.OnMapLoadedListener, AMa
 
     @Override
     public void onLocationChanged(AMapLocation aMapLocation) {
-        if (mOnLocationChangeListener != null && mOnLocationChangeListener != null) {
-            if ((mLocation == null || (mLocation.getLatitude() != aMapLocation.getLatitude() || mLocation.getLongitude() != aMapLocation.getLongitude()))) {
-                Log.d("MapsAction", "onLocationChanged");
-                if (mIsEnableMyLocation) {
-                    LatLng latLng = new LatLng(aMapLocation.getLatitude(), aMapLocation.getLongitude());
-                    mOnLocationChangeListener.onLocationChanged(aMapLocation);// 显示系统小蓝点
-                }
-                mLocation = aMapLocation;
+        if ((mLocation == null || (mLocation.getLatitude() != aMapLocation.getLatitude() || mLocation.getLongitude() != aMapLocation.getLongitude()))) {
+            Log.d("MapsAction", "onLocationChanged");
+            if (mIsEnableMyLocation) {
+                LatLng latLng = new LatLng(aMapLocation.getLatitude(), aMapLocation.getLongitude());
+                mGaodeMap.addMarker(new MarkerOptions().position(latLng).icon(
+                        BitmapDescriptorFactory
+                                .fromResource(R.drawable.ic_qu_explore_here_white)));
+
+            }
+            mLocation = aMapLocation;
+
+            if (mIsFirstLocation){
+                mMapsPresenter.changeMyLocationMode();
+                mIsFirstLocation = false;
             }
         }
     }
@@ -210,14 +214,17 @@ public class MapsModule implements IGaoDeMapsView, AMap.OnMapLoadedListener, AMa
     @Override
     public void onClick(View view) {
         if (view.getId() == R.id.my_location_btn) {
-            if (!mIsEnableMyLocation) {
-                mIsEnableMyLocation = true;
-                if (mOnLocationChangeListener != null && mLocation != null) {
-                    mOnLocationChangeListener.onLocationChanged(mLocation);// 显示系统小蓝点
-                }
-            } else {
-                mMapsPresenter.changeMyLocationMode();
-            }
+            mMapsPresenter.changeMyLocationMode();
+            mIsEnableMyLocation = true;
+
+//            if (!mIsEnableMyLocation) {
+//                mIsEnableMyLocation = true;
+////                if (mOnLocationChangeListener != null && mLocation != null) {
+////                    mOnLocationChangeListener.onLocationChanged(mLocation);// 显示系统小蓝点
+////                }
+//            } else {
+//                mMapsPresenter.changeMyLocationMode();
+//            }
         }
     }
     // Location end
