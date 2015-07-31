@@ -42,6 +42,7 @@ public class MapsModule implements IGaoDeMapsView, AMap.OnMapLoadedListener, AMa
     private AMapLocation mLocation;
     private AMap mGaodeMap;
     private MapsFragment mMapsFragment;
+    private MarkerOptions mMyLocationMarker;
 
 
     public MapsModule(MapsFragment fragment ,AMap map) {
@@ -97,8 +98,10 @@ public class MapsModule implements IGaoDeMapsView, AMap.OnMapLoadedListener, AMa
         }
 
         if (mode == AMap.LOCATION_TYPE_MAP_FOLLOW) {
-            CameraPosition cameraPosition = new CameraPosition(new LatLng(mLocation.getLatitude(),mLocation.getLongitude() ),18,0,0);
-            mGaodeMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition), new AMap.CancelableCallback() {
+            CameraPosition currentCP = mGaodeMap.getCameraPosition();
+            CameraPosition newCP= new CameraPosition(new LatLng(mLocation.getLatitude(), mLocation.getLongitude()),15, currentCP.tilt, mMapsFragment.getDevicesDirection());
+
+            mGaodeMap.animateCamera(CameraUpdateFactory.newCameraPosition(newCP), new AMap.CancelableCallback() {
                 @Override
                 public void onFinish() {
                     mGaodeMap.setMyLocationType(mode);
@@ -111,9 +114,22 @@ public class MapsModule implements IGaoDeMapsView, AMap.OnMapLoadedListener, AMa
             });
 
         } else if (mode == AMap.LOCATION_TYPE_MAP_ROTATE) {
+            CameraPosition newCP= new CameraPosition(new LatLng(mLocation.getLatitude(), mLocation.getLongitude()),15, 45, mMapsFragment.getDevicesDirection());
+            mGaodeMap.animateCamera(CameraUpdateFactory.newCameraPosition(newCP), new AMap.CancelableCallback() {
+                @Override
+                public void onFinish() {
+                    mGaodeMap.setMyLocationType(mode);
+                }
 
-            CameraPosition cameraPosition = new CameraPosition(new LatLng(mLocation.getLatitude(),mLocation.getLongitude() ),18,45,mMapsFragment.getDevicesDirection());
-            mGaodeMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition), new AMap.CancelableCallback() {
+                @Override
+                public void onCancel() {
+                    mGaodeMap.setMyLocationType(mode);
+                }
+            });
+        } else if (mode == AMap.LOCATION_TYPE_LOCATE){
+            CameraPosition currentCP = mGaodeMap.getCameraPosition();
+            CameraPosition newCP= new CameraPosition(new LatLng(mLocation.getLatitude(), mLocation.getLongitude()),15, currentCP.tilt, currentCP.bearing);
+            mGaodeMap.animateCamera(CameraUpdateFactory.newCameraPosition(newCP), new AMap.CancelableCallback() {
                 @Override
                 public void onFinish() {
                     mGaodeMap.setMyLocationType(mode);
@@ -143,6 +159,7 @@ public class MapsModule implements IGaoDeMapsView, AMap.OnMapLoadedListener, AMa
     public void onTouch(MotionEvent motionEvent) {
         if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
             mIsEnableMyLocation = false;
+            mMapsPresenter.stopFollowMode();
         }
     }
 
@@ -177,9 +194,12 @@ public class MapsModule implements IGaoDeMapsView, AMap.OnMapLoadedListener, AMa
             Log.d("MapsAction", "onLocationChanged");
             if (mIsEnableMyLocation) {
                 LatLng latLng = new LatLng(aMapLocation.getLatitude(), aMapLocation.getLongitude());
-                mGaodeMap.addMarker(new MarkerOptions().position(latLng).icon(
-                        BitmapDescriptorFactory
-                                .fromResource(R.drawable.ic_qu_explore_here_white)));
+                if (mMyLocationMarker == null){
+                    mMyLocationMarker = new MarkerOptions().position(latLng).icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_qu_explore_here_white));
+                    mGaodeMap.addMarker(mMyLocationMarker);
+                } else {
+                    mMyLocationMarker.position(latLng);
+                }
 
             }
             mLocation = aMapLocation;
@@ -216,15 +236,6 @@ public class MapsModule implements IGaoDeMapsView, AMap.OnMapLoadedListener, AMa
         if (view.getId() == R.id.my_location_btn) {
             mMapsPresenter.changeMyLocationMode();
             mIsEnableMyLocation = true;
-
-//            if (!mIsEnableMyLocation) {
-//                mIsEnableMyLocation = true;
-////                if (mOnLocationChangeListener != null && mLocation != null) {
-////                    mOnLocationChangeListener.onLocationChanged(mLocation);// 显示系统小蓝点
-////                }
-//            } else {
-//                mMapsPresenter.changeMyLocationMode();
-//            }
         }
     }
     // Location end

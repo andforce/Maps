@@ -103,11 +103,6 @@ public class MapsPresenterImpl implements MapsPresenter, OnMarkerCreatedListener
     }
 
     @Override
-    public void onFollowModeStoped() {
-        mGaodeMapsView.stopFollowMode();
-    }
-
-    @Override
     public void onLocationChanged(AMapLocation aMapLocation) {
 
     }
