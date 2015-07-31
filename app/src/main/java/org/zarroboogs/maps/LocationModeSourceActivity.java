@@ -1,13 +1,11 @@
 package org.zarroboogs.maps;
 
 import android.app.Activity;
-import android.location.Location;
 import android.os.Bundle;
 import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
 
 import com.amap.api.location.AMapLocation;
-import com.amap.api.location.AMapLocationListener;
 import com.amap.api.location.LocationManagerProxy;
 import com.amap.api.location.LocationProviderProxy;
 import com.amap.api.maps.AMap;
@@ -17,14 +15,15 @@ import com.amap.api.maps.MapView;
 /**
  * AMapV2地图中介绍定位三种模式的使用，包括定位，追随，旋转
  */
-public class LocationModeSourceActivity extends Activity implements
-		AMapLocationListener,OnCheckedChangeListener {
+public class LocationModeSourceActivity extends Activity implements OnCheckedChangeListener {
 	private AMap aMap;
 	private MapView mapView;
 
 	private LocationManagerProxy mAMapLocationManager;
     private RadioGroup mGPSModeGroup;
-	
+	private MyLocationChangedListener myLocationChangedListener = new MyLocationChangedListener();
+	private MyLocationSource source = new MyLocationSource();
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -47,24 +46,25 @@ public class LocationModeSourceActivity extends Activity implements
 	private void init() {
 		if (aMap == null) {
 			aMap = mapView.getMap();
-			setUpMap();
 		}
+		aMap.setLocationSource(source);// 设置定位监听
+		aMap.getUiSettings().setMyLocationButtonEnabled(true);// 设置默认定位按钮是否显示
+		aMap.setMyLocationEnabled(true);// 设置为true表示显示定位层并可触发定位，false表示隐藏定位层并不可触发定位，默认是false
+		//设置定位的类型为定位模式 ，可以由定位、跟随或地图根据面向方向旋转几种
+		aMap.setMyLocationType(AMap.LOCATION_TYPE_LOCATE);
+
 		mGPSModeGroup=(RadioGroup) findViewById(R.id.gps_radio_group);
 		mGPSModeGroup.setOnCheckedChangeListener(this);
 	}
 
-	/**
-	 * 设置一些amap的属性
-	 */
-	private void setUpMap() {
-		aMap.setLocationSource(source);// 设置定位监听
-		aMap.getUiSettings().setMyLocationButtonEnabled(true);// 设置默认定位按钮是否显示
-		aMap.setMyLocationEnabled(true);// 设置为true表示显示定位层并可触发定位，false表示隐藏定位层并不可触发定位，默认是false
-		//设置定位的类型为定位模式 ，可以由定位、跟随或地图根据面向方向旋转几种 
-		aMap.setMyLocationType(AMap.LOCATION_TYPE_LOCATE);
-	}
+	class MyLocationChangedListener extends OnLocationChangedListener {
 
-	private MyLocationSource source = new MyLocationSource();
+		@Override
+		public void onGaodeLocationChanged(AMapLocation aMapLocation) {
+			source.changeMyLocation(aMapLocation);
+		}
+
+	}
 
 	class MyLocationSource implements LocationSource{
 
@@ -85,13 +85,18 @@ public class LocationModeSourceActivity extends Activity implements
 			 * ，第一个参数是定位provider，第二个参数时间最短是2000毫秒，第三个参数距离间隔单位是米，第四个参数是定位监听者
 			 */
 				mAMapLocationManager.requestLocationData(
-						LocationProviderProxy.AMapNetwork, 2000, 10, LocationModeSourceActivity.this);
+						LocationProviderProxy.AMapNetwork, 2000, 10, myLocationChangedListener);
 			}
 		}
 
 		@Override
 		public void deactivate() {
-
+		mListener = null;
+		if (mAMapLocationManager != null) {
+			mAMapLocationManager.removeUpdates(myLocationChangedListener);
+			mAMapLocationManager.destroy();
+		}
+		mAMapLocationManager = null;
 		}
 	}
 
@@ -151,46 +156,4 @@ public class LocationModeSourceActivity extends Activity implements
 		mapView.onDestroy();
 	}
 
-	/**
-	 * 此方法已经废弃
-	 */
-	@Override
-	public void onLocationChanged(Location location) {
-	}
-
-	@Override
-	public void onProviderDisabled(String provider) {
-	}
-
-	@Override
-	public void onProviderEnabled(String provider) {
-	}
-
-	@Override
-	public void onStatusChanged(String provider, int status, Bundle extras) {
-	}
-
-	/**
-	 * 定位成功后回调函数
-	 */
-	@Override
-	public void onLocationChanged(AMapLocation aLocation) {
-//		if (mListener != null && aLocation != null) {
-//			mListener.onLocationChanged(aLocation);// 显示系统小蓝点
-//
-//		}
-		source.changeMyLocation(aLocation);
-	}
-
-
-//	public void deactivate() {
-//		mListener = null;
-//		if (mAMapLocationManager != null) {
-//			mAMapLocationManager.removeUpdates(this);
-//			mAMapLocationManager.destroy();
-//		}
-//		mAMapLocationManager = null;
-//	}
-
-	
 }
