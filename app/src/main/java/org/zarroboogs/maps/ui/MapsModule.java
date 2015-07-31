@@ -146,7 +146,6 @@ public class MapsModule implements IGaoDeMapsView, AMap.OnMapLoadedListener, AMa
 
     @Override
     public void stopFollowMode() {
-        mGaodeMap.setMyLocationEnabled(false);
     }
 
     @Override

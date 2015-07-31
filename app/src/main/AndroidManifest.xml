@@ -40,8 +40,9 @@
 
         <meta-data
             android:name="com.amap.api.v2.apikey"
-            android:value="f1e07742f3c40d16d0d09c467d73fa05" />
+            android:value="24163234088d4f3eb8350898bf9c18ec" />
         <!--24163234088d4f3eb8350898bf9c18ec-->
+        <!--f1e07742f3c40d16d0d09c467d73fa05-->
 
         <activity
             android:name=".offlinemaps.OfflineMapActivity"
