@@ -91,14 +91,14 @@ public class LocationModeSourceActivity extends Activity implements OnCheckedCha
 
 		@Override
 		public void deactivate() {
-		mListener = null;
-		if (mAMapLocationManager != null) {
-			mAMapLocationManager.removeUpdates(myLocationChangedListener);
-			mAMapLocationManager.destroy();
-		}
-		mAMapLocationManager = null;
-		}
-	}
+            mListener = null;
+            if (mAMapLocationManager != null) {
+                mAMapLocationManager.removeUpdates(myLocationChangedListener);
+                mAMapLocationManager.destroy();
+            }
+            mAMapLocationManager = null;
+        }
+    }
 
 	@Override
 	public void onCheckedChanged(RadioGroup group, int checkedId) {

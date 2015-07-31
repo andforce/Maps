@@ -45,13 +45,13 @@ public class MapsModule implements IGaoDeMapsView, AMap.OnMapLoadedListener, AMa
     private MapsFragment mMapsFragment;
     private MarkerOptions mMyLocationMarker;
 
-    private MyLocationChangedListener myLocationChangedListener;
+    private MyLocationChangedListener myLocationChangedListener = new MyLocationChangedListener();
+    private MyLocationSource source = new MyLocationSource();
+
 
     public MapsModule(MapsFragment fragment ,AMap map) {
         this.mMapsFragment = fragment;
         this.mGaodeMap = map;
-
-        myLocationChangedListener = new MyLocationChangedListener();
 
         mMapsPresenter = new MapsPresenterImpl(this);
         mGaodeMap.setOnMapLoadedListener(this);
@@ -63,7 +63,7 @@ public class MapsModule implements IGaoDeMapsView, AMap.OnMapLoadedListener, AMa
 
         mUiSetting = mGaodeMap.getUiSettings();
 
-        activateLocation();
+        setMaps();
     }
 
     public void init() {
@@ -73,6 +73,82 @@ public class MapsModule implements IGaoDeMapsView, AMap.OnMapLoadedListener, AMa
         mUiSetting.setLogoPosition(AMapOptions.LOGO_POSITION_BOTTOM_CENTER);
 
     }
+
+    public void setMaps(){
+        mGaodeMap.setLocationSource(source);// 设置定位监听
+        mGaodeMap.getUiSettings().setMyLocationButtonEnabled(true);// 设置默认定位按钮是否显示
+        mGaodeMap.setMyLocationEnabled(true);// 设置为true表示显示定位层并可触发定位，false表示隐藏定位层并不可触发定位，默认是false
+        //设置定位的类型为定位模式 ，可以由定位、跟随或地图根据面向方向旋转几种
+
+        if (mAMapLocationManager == null) {
+            mAMapLocationManager = LocationManagerProxy.getInstance(mMapsFragment.getActivity());
+			/*
+			 * mAMapLocManager.setGpsEnable(false);
+			 * 1.0.2版本新增方法，设置true表示混合定位中包含gps定位，false表示纯网络定位，默认是true Location
+			 * API定位采用GPS和网络混合定位方式
+			 * ，第一个参数是定位provider，第二个参数时间最短是2000毫秒，第三个参数距离间隔单位是米，第四个参数是定位监听者
+			 */
+            mAMapLocationManager.requestLocationData(
+                    LocationProviderProxy.AMapNetwork, 2000, 10, myLocationChangedListener);
+        }
+
+    }
+
+    class MyLocationChangedListener extends OnLocationChangedListener {
+
+        @Override
+        public void onGaodeLocationChanged(AMapLocation aMapLocation) {
+
+            if ((mLocation == null || (mLocation.getLatitude() != aMapLocation.getLatitude() || mLocation.getLongitude() != aMapLocation.getLongitude()))) {
+                Log.d("MapsAction", "onLocationChanged");
+
+                source.changeMyLocation(aMapLocation);
+
+                if (mIsEnableMyLocation) {
+                    LatLng latLng = new LatLng(aMapLocation.getLatitude(), aMapLocation.getLongitude());
+                    if (mMyLocationMarker == null){
+                        mMyLocationMarker = new MarkerOptions().position(latLng).icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_qu_explore_here_white));
+                        mGaodeMap.addMarker(mMyLocationMarker);
+                    } else {
+                        mMyLocationMarker.position(latLng);
+                    }
+
+                }
+                mLocation = aMapLocation;
+
+                if (mIsFirstLocation){
+                    mMapsPresenter.changeMyLocationMode();
+                    mIsFirstLocation = false;
+                }
+            }
+
+        }
+
+    }
+
+    class MyLocationSource implements LocationSource{
+
+        private OnLocationChangedListener mListener;
+
+        public void changeMyLocation(AMapLocation aLocation){
+            mListener.onLocationChanged(aLocation);
+        }
+        @Override
+        public void activate(OnLocationChangedListener onLocationChangedListener) {
+            mListener = onLocationChangedListener;
+        }
+
+        @Override
+        public void deactivate() {
+            mListener = null;
+            if (mAMapLocationManager != null) {
+                mAMapLocationManager.removeUpdates(myLocationChangedListener);
+                mAMapLocationManager.destroy();
+            }
+            mAMapLocationManager = null;
+        }
+    }
+
 
     @Override
     public void addMarker(MarkerOptions marker) {
@@ -165,71 +241,6 @@ public class MapsModule implements IGaoDeMapsView, AMap.OnMapLoadedListener, AMa
             mIsEnableMyLocation = false;
             mMapsPresenter.stopFollowMode();
         }
-    }
-
-
-    // Location start
-    public void activateLocation() {
-
-        mGaodeMap.setLocationSource(new LocationSource() {
-            @Override
-            public void activate(OnLocationChangedListener onLocationChangedListener) {
-                Log.d("activateLocation","activate");
-            }
-
-            @Override
-            public void deactivate() {
-                Log.d("activateLocation","deactivate");
-            }
-        });
-
-
-        if (mAMapLocationManager == null) {
-            mAMapLocationManager = LocationManagerProxy.getInstance(this.mMapsFragment.getActivity().getApplicationContext());
-        }
-
-              /*
-             * mAMapLocManager.setGpsEnable(false);
-			 * 1.0.2版本新增方法，设置true表示混合定位中包含gps定位，false表示纯网络定位，默认是true Location
-			 * API定位采用GPS和网络混合定位方式
-			 * ，第一个参数是定位provider，第二个参数时间最短是2000毫秒，第三个参数距离间隔单位是米，第四个参数是定位监听者
-			 */
-        mAMapLocationManager.requestLocationData(LocationProviderProxy.AMapNetwork, 2000, 10, myLocationChangedListener);
-    }
-
-    class MyLocationChangedListener extends OnLocationChangedListener {
-
-        @Override
-        public void onGaodeLocationChanged(AMapLocation aMapLocation) {
-            if ((mLocation == null || (mLocation.getLatitude() != aMapLocation.getLatitude() || mLocation.getLongitude() != aMapLocation.getLongitude()))) {
-                Log.d("MapsAction", "onLocationChanged");
-                if (mIsEnableMyLocation) {
-                    LatLng latLng = new LatLng(aMapLocation.getLatitude(), aMapLocation.getLongitude());
-                    if (mMyLocationMarker == null){
-                        mMyLocationMarker = new MarkerOptions().position(latLng).icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_qu_explore_here_white));
-                        mGaodeMap.addMarker(mMyLocationMarker);
-                    } else {
-                        mMyLocationMarker.position(latLng);
-                    }
-
-                }
-                mLocation = aMapLocation;
-
-                if (mIsFirstLocation){
-                    mMapsPresenter.changeMyLocationMode();
-                    mIsFirstLocation = false;
-                }
-            }
-        }
-
-    }
-
-    public void deactivate() {
-        if (mAMapLocationManager != null) {
-            mAMapLocationManager.removeUpdates(myLocationChangedListener);
-            mAMapLocationManager.destroy();
-        }
-        mAMapLocationManager = null;
     }
 
 
