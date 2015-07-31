@@ -33,4 +33,6 @@ dependencies {
     compile files('libs/NavigationApi_1.2.0.jar')
     compile files('libs/baidumapapi_v3_5_0.jar')
     compile files('libs/AMap_Services_V2.4.0.jar')
+    compile files('libs/MapApiLocation_1.3.3.jar')
+    compile files('libs/MapApiServices_V2.5.0.jar')
 }
