@@ -16,9 +16,10 @@ public class MapsActionInteractorImpl implements MapsActionInteractor {
             return AMap.LOCATION_TYPE_MAP_ROTATE;
         } else if(mode == AMap.LOCATION_TYPE_MAP_ROTATE){
             return AMap.LOCATION_TYPE_MAP_FOLLOW;
-        } else {
+        } else if (mode == AMap.LOCATION_TYPE_LOCATE) {
             return AMap.LOCATION_TYPE_MAP_FOLLOW;
         }
+        return AMap.LOCATION_TYPE_MAP_FOLLOW;
     }
 
     @Override
