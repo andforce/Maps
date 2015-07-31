@@ -46,8 +46,7 @@
 
         <activity
             android:name=".offlinemaps.OfflineMapActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize">
-        </activity>
+            android:configChanges="orientation|keyboardHidden|screenSize"></activity>
 
         <activity
             android:name=".poi.PoiKeywordSearchActivity"
@@ -73,12 +72,12 @@
 
         <activity
             android:name=".BaseMapFragmentActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize" >
+            android:configChanges="orientation|keyboardHidden|screenSize">
 
         </activity>
 
         <activity
-            android:name=".MapsMainActivity"
+            android:name=".LocationModeSourceActivity"
             android:configChanges="orientation|keyboardHidden|screenSize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -86,6 +85,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity
+            android:name=".MapsMainActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"></activity>
     </application>
 
 </manifest>

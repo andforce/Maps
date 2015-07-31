@@ -170,6 +170,20 @@ public class MapsModule implements IGaoDeMapsView, AMap.OnMapLoadedListener, AMa
 
     // Location start
     public void activateLocation() {
+
+        mGaodeMap.setLocationSource(new LocationSource() {
+            @Override
+            public void activate(OnLocationChangedListener onLocationChangedListener) {
+                Log.d("activateLocation","activate");
+            }
+
+            @Override
+            public void deactivate() {
+                Log.d("activateLocation","deactivate");
+            }
+        });
+
+
         if (mAMapLocationManager == null) {
             mAMapLocationManager = LocationManagerProxy.getInstance(this.mMapsFragment.getActivity().getApplicationContext());
         }
