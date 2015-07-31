@@ -24,6 +24,7 @@ import com.amap.api.maps.model.Marker;
 import com.amap.api.maps.model.MarkerOptions;
 
 import org.zarroboogs.maps.MapsFragment;
+import org.zarroboogs.maps.OnLocationChangedListener;
 import org.zarroboogs.maps.R;
 
 import java.util.ArrayList;
@@ -31,7 +32,7 @@ import java.util.ArrayList;
 /**
  * Created by andforce on 15/7/19.
  */
-public class MapsModule implements IGaoDeMapsView, AMap.OnMapLoadedListener, AMap.OnMapTouchListener, AMapLocationListener, View.OnClickListener {
+public class MapsModule implements IGaoDeMapsView, AMap.OnMapLoadedListener, AMap.OnMapTouchListener, View.OnClickListener {
     private ArrayList<Marker> mMarkers = new ArrayList<>();
 
     private MapsPresenter mMapsPresenter;
@@ -44,10 +45,14 @@ public class MapsModule implements IGaoDeMapsView, AMap.OnMapLoadedListener, AMa
     private MapsFragment mMapsFragment;
     private MarkerOptions mMyLocationMarker;
 
+    private MyLocationChangedListener myLocationChangedListener;
 
     public MapsModule(MapsFragment fragment ,AMap map) {
         this.mMapsFragment = fragment;
         this.mGaodeMap = map;
+
+        myLocationChangedListener = new MyLocationChangedListener();
+
         mMapsPresenter = new MapsPresenterImpl(this);
         mGaodeMap.setOnMapLoadedListener(this);
         mGaodeMap.setOnMapTouchListener(this);
@@ -175,60 +180,44 @@ public class MapsModule implements IGaoDeMapsView, AMap.OnMapLoadedListener, AMa
 			 * API定位采用GPS和网络混合定位方式
 			 * ，第一个参数是定位provider，第二个参数时间最短是2000毫秒，第三个参数距离间隔单位是米，第四个参数是定位监听者
 			 */
-        mAMapLocationManager.requestLocationData(
-                LocationProviderProxy.AMapNetwork, 2000, 10, this);
+        mAMapLocationManager.requestLocationData(LocationProviderProxy.AMapNetwork, 2000, 10, myLocationChangedListener);
+    }
+
+    class MyLocationChangedListener extends OnLocationChangedListener {
+
+        @Override
+        public void onGaodeLocationChanged(AMapLocation aMapLocation) {
+            if ((mLocation == null || (mLocation.getLatitude() != aMapLocation.getLatitude() || mLocation.getLongitude() != aMapLocation.getLongitude()))) {
+                Log.d("MapsAction", "onLocationChanged");
+                if (mIsEnableMyLocation) {
+                    LatLng latLng = new LatLng(aMapLocation.getLatitude(), aMapLocation.getLongitude());
+                    if (mMyLocationMarker == null){
+                        mMyLocationMarker = new MarkerOptions().position(latLng).icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_qu_explore_here_white));
+                        mGaodeMap.addMarker(mMyLocationMarker);
+                    } else {
+                        mMyLocationMarker.position(latLng);
+                    }
+
+                }
+                mLocation = aMapLocation;
+
+                if (mIsFirstLocation){
+                    mMapsPresenter.changeMyLocationMode();
+                    mIsFirstLocation = false;
+                }
+            }
+        }
+
     }
 
     public void deactivate() {
         if (mAMapLocationManager != null) {
-            mAMapLocationManager.removeUpdates(this);
+            mAMapLocationManager.removeUpdates(myLocationChangedListener);
             mAMapLocationManager.destroy();
         }
         mAMapLocationManager = null;
     }
 
-    @Override
-    public void onLocationChanged(AMapLocation aMapLocation) {
-        if ((mLocation == null || (mLocation.getLatitude() != aMapLocation.getLatitude() || mLocation.getLongitude() != aMapLocation.getLongitude()))) {
-            Log.d("MapsAction", "onLocationChanged");
-            if (mIsEnableMyLocation) {
-                LatLng latLng = new LatLng(aMapLocation.getLatitude(), aMapLocation.getLongitude());
-                if (mMyLocationMarker == null){
-                    mMyLocationMarker = new MarkerOptions().position(latLng).icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_qu_explore_here_white));
-                    mGaodeMap.addMarker(mMyLocationMarker);
-                } else {
-                    mMyLocationMarker.position(latLng);
-                }
-
-            }
-            mLocation = aMapLocation;
-
-            if (mIsFirstLocation){
-                mMapsPresenter.changeMyLocationMode();
-                mIsFirstLocation = false;
-            }
-        }
-    }
-
-    @Override
-    public void onLocationChanged(Location location) {
-
-    }
-
-    @Override
-    public void onStatusChanged(String s, int i, Bundle bundle) {
-
-    }
-
-    @Override
-    public void onProviderEnabled(String s) {
-
-    }
-
-    @Override
-    public void onProviderDisabled(String s) {
-
-    }
 
     @Override
     public void onClick(View view) {
