@@ -71,6 +71,12 @@
             android:configChanges="orientation|keyboardHidden|screenSize" />
 
         <activity
+            android:name=".BaseMapFragmentActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize" >
+
+        </activity>
+
+        <activity
             android:name=".MapsMainActivity"
             android:configChanges="orientation|keyboardHidden|screenSize">
             <intent-filter>

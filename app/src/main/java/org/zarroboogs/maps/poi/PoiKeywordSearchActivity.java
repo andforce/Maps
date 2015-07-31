@@ -23,6 +23,7 @@ import com.amap.api.maps.AMap;
 import com.amap.api.maps.AMap.InfoWindowAdapter;
 import com.amap.api.maps.AMap.OnMarkerClickListener;
 import com.amap.api.maps.AMapUtils;
+import com.amap.api.maps.MapsInitializer;
 import com.amap.api.maps.SupportMapFragment;
 import com.amap.api.maps.model.Marker;
 import com.amap.api.maps.model.NaviPara;
@@ -40,6 +41,7 @@ import com.amap.api.services.poisearch.PoiSearch.OnPoiSearchListener;
 
 import org.zarroboogs.maps.R;
 import org.zarroboogs.maps.utils.AMapUtil;
+import org.zarroboogs.maps.utils.OffLineMapUtils;
 import org.zarroboogs.maps.utils.ToastUtil;
 
 /**
@@ -68,7 +70,7 @@ public class PoiKeywordSearchActivity extends FragmentActivity implements
          * 则需要在离线地图下载和使用地图页面都进行路径设置
          * */
 	    //Demo中为了其他界面可以使用下载的离线地图，使用默认位置存储，屏蔽了自定义设置
-//        MapsInitializer.sdcardDir =OffLineMapUtils.getSdCacheDir(this);
+        MapsInitializer.sdcardDir = OffLineMapUtils.getSdCacheDir(this);
 		init();
 	}
 

@@ -5,7 +5,6 @@
     android:background="@android:color/white"
     tools:context="org.zarroboogs.maps.LeftDrawerFragment">
 
-    <!-- TODO: Update blank fragment layout -->
     <View
         android:id="@+id/left_top_banner"
         android:layout_width="match_parent"

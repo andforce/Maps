@@ -23,6 +23,7 @@ import android.widget.TextView;
 
 import com.amap.api.maps.AMapException;
 import com.amap.api.maps.MapView;
+import com.amap.api.maps.MapsInitializer;
 import com.amap.api.maps.offlinemap.OfflineMapCity;
 import com.amap.api.maps.offlinemap.OfflineMapManager;
 import com.amap.api.maps.offlinemap.OfflineMapManager.OfflineMapDownloadListener;
@@ -31,6 +32,7 @@ import com.amap.api.maps.offlinemap.OfflineMapStatus;
 
 import org.zarroboogs.maps.BaseActivity;
 import org.zarroboogs.maps.R;
+import org.zarroboogs.maps.utils.OffLineMapUtils;
 
 /**
  * AMapV2地图中简单介绍离线地图下载
@@ -55,7 +57,7 @@ public class OfflineMapActivity extends BaseActivity implements
 		 * 则需要在离线地图下载和使用地图页面都进行路径设置
 		 */
         // Demo中为了其他界面可以使用下载的离线地图，使用默认位置存储，屏蔽了自定义设置
-//		 MapsInitialihenger.sdcardDir = OffLineMapUtils.getSdCacheDir(this);
+        MapsInitializer.sdcardDir = OffLineMapUtils.getSdCacheDir(this);
         setContentView(R.layout.offlinemap_activity);
         init();
 
