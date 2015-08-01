@@ -1,4 +1,4 @@
-package org.zarroboogs.maps;
+package org.zarroboogs.maps.ui;
 
 import android.app.Activity;
 import android.os.Build;

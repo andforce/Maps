@@ -45,45 +45,33 @@
         <!--f1e07742f3c40d16d0d09c467d73fa05-->
 
         <activity
-            android:name=".offlinemaps.OfflineMapActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize"></activity>
+            android:name=".ui.offlinemaps.OfflineMapActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"/>
 
         <activity
-            android:name=".poi.PoiKeywordSearchActivity"
+            android:name=".ui.poi.PoiKeywordSearchActivity"
             android:configChanges="orientation|keyboardHidden|screenSize">
 
         </activity>
 
         <activity
-            android:name=".navi.NaviSettingActivity"
+            android:name=".ui.navi.NaviSettingActivity"
             android:configChanges="orientation|keyboardHidden|screenSize" />
 
         <activity
-            android:name=".navi.NaviRouteActivity"
+            android:name=".ui.navi.NaviRouteActivity"
             android:configChanges="orientation|keyboardHidden|screenSize" />
 
         <activity
-            android:name=".navi.NaviEmulatorActivity"
+            android:name=".ui.navi.NaviEmulatorActivity"
             android:configChanges="orientation|keyboardHidden|screenSize" />
 
         <activity
-            android:name=".navi.NaviCustomActivity"
+            android:name=".ui.navi.NaviCustomActivity"
             android:configChanges="orientation|keyboardHidden|screenSize" />
 
         <activity
-            android:name=".BaseMapFragmentActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize">
-
-        </activity>
-
-        <activity
-            android:name=".LocationModeSourceActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize">
-
-        </activity>
-
-        <activity
-            android:name=".MapsMainActivity"
+            android:name=".ui.maps.MapsMainActivity"
             android:configChanges="orientation|keyboardHidden|screenSize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -1,4 +1,4 @@
-package org.zarroboogs.maps;
+package org.zarroboogs.maps.ui.maps;
 
 import android.app.Activity;
 import android.content.Context;
@@ -22,7 +22,6 @@ import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.AutoCompleteTextView;
-import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
@@ -38,12 +37,14 @@ import com.amap.api.services.core.PoiItem;
 import com.amap.api.services.help.Inputtips;
 import com.amap.api.services.help.Tip;
 
-import org.zarroboogs.maps.navi.NaviEmulatorActivity;
-import org.zarroboogs.maps.navi.NaviRouteActivity;
-import org.zarroboogs.maps.poi.PoiKeywordSearchActivity;
+import org.zarroboogs.maps.DrawerStateListener;
+import org.zarroboogs.maps.ui.poi.PoiSearchAdapter;
+import org.zarroboogs.maps.R;
+import org.zarroboogs.maps.ui.navi.NaviRouteActivity;
+import org.zarroboogs.maps.ui.poi.PoiKeywordSearchActivity;
 import org.zarroboogs.maps.ui.ISearchMapsView;
 import org.zarroboogs.maps.ui.MapsModule;
-import org.zarroboogs.maps.ui.SearchMapsPresenter;
+import org.zarroboogs.maps.presenters.SearchMapsPresenter;
 import org.zarroboogs.maps.utils.ToastUtil;
 
 import java.util.ArrayList;
@@ -331,6 +332,10 @@ public class MapsFragment extends Fragment implements View.OnClickListener, Draw
             Intent intent = new Intent(getActivity(), PoiKeywordSearchActivity.class);
             startActivity(intent);
         }
+    }
+
+    public boolean isInSearch(){
+        return mSearchViewHelper.isInSearch();
     }
 
     // DrawerLayout state

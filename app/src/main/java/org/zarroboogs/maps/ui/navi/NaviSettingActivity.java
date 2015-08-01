@@ -1,8 +1,7 @@
-package org.zarroboogs.maps.navi;
+package org.zarroboogs.maps.ui.navi;
 
 import com.amap.api.navi.AMapNaviViewOptions;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.KeyEvent;
@@ -12,7 +11,7 @@ import android.widget.ImageView;
 import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
 
-import org.zarroboogs.maps.BaseActivity;
+import org.zarroboogs.maps.ui.BaseActivity;
 import org.zarroboogs.maps.R;
 import org.zarroboogs.maps.utils.Utils;
 

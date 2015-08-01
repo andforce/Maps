@@ -10,7 +10,6 @@ import com.amap.api.location.LocationProviderProxy;
 import com.amap.api.maps.AMap;
 import com.amap.api.maps.AMapOptions;
 import com.amap.api.maps.CameraUpdateFactory;
-import com.amap.api.maps.LocationSource;
 import com.amap.api.maps.UiSettings;
 import com.amap.api.maps.model.BitmapDescriptorFactory;
 import com.amap.api.maps.model.CameraPosition;
@@ -18,7 +17,9 @@ import com.amap.api.maps.model.LatLng;
 import com.amap.api.maps.model.Marker;
 import com.amap.api.maps.model.MarkerOptions;
 
-import org.zarroboogs.maps.MapsFragment;
+import org.zarroboogs.maps.presenters.MapsPresenter;
+import org.zarroboogs.maps.presenters.MapsPresenterImpl;
+import org.zarroboogs.maps.ui.maps.MapsFragment;
 import org.zarroboogs.maps.OnLocationChangedListener;
 import org.zarroboogs.maps.R;
 import org.zarroboogs.maps.utils.FileUtils;

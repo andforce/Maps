@@ -1,8 +1,10 @@
-package org.zarroboogs.maps.ui;
+package org.zarroboogs.maps.presenters;
 
 import android.content.Context;
 
 import com.amap.api.services.core.PoiItem;
+
+import org.zarroboogs.maps.ui.ISearchMapsView;
 
 import java.util.List;
 

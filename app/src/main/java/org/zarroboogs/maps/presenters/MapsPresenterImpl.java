@@ -1,4 +1,4 @@
-package org.zarroboogs.maps.ui;
+package org.zarroboogs.maps.presenters;
 
 import android.location.Location;
 import android.os.Bundle;
@@ -12,7 +12,8 @@ import org.zarroboogs.maps.MapsApplication;
 import org.zarroboogs.maps.beans.GeoFenceInfo;
 import org.zarroboogs.maps.db.beans.CameraBean;
 import org.zarroboogs.maps.module.GeoFenceManager;
-import org.zarroboogs.maps.ui.MarkerInteractor.OnMarkerCreatedListener;
+import org.zarroboogs.maps.ui.IGaoDeMapsView;
+import org.zarroboogs.maps.presenters.MarkerInteractor.OnMarkerCreatedListener;
 
 import java.util.ArrayList;
 
@@ -20,7 +21,7 @@ import java.util.ArrayList;
  * Created by andforce on 15/7/19.
  */
 public class MapsPresenterImpl implements MapsPresenter, OnMarkerCreatedListener, MarkerInteractor.OnReadCamerasListener,
-        MapsActionInteractor.OnMyLocationModeChangedListener , AMapLocationListener{
+        MapsActionInteractor.OnMyLocationModeChangedListener, AMapLocationListener{
 
     private static final boolean DEBUG = true;
 

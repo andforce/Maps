@@ -1,4 +1,4 @@
-package org.zarroboogs.maps.poi;
+package org.zarroboogs.maps.ui.poi;
 
 import java.util.ArrayList;
 import java.util.List;

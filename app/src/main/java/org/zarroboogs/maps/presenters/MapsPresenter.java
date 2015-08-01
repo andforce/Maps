@@ -1,4 +1,4 @@
-package org.zarroboogs.maps.ui;
+package org.zarroboogs.maps.presenters;
 
 /**
  * Created by andforce on 15/7/19.

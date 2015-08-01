@@ -1,4 +1,4 @@
-package org.zarroboogs.maps;
+package org.zarroboogs.maps.ui.poi;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -12,6 +12,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.amap.api.services.help.Tip;
+
+import org.zarroboogs.maps.R;
 
 import java.util.ArrayList;
 import java.util.List;

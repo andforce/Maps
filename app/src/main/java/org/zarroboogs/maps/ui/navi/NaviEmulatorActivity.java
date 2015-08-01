@@ -1,4 +1,4 @@
-package org.zarroboogs.maps.navi;
+package org.zarroboogs.maps.ui.navi;
 
 import com.amap.api.navi.AMapNavi;
 import com.amap.api.navi.AMapNaviView;
@@ -9,7 +9,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.KeyEvent;
 
-import org.zarroboogs.maps.MapsMainActivity;
+import org.zarroboogs.maps.ui.maps.MapsMainActivity;
 import org.zarroboogs.maps.R;
 import org.zarroboogs.maps.module.TTSController;
 

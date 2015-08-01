@@ -1,4 +1,4 @@
-package org.zarroboogs.maps.navi;
+package org.zarroboogs.maps.ui.navi;
 
 import com.amap.api.navi.AMapNaviListener;
 import com.amap.api.navi.model.AMapNaviInfo;

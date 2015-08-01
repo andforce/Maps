@@ -1,4 +1,4 @@
-package org.zarroboogs.maps.navi;
+package org.zarroboogs.maps.ui.navi;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -6,7 +6,6 @@ import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -18,23 +17,18 @@ import com.amap.api.maps.model.BitmapDescriptorFactory;
 import com.amap.api.maps.model.LatLng;
 import com.amap.api.maps.model.MarkerOptions;
 import com.amap.api.navi.AMapNavi;
-import com.amap.api.navi.AMapNaviListener;
 import com.amap.api.navi.AMapNaviViewOptions;
-import com.amap.api.navi.model.AMapNaviInfo;
-import com.amap.api.navi.model.AMapNaviLocation;
 import com.amap.api.navi.model.AMapNaviPath;
-import com.amap.api.navi.model.NaviInfo;
 import com.amap.api.navi.model.NaviLatLng;
 import com.amap.api.navi.view.RouteOverLay;
 
-import org.zarroboogs.maps.BaseActivity;
-import org.zarroboogs.maps.MapsMainActivity;
+import org.zarroboogs.maps.ui.BaseActivity;
+import org.zarroboogs.maps.ui.maps.MapsMainActivity;
 import org.zarroboogs.maps.R;
 import org.zarroboogs.maps.db.beans.CameraBean;
 import org.zarroboogs.maps.module.TTSController;
-import org.zarroboogs.maps.ui.MarkerInteractor;
-import org.zarroboogs.maps.ui.MarkerInteractorImpl;
-import org.zarroboogs.maps.utils.ToastUtil;
+import org.zarroboogs.maps.presenters.MarkerInteractor;
+import org.zarroboogs.maps.presenters.MarkerInteractorImpl;
 import org.zarroboogs.maps.utils.Utils;
 
 import java.util.ArrayList;

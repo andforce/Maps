@@ -1,7 +1,6 @@
-package org.zarroboogs.maps.ui;
+package org.zarroboogs.maps.presenters;
 
 import android.content.Context;
-import android.text.TextUtils;
 
 import com.amap.api.services.core.PoiItem;
 import com.amap.api.services.core.SuggestionCity;

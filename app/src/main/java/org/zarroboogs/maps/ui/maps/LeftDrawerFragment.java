@@ -1,4 +1,4 @@
-package org.zarroboogs.maps;
+package org.zarroboogs.maps.ui.maps;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -10,7 +10,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
-import org.zarroboogs.maps.offlinemaps.OfflineMapActivity;
+import org.zarroboogs.maps.R;
+import org.zarroboogs.maps.ui.offlinemaps.OfflineMapActivity;
 
 
 /**

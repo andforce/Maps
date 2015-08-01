@@ -1,4 +1,4 @@
-package org.zarroboogs.maps;
+package org.zarroboogs.maps.ui.maps;
 
 import android.net.Uri;
 import android.os.Bundle;
@@ -6,6 +6,10 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.view.Gravity;
 import android.view.View;
+
+import org.zarroboogs.maps.ui.BaseActivity;
+import org.zarroboogs.maps.DrawerStateListener;
+import org.zarroboogs.maps.R;
 
 
 /**
@@ -92,6 +96,15 @@ public class MapsMainActivity extends BaseActivity implements MapsFragment.OnFra
         return leftDrawerFragment;
     }
 
+
+    @Override
+    public void onBackPressed() {
+        if (getMapsFragment().isInSearch()){
+            getMapsFragment().exitSearch();
+        } else {
+            super.onBackPressed();
+        }
+    }
 
     @Override
     public void onFragmentInteraction(Uri uri) {

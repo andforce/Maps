@@ -1,4 +1,4 @@
-package org.zarroboogs.maps.offlinemaps;
+package org.zarroboogs.maps.ui.offlinemaps;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -30,7 +30,7 @@ import com.amap.api.maps.offlinemap.OfflineMapManager.OfflineMapDownloadListener
 import com.amap.api.maps.offlinemap.OfflineMapProvince;
 import com.amap.api.maps.offlinemap.OfflineMapStatus;
 
-import org.zarroboogs.maps.BaseActivity;
+import org.zarroboogs.maps.ui.BaseActivity;
 import org.zarroboogs.maps.R;
 import org.zarroboogs.maps.utils.OffLineMapUtils;
 
