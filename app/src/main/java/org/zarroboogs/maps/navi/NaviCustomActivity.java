@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.KeyEvent;
+import android.widget.Toast;
 
 import com.amap.api.maps.AMap;
 import com.amap.api.maps.model.BitmapDescriptorFactory;
@@ -25,6 +26,7 @@ import org.zarroboogs.maps.db.beans.CameraBean;
 import org.zarroboogs.maps.module.TTSController;
 import org.zarroboogs.maps.ui.MarkerInteractor;
 import org.zarroboogs.maps.ui.MarkerInteractorImpl;
+import org.zarroboogs.maps.utils.ToastUtil;
 import org.zarroboogs.maps.utils.Utils;
 
 import java.util.ArrayList;
@@ -53,6 +55,7 @@ public class NaviCustomActivity extends BaseActivity implements
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_navicustom);
+
 		//语音播报开始
 		TTSController.getInstance(this).startSpeaking();
 		// 实时导航方式进行导航
@@ -107,108 +110,7 @@ public class NaviCustomActivity extends BaseActivity implements
 
 	private AMapNaviListener getAMapNaviListener() {
 		if (mAmapNaviListener == null) {
-
-			mAmapNaviListener = new AMapNaviListener() {
-
-				@Override
-				public void onTrafficStatusUpdate() {
-					// TODO Auto-generated method stub
-
-				}
-
-				@Override
-				public void onStartNavi(int arg0) {
-					// TODO Auto-generated method stub
-
-				}
-
-				@Override
-				public void onReCalculateRouteForYaw() {
-					// 可以在频繁重算时进行设置,例如五次之后
-					// i++;
-					// if (i >= 5) {
-					// AMapNaviViewOptions viewOptions = new
-					// AMapNaviViewOptions();
-					// viewOptions.setReCalculateRouteForYaw(false);
-					// mAmapAMapNaviView.setViewOptions(viewOptions);
-					// }
-				}
-
-				@Override
-				public void onReCalculateRouteForTrafficJam() {
-
-				}
-
-				@Override
-				public void onLocationChange(AMapNaviLocation location) {
-
-				}
-
-				@Override
-				public void onInitNaviSuccess() {
-					// TODO Auto-generated method stub
-
-				}
-
-				@Override
-				public void onInitNaviFailure() {
-					// TODO Auto-generated method stub
-
-				}
-
-				@Override
-				public void onGetNavigationText(int arg0, String arg1) {
-					// TODO Auto-generated method stub
-
-				}
-
-				@Override
-				public void onEndEmulatorNavi() {
-					// TODO Auto-generated method stub
-
-				}
-
-				@Override
-				public void onCalculateRouteSuccess() {
-
-				}
-
-				@Override
-				public void onCalculateRouteFailure(int arg0) {
-
-				}
-
-				@Override
-				public void onArrivedWayPoint(int arg0) {
-					// TODO Auto-generated method stub
-
-				}
-
-				@Override
-				public void onArriveDestination() {
-					// TODO Auto-generated method stub
-
-				}
-
-				@Override
-				public void onGpsOpenStatus(boolean arg0) {
-					// TODO Auto-generated method stub
-
-				}
-
-				@Override
-				public void onNaviInfoUpdated(AMapNaviInfo arg0) {
-					// TODO Auto-generated method stub
-					
-				}
-
-				@Override
-				public void onNaviInfoUpdate(NaviInfo arg0) {
-					  
-					// TODO Auto-generated method stub  
-					
-				}
-			};
+			mAmapNaviListener = TTSController.getInstance(getApplicationContext());
 		}
 		return mAmapNaviListener;
 	}
@@ -313,6 +215,10 @@ public class NaviCustomActivity extends BaseActivity implements
 		setAmapNaviViewOptions();
 		AMapNavi.getInstance(this).setAMapNaviListener(getAMapNaviListener());
 		mAmapAMapNaviView.onResume();
+
+		//语音播报开始
+		TTSController.getInstance(NaviCustomActivity.this).startSpeaking();
+		ToastUtil.show(NaviCustomActivity.this, "onInitNaviSuccess");
 
 	}
 

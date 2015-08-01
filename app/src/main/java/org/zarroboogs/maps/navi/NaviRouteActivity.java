@@ -31,6 +31,7 @@ import org.zarroboogs.maps.BaseActivity;
 import org.zarroboogs.maps.MapsMainActivity;
 import org.zarroboogs.maps.R;
 import org.zarroboogs.maps.db.beans.CameraBean;
+import org.zarroboogs.maps.module.TTSController;
 import org.zarroboogs.maps.ui.MarkerInteractor;
 import org.zarroboogs.maps.ui.MarkerInteractorImpl;
 import org.zarroboogs.maps.utils.ToastUtil;
@@ -210,6 +211,8 @@ public class NaviRouteActivity extends BaseActivity implements OnClickListener,
 	public void onResume() {
 		super.onResume();
 		mMapView.onResume();
+
+		initNavi();
 	}
 
 	@Override
@@ -260,7 +263,7 @@ public class NaviRouteActivity extends BaseActivity implements OnClickListener,
 
 	@Override
 	public void onGetNavigationText(int i, String s) {
-
+		ToastUtil.show(getApplicationContext(), s);
 	}
 
 	@Override
@@ -276,12 +279,14 @@ public class NaviRouteActivity extends BaseActivity implements OnClickListener,
 	@Override
 	public void onCalculateRouteSuccess() {
 		initNavi();
+		TTSController.getInstance(this.getApplicationContext()).playText("规划成功");
 		ToastUtil.show(getApplicationContext(), "规划成功");
 	}
 
 	@Override
 	public void onCalculateRouteFailure(int i) {
 		ToastUtil.show(getApplicationContext(), "规划失败");
+		TTSController.getInstance(this.getApplicationContext()).playText("规划失败");
 	}
 
 	@Override
