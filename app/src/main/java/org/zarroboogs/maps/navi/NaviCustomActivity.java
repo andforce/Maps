@@ -5,6 +5,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.KeyEvent;
 
+import com.amap.api.maps.AMap;
+import com.amap.api.maps.model.BitmapDescriptorFactory;
+import com.amap.api.maps.model.LatLng;
+import com.amap.api.maps.model.MarkerOptions;
 import com.amap.api.navi.AMapNavi;
 import com.amap.api.navi.AMapNaviListener;
 import com.amap.api.navi.AMapNaviView;
@@ -17,8 +21,13 @@ import com.amap.api.navi.model.NaviInfo;
 import org.zarroboogs.maps.BaseActivity;
 import org.zarroboogs.maps.MapsMainActivity;
 import org.zarroboogs.maps.R;
+import org.zarroboogs.maps.db.beans.CameraBean;
 import org.zarroboogs.maps.module.TTSController;
+import org.zarroboogs.maps.ui.MarkerInteractor;
+import org.zarroboogs.maps.ui.MarkerInteractorImpl;
 import org.zarroboogs.maps.utils.Utils;
+
+import java.util.ArrayList;
 
 /**
  * 实时导航界面
@@ -39,6 +48,7 @@ public class NaviCustomActivity extends BaseActivity implements
 	private int mThemeStle;
 	// 导航监听
 	private AMapNaviListener mAmapNaviListener;
+	private AMap mAmap;
 
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -49,6 +59,22 @@ public class NaviCustomActivity extends BaseActivity implements
 		AMapNavi.getInstance(this).startNavi(AMapNavi.GPSNaviMode);
 		
 		initView(savedInstanceState);
+		mAmap = mAmapAMapNaviView.getMap();
+
+		MarkerInteractor markerInteractor = new MarkerInteractorImpl();
+		markerInteractor.readCameras(new MarkerInteractor.OnReadCamerasListener() {
+			@Override
+			public void onReadCameras(ArrayList<CameraBean> cameraBeans) {
+				ArrayList<MarkerOptions> markerOptionses = new ArrayList<>();
+				for (CameraBean cameraBean : cameraBeans) {
+					LatLng latLng = new LatLng(cameraBean.getLatitude(), cameraBean.getLongtitude());
+					MarkerOptions mo = new MarkerOptions().position(latLng).draggable(true).icon(BitmapDescriptorFactory.fromResource(R.mipmap.icon_camera_location));
+					markerOptionses.add(mo);
+				}
+
+				mAmap.addMarkers(markerOptionses, false);
+			}
+		});
 	}
 
 	private void initView(Bundle savedInstanceState) {

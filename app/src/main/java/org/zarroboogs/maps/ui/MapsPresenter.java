@@ -6,6 +6,7 @@ package org.zarroboogs.maps.ui;
 public interface MapsPresenter {
 
     public void loadDefaultCameraMarkers();
+
     public void enableDefaultGeoFences();
 
     public void disableDefaultGeoFences();

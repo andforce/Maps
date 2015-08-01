@@ -14,6 +14,9 @@ import android.widget.TextView;
 import com.amap.api.maps.AMap;
 import com.amap.api.maps.AMap.OnMapLoadedListener;
 import com.amap.api.maps.MapView;
+import com.amap.api.maps.model.BitmapDescriptorFactory;
+import com.amap.api.maps.model.LatLng;
+import com.amap.api.maps.model.MarkerOptions;
 import com.amap.api.navi.AMapNavi;
 import com.amap.api.navi.AMapNaviListener;
 import com.amap.api.navi.AMapNaviViewOptions;
@@ -27,9 +30,13 @@ import com.amap.api.navi.view.RouteOverLay;
 import org.zarroboogs.maps.BaseActivity;
 import org.zarroboogs.maps.MapsMainActivity;
 import org.zarroboogs.maps.R;
+import org.zarroboogs.maps.db.beans.CameraBean;
+import org.zarroboogs.maps.ui.MarkerInteractor;
+import org.zarroboogs.maps.ui.MarkerInteractorImpl;
 import org.zarroboogs.maps.utils.ToastUtil;
 import org.zarroboogs.maps.utils.Utils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -78,6 +85,21 @@ public class NaviRouteActivity extends BaseActivity implements OnClickListener,
 		boolean iscalDrive = mAmapNavi.calculateDriveRoute(mStartNavi, mEndNavi, null, AMapNavi.DrivingDefault);
 
 		Log.d("NaviRouteActivity ", "onCreate- calculateDriveRoute- " + iscalDrive);
+
+		MarkerInteractor markerInteractor = new MarkerInteractorImpl();
+		markerInteractor.readCameras(new MarkerInteractor.OnReadCamerasListener() {
+			@Override
+			public void onReadCameras(ArrayList<CameraBean> cameraBeans) {
+				ArrayList<MarkerOptions> markerOptionses = new ArrayList<>();
+				for (CameraBean cameraBean : cameraBeans) {
+					LatLng latLng = new LatLng(cameraBean.getLatitude(), cameraBean.getLongtitude());
+					MarkerOptions mo = new MarkerOptions().position(latLng).draggable(true).icon(BitmapDescriptorFactory.fromResource(R.mipmap.icon_camera_location));
+					markerOptionses.add(mo);
+				}
+
+				mAmap.addMarkers(markerOptionses,false);
+			}
+		});
 	}
 
 	// -----------------------初始化----------------------------------
