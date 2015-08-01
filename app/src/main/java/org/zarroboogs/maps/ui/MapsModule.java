@@ -177,46 +177,14 @@ public class MapsModule implements IGaoDeMapsView, AMap.OnMapLoadedListener, AMa
 
         if (mode == AMap.LOCATION_TYPE_MAP_FOLLOW) {
             CameraPosition newCP= new CameraPosition(new LatLng(mLocation.getLatitude(), mLocation.getLongitude()),15, 0, 0);
-
-            mGaodeMap.animateCamera(CameraUpdateFactory.newCameraPosition(newCP), new AMap.CancelableCallback() {
-                @Override
-                public void onFinish() {
-                    mGaodeMap.setMyLocationType(mode);
-                }
-
-                @Override
-                public void onCancel() {
-                    mGaodeMap.setMyLocationType(mode);
-                }
-            });
-
+            mGaodeMap.animateCamera(CameraUpdateFactory.newCameraPosition(newCP), null);
         } else if (mode == AMap.LOCATION_TYPE_MAP_ROTATE) {
             CameraPosition newCP= new CameraPosition(new LatLng(mLocation.getLatitude(), mLocation.getLongitude()),15, 45, mMapsFragment.getDevicesDirection());
-            mGaodeMap.animateCamera(CameraUpdateFactory.newCameraPosition(newCP), new AMap.CancelableCallback() {
-                @Override
-                public void onFinish() {
-                    mGaodeMap.setMyLocationType(mode);
-                }
-
-                @Override
-                public void onCancel() {
-                    mGaodeMap.setMyLocationType(mode);
-                }
-            });
+            mGaodeMap.animateCamera(CameraUpdateFactory.newCameraPosition(newCP), null);
         } else if (mode == AMap.LOCATION_TYPE_LOCATE){
             CameraPosition currentCP = mGaodeMap.getCameraPosition();
             CameraPosition newCP= new CameraPosition(new LatLng(mLocation.getLatitude(), mLocation.getLongitude()),15, currentCP.tilt, currentCP.bearing);
-            mGaodeMap.animateCamera(CameraUpdateFactory.newCameraPosition(newCP), new AMap.CancelableCallback() {
-                @Override
-                public void onFinish() {
-                    mGaodeMap.setMyLocationType(mode);
-                }
-
-                @Override
-                public void onCancel() {
-                    mGaodeMap.setMyLocationType(mode);
-                }
-            });
+            mGaodeMap.animateCamera(CameraUpdateFactory.newCameraPosition(newCP), null);
         }
 
     }
