@@ -176,8 +176,7 @@ public class MapsModule implements IGaoDeMapsView, AMap.OnMapLoadedListener, AMa
         }
 
         if (mode == AMap.LOCATION_TYPE_MAP_FOLLOW) {
-            CameraPosition currentCP = mGaodeMap.getCameraPosition();
-            CameraPosition newCP= new CameraPosition(new LatLng(mLocation.getLatitude(), mLocation.getLongitude()),15, currentCP.tilt, 0);
+            CameraPosition newCP= new CameraPosition(new LatLng(mLocation.getLatitude(), mLocation.getLongitude()),15, 0, 0);
 
             mGaodeMap.animateCamera(CameraUpdateFactory.newCameraPosition(newCP), new AMap.CancelableCallback() {
                 @Override
