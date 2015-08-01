@@ -1,15 +1,10 @@
 package org.zarroboogs.maps.ui;
 
-import android.content.Context;
-import android.location.Location;
-import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 
 import com.amap.api.location.AMapLocation;
-import com.amap.api.location.AMapLocationListener;
 import com.amap.api.location.LocationManagerProxy;
 import com.amap.api.location.LocationProviderProxy;
 import com.amap.api.maps.AMap;
@@ -26,6 +21,7 @@ import com.amap.api.maps.model.MarkerOptions;
 import org.zarroboogs.maps.MapsFragment;
 import org.zarroboogs.maps.OnLocationChangedListener;
 import org.zarroboogs.maps.R;
+import org.zarroboogs.maps.utils.FileUtils;
 
 import java.util.ArrayList;
 
@@ -39,15 +35,12 @@ public class MapsModule implements IGaoDeMapsView, AMap.OnMapLoadedListener, AMa
     private UiSettings mUiSetting;
     private LocationManagerProxy mAMapLocationManager;
     private boolean mIsEnableMyLocation = true;
-    private boolean mIsFirstLocation = true;
     private AMapLocation mLocation;
     private AMap mGaodeMap;
     private MapsFragment mMapsFragment;
-    private MarkerOptions mMyLocationMarker;
+    private Marker marker;
 
     private MyLocationChangedListener myLocationChangedListener = new MyLocationChangedListener();
-    private MyLocationSource source = new MyLocationSource();
-
 
     public MapsModule(MapsFragment fragment ,AMap map) {
         this.mMapsFragment = fragment;
@@ -75,7 +68,6 @@ public class MapsModule implements IGaoDeMapsView, AMap.OnMapLoadedListener, AMa
     }
 
     public void setMaps(){
-        mGaodeMap.setLocationSource(source);// 设置定位监听
         mGaodeMap.getUiSettings().setMyLocationButtonEnabled(true);// 设置默认定位按钮是否显示
         mGaodeMap.setMyLocationEnabled(true);// 设置为true表示显示定位层并可触发定位，false表示隐藏定位层并不可触发定位，默认是false
         //设置定位的类型为定位模式 ，可以由定位、跟随或地图根据面向方向旋转几种
@@ -94,6 +86,30 @@ public class MapsModule implements IGaoDeMapsView, AMap.OnMapLoadedListener, AMa
 
     }
 
+    private static final String MYLOCATION_KEY = "location_mode";
+
+    private int readMyLocationMode() {
+        return FileUtils.readIntFromSharedPreference(MYLOCATION_KEY);
+    }
+
+
+    public void onOrientationChanged(float ori) {
+
+
+        if (mLocation != null && marker != null) {
+            CameraPosition currentCP = mGaodeMap.getCameraPosition();
+
+            int mode = readMyLocationMode();
+            if (mode == AMap.LOCATION_TYPE_MAP_ROTATE) {
+                marker.setRotateAngle(0);
+                CameraPosition newCP = new CameraPosition(new LatLng(mLocation.getLatitude(), mLocation.getLongitude()), currentCP.zoom, currentCP.bearing, ori);
+                mGaodeMap.animateCamera(CameraUpdateFactory.newCameraPosition(newCP), null);
+            } else {
+                marker.setRotateAngle(ori);
+            }
+        }
+
+    }
     class MyLocationChangedListener extends OnLocationChangedListener {
 
         @Override
@@ -102,53 +118,34 @@ public class MapsModule implements IGaoDeMapsView, AMap.OnMapLoadedListener, AMa
             if ((mLocation == null || (mLocation.getLatitude() != aMapLocation.getLatitude() || mLocation.getLongitude() != aMapLocation.getLongitude()))) {
                 Log.d("MapsAction", "onLocationChanged");
 
-                source.changeMyLocation(aMapLocation);
-
                 if (mIsEnableMyLocation) {
+
                     LatLng latLng = new LatLng(aMapLocation.getLatitude(), aMapLocation.getLongitude());
-                    if (mMyLocationMarker == null){
-                        mMyLocationMarker = new MarkerOptions().position(latLng).icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_qu_explore_here_white));
-                        mGaodeMap.addMarker(mMyLocationMarker);
+                    mGaodeMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15));
+
+                    if (marker == null) {
+                        MarkerOptions mMyLocationMarker = new MarkerOptions().anchor(0.5f, 0.5f).position(latLng).icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_resume));
+                        marker = mGaodeMap.addMarker(mMyLocationMarker);
                     } else {
-                        mMyLocationMarker.position(latLng);
+                        marker.setPosition(latLng);
                     }
 
                 }
                 mLocation = aMapLocation;
-
-                if (mIsFirstLocation){
-                    mMapsPresenter.changeMyLocationMode();
-                    mIsFirstLocation = false;
-                }
             }
 
         }
 
     }
 
-    class MyLocationSource implements LocationSource{
 
-        private OnLocationChangedListener mListener;
-
-        public void changeMyLocation(AMapLocation aLocation){
-            mListener.onLocationChanged(aLocation);
+    public void deactivate() {
+        if (mAMapLocationManager != null) {
+            mAMapLocationManager.removeUpdates(myLocationChangedListener);
+            mAMapLocationManager.destroy();
         }
-        @Override
-        public void activate(OnLocationChangedListener onLocationChangedListener) {
-            mListener = onLocationChangedListener;
-        }
-
-        @Override
-        public void deactivate() {
-            mListener = null;
-            if (mAMapLocationManager != null) {
-                mAMapLocationManager.removeUpdates(myLocationChangedListener);
-                mAMapLocationManager.destroy();
-            }
-            mAMapLocationManager = null;
-        }
+        mAMapLocationManager = null;
     }
-
 
     @Override
     public void addMarker(MarkerOptions marker) {
@@ -180,7 +177,7 @@ public class MapsModule implements IGaoDeMapsView, AMap.OnMapLoadedListener, AMa
 
         if (mode == AMap.LOCATION_TYPE_MAP_FOLLOW) {
             CameraPosition currentCP = mGaodeMap.getCameraPosition();
-            CameraPosition newCP= new CameraPosition(new LatLng(mLocation.getLatitude(), mLocation.getLongitude()),15, currentCP.tilt, mMapsFragment.getDevicesDirection());
+            CameraPosition newCP= new CameraPosition(new LatLng(mLocation.getLatitude(), mLocation.getLongitude()),15, currentCP.tilt, 0);
 
             mGaodeMap.animateCamera(CameraUpdateFactory.newCameraPosition(newCP), new AMap.CancelableCallback() {
                 @Override

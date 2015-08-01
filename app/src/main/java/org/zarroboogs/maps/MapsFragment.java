@@ -601,6 +601,8 @@ public class MapsFragment extends Fragment implements View.OnClickListener, Draw
                 if (Math.abs(x - mDevicesDirection) > 5) {
                     mCompass.setRotation(-x);
                     mDevicesDirection = x;
+
+                    mMapsModule.onOrientationChanged(mDevicesDirection);
                 }
             }
         }
