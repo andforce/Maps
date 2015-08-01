@@ -15,5 +15,4 @@ public interface MapsPresenter {
 
     public void stopFollowMode();
 
-
 }

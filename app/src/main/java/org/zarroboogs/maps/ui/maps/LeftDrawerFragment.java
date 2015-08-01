@@ -33,6 +33,8 @@ public class LeftDrawerFragment extends Fragment implements View.OnClickListener
     private String mParam2;
 
     private Button mOfflineBtn;
+    private Button mSatelliteBtn;
+    private Button mSettingBtn;
 
     private OnFragmentInteractionListener mListener;
 
@@ -80,12 +82,19 @@ public class LeftDrawerFragment extends Fragment implements View.OnClickListener
         mOfflineBtn = (Button) view.findViewById(R.id.leftDrawerOfflineBtn);
 
         mOfflineBtn.setOnClickListener(this);
+
+        mSatelliteBtn = (Button) view.findViewById(R.id.left_drawer_satellite);
+        mSatelliteBtn.setOnClickListener(this);
+
+        mSettingBtn = (Button) view.findViewById(R.id.left_drawer_setting);
+        mSettingBtn.setOnClickListener(this);
+
     }
 
     // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
+    public void onButtonPressed(int id) {
         if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
+            mListener.onFragmentInteraction(id);
         }
     }
 
@@ -113,7 +122,11 @@ public class LeftDrawerFragment extends Fragment implements View.OnClickListener
             Intent intent = new Intent(getActivity(), OfflineMapActivity.class);
             getActivity().startActivity(intent);
 
+        } else{
+            onButtonPressed(id);
         }
+
+
     }
 
     /**
@@ -128,7 +141,7 @@ public class LeftDrawerFragment extends Fragment implements View.OnClickListener
      */
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
-        public void onFragmentInteraction(Uri uri);
+        public void onFragmentInteraction(int id);
     }
 
 }

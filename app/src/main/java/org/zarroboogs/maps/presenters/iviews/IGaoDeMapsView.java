@@ -1,4 +1,4 @@
-package org.zarroboogs.maps.ui;
+package org.zarroboogs.maps.presenters.iviews;
 
 import com.amap.api.maps.model.MarkerOptions;
 
@@ -18,5 +18,7 @@ public interface IGaoDeMapsView {
     public void changeMyLocationMode(int mode);
 
     public void stopFollowMode();
+
+    public void changeMapStyle(int style);
 
 }

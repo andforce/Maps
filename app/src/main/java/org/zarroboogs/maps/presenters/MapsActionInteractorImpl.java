@@ -2,16 +2,16 @@ package org.zarroboogs.maps.presenters;
 
 import com.amap.api.maps.AMap;
 
-import org.zarroboogs.maps.utils.FileUtils;
+import org.zarroboogs.maps.utils.SettingUtils;
 
 /**
  * Created by wangdiyuan on 15-7-21.
  */
 public class MapsActionInteractorImpl implements MapsActionInteractor {
-    private static final String MYLOCATION_KEY = "location_mode";
+
 
     private int readMyLocationMode() {
-        int mode = FileUtils.readIntFromSharedPreference(MYLOCATION_KEY);
+        int mode = SettingUtils.readCurrentMyLocationMode();
         if (mode == AMap.LOCATION_TYPE_MAP_FOLLOW){
             return AMap.LOCATION_TYPE_MAP_ROTATE;
         } else if(mode == AMap.LOCATION_TYPE_MAP_ROTATE){
@@ -28,7 +28,7 @@ public class MapsActionInteractorImpl implements MapsActionInteractor {
 
             int mode = readMyLocationMode();
 
-            FileUtils.writeIntToSharedPreference(MYLOCATION_KEY,mode);
+            SettingUtils.writeCurrentMyLocationMode(mode);
             listener.onMyLocationModeChanged(mode);
         }
     }
@@ -36,9 +36,8 @@ public class MapsActionInteractorImpl implements MapsActionInteractor {
     @Override
     public void stopFollowMode(OnMyLocationModeChangedListener listener) {
         if (listener != null) {
-            FileUtils.writeIntToSharedPreference(MYLOCATION_KEY,AMap.LOCATION_TYPE_LOCATE);
+            SettingUtils.writeCurrentMyLocationMode(AMap.LOCATION_TYPE_LOCATE);
             listener.onStopFllowMode();
         }
     }
-
 }

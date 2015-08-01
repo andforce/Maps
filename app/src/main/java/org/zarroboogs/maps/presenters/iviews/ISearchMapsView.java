@@ -1,4 +1,4 @@
-package org.zarroboogs.maps.ui;
+package org.zarroboogs.maps.presenters.iviews;
 
 import android.content.Context;
 

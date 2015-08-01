@@ -42,9 +42,10 @@ import org.zarroboogs.maps.ui.poi.PoiSearchAdapter;
 import org.zarroboogs.maps.R;
 import org.zarroboogs.maps.ui.navi.NaviRouteActivity;
 import org.zarroboogs.maps.ui.poi.PoiKeywordSearchActivity;
-import org.zarroboogs.maps.ui.ISearchMapsView;
+import org.zarroboogs.maps.presenters.iviews.ISearchMapsView;
 import org.zarroboogs.maps.ui.MapsModule;
 import org.zarroboogs.maps.presenters.SearchMapsPresenter;
+import org.zarroboogs.maps.utils.SettingUtils;
 import org.zarroboogs.maps.utils.ToastUtil;
 
 import java.util.ArrayList;
@@ -309,6 +310,24 @@ public class MapsFragment extends Fragment implements View.OnClickListener, Draw
         mListener = null;
     }
 
+    public void onLeftDrawerViewClick(int id){
+        if (id == R.id.left_drawer_satellite){
+            int currentStyle = SettingUtils.readCurrentMapsStyle();
+
+            int newStyle = AMap.MAP_TYPE_NORMAL;
+
+            if (currentStyle == AMap.MAP_TYPE_NORMAL){
+                newStyle = AMap.MAP_TYPE_SATELLITE;
+            } else{
+                newStyle = AMap.MAP_TYPE_NORMAL;
+            }
+
+            SettingUtils.writeCurrentMapsStyle(newStyle);
+
+            mMapsModule.changeMapStyle(newStyle);
+
+        }
+    }
     @Override
     public void onClick(View view) {
         int id = view.getId();

@@ -4,7 +4,7 @@ import android.content.Context;
 
 import com.amap.api.services.core.PoiItem;
 
-import org.zarroboogs.maps.ui.ISearchMapsView;
+import org.zarroboogs.maps.presenters.iviews.ISearchMapsView;
 
 import java.util.List;
 

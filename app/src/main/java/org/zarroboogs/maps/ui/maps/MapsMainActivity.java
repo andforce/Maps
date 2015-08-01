@@ -107,6 +107,11 @@ public class MapsMainActivity extends BaseActivity implements MapsFragment.OnFra
     }
 
     @Override
+    public void onFragmentInteraction(int id) {
+        getMapsFragment().onLeftDrawerViewClick(id);
+    }
+
+    @Override
     public void onFragmentInteraction(Uri uri) {
 
     }

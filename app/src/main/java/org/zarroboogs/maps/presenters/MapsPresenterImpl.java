@@ -1,10 +1,5 @@
 package org.zarroboogs.maps.presenters;
 
-import android.location.Location;
-import android.os.Bundle;
-
-import com.amap.api.location.AMapLocation;
-import com.amap.api.location.AMapLocationListener;
 import com.amap.api.maps.model.LatLng;
 import com.amap.api.maps.model.MarkerOptions;
 
@@ -12,8 +7,9 @@ import org.zarroboogs.maps.MapsApplication;
 import org.zarroboogs.maps.beans.GeoFenceInfo;
 import org.zarroboogs.maps.db.beans.CameraBean;
 import org.zarroboogs.maps.module.GeoFenceManager;
-import org.zarroboogs.maps.ui.IGaoDeMapsView;
+import org.zarroboogs.maps.presenters.iviews.IGaoDeMapsView;
 import org.zarroboogs.maps.presenters.MarkerInteractor.OnMarkerCreatedListener;
+import org.zarroboogs.maps.utils.SettingUtils;
 
 import java.util.ArrayList;
 
@@ -21,7 +17,7 @@ import java.util.ArrayList;
  * Created by andforce on 15/7/19.
  */
 public class MapsPresenterImpl implements MapsPresenter, OnMarkerCreatedListener, MarkerInteractor.OnReadCamerasListener,
-        MapsActionInteractor.OnMyLocationModeChangedListener, AMapLocationListener{
+        MapsActionInteractor.OnMyLocationModeChangedListener{
 
     private static final boolean DEBUG = true;
 
@@ -30,7 +26,7 @@ public class MapsPresenterImpl implements MapsPresenter, OnMarkerCreatedListener
 
     private MapsActionInteractor mMapsActionInteractor;
 
-    private GeoFenceManager manager;
+    private GeoFenceManager geoFenceManager;
 
     public MapsPresenterImpl(IGaoDeMapsView gaoDeMapsView) {
         this.mGaodeMapsView = gaoDeMapsView;
@@ -50,14 +46,14 @@ public class MapsPresenterImpl implements MapsPresenter, OnMarkerCreatedListener
 
     @Override
     public void disableDefaultGeoFences() {
-        if (manager != null){
-            manager.removeAllGeoFenceAlert();
+        if (geoFenceManager != null){
+            geoFenceManager.removeAllGeoFenceAlert();
         }
     }
 
     @Override
     public void changeMyLocationMode() {
-        mMapsActionInteractor.changeMyLocationMode( this);
+        mMapsActionInteractor.changeMyLocationMode(this);
     }
 
     @Override
@@ -73,11 +69,11 @@ public class MapsPresenterImpl implements MapsPresenter, OnMarkerCreatedListener
 
     @Override
     public void onReadCameras(ArrayList<CameraBean> cameraBeans) {
-        if (manager == null){
-            manager = new GeoFenceManager(MapsApplication.getAppContext());
+        if (geoFenceManager == null){
+            geoFenceManager = new GeoFenceManager(MapsApplication.getAppContext());
         }
 
-        manager.requestLocation();
+        geoFenceManager.requestLocation();
 
         if (cameraBeans != null){
             ArrayList<GeoFenceInfo> geoFenceInfos = new ArrayList<>();
@@ -92,7 +88,7 @@ public class MapsPresenterImpl implements MapsPresenter, OnMarkerCreatedListener
                 geoFenceInfos.add(geoFenceInfo);
             }
 
-            manager.addAllGeoFenceAler(geoFenceInfos);
+            geoFenceManager.addAllGeoFenceAler(geoFenceInfos);
         }
 
 
@@ -106,30 +102,5 @@ public class MapsPresenterImpl implements MapsPresenter, OnMarkerCreatedListener
     @Override
     public void onStopFllowMode() {
         mGaodeMapsView.stopFollowMode();
-    }
-
-    @Override
-    public void onLocationChanged(AMapLocation aMapLocation) {
-
-    }
-
-    @Override
-    public void onLocationChanged(Location location) {
-
-    }
-
-    @Override
-    public void onStatusChanged(String s, int i, Bundle bundle) {
-
-    }
-
-    @Override
-    public void onProviderEnabled(String s) {
-
-    }
-
-    @Override
-    public void onProviderDisabled(String s) {
-
     }
 }

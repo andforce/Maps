@@ -23,7 +23,7 @@
 
 
         <Button
-            android:id="@+id/btn_favourite"
+            android:id="@+id/left_drawer_satellite"
             style="@style/drawerMenuButton"
             android:layout_width="match_parent"
             android:layout_weight="0"
@@ -32,7 +32,7 @@
             tools:ignore="RtlHardcoded" />
 
         <Button
-            android:id="@+id/leftDrawerSettingBtn"
+            android:id="@+id/left_drawer_setting"
             style="@style/drawerMenuButton"
             android:layout_width="match_parent"
             android:layout_weight="0"
