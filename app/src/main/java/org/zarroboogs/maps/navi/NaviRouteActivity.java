@@ -44,7 +44,7 @@ import java.util.List;
  * 路径规划结果展示界面
  */
 public class NaviRouteActivity extends BaseActivity implements OnClickListener,
-		OnMapLoadedListener , AMapNaviListener{
+		OnMapLoadedListener{
 
 	// View
 	private ImageButton mStartNaviButton;// 实时导航按钮
@@ -79,13 +79,14 @@ public class NaviRouteActivity extends BaseActivity implements OnClickListener,
 
 
 		mAmapNavi = AMapNavi.getInstance(this);
-		mAmapNavi.setAMapNaviListener(this);
+		mAmapNavi.setAMapNaviListener(naviRouteListener);
 		boolean startGps = mAmapNavi.startGPS();
 		Log.d("NaviRouteActivity ", "onCreate- startGps- " + startGps);
 
 		boolean iscalDrive = mAmapNavi.calculateDriveRoute(mStartNavi, mEndNavi, null, AMapNavi.DrivingDefault);
 
 		Log.d("NaviRouteActivity ", "onCreate- calculateDriveRoute- " + iscalDrive);
+
 
 		MarkerInteractor markerInteractor = new MarkerInteractorImpl();
 		markerInteractor.readCameras(new MarkerInteractor.OnReadCamerasListener() {
@@ -102,6 +103,19 @@ public class NaviRouteActivity extends BaseActivity implements OnClickListener,
 			}
 		});
 	}
+
+	private  NaviRouteListener naviRouteListener = new NaviRouteListener() {
+		@Override
+		public void onRouteSuccess() {
+			TTSController.getInstance(getApplicationContext()).playText("路线规划成功");
+			initNavi();
+		}
+
+		@Override
+		public void onRouteFailed() {
+			TTSController.getInstance(getApplicationContext()).playText("规划失败");
+		}
+	};
 
 	// -----------------------初始化----------------------------------
 
@@ -211,8 +225,6 @@ public class NaviRouteActivity extends BaseActivity implements OnClickListener,
 	public void onResume() {
 		super.onResume();
 		mMapView.onResume();
-
-		initNavi();
 	}
 
 	@Override
@@ -223,9 +235,9 @@ public class NaviRouteActivity extends BaseActivity implements OnClickListener,
 
 	@Override
 	public void onDestroy() {
-		super.onDestroy();
-		mMapView.onDestroy();
-	}
+	super.onDestroy();
+	mMapView.onDestroy();
+}
 
 	@Override
 	public void onMapLoaded() {
@@ -236,86 +248,4 @@ public class NaviRouteActivity extends BaseActivity implements OnClickListener,
 		}
 	}
 
-	@Override
-	public void onInitNaviFailure() {
-
-	}
-
-	@Override
-	public void onInitNaviSuccess() {
-
-	}
-
-	@Override
-	public void onStartNavi(int i) {
-
-	}
-
-	@Override
-	public void onTrafficStatusUpdate() {
-
-	}
-
-	@Override
-	public void onLocationChange(AMapNaviLocation aMapNaviLocation) {
-
-	}
-
-	@Override
-	public void onGetNavigationText(int i, String s) {
-		ToastUtil.show(getApplicationContext(), s);
-	}
-
-	@Override
-	public void onEndEmulatorNavi() {
-
-	}
-
-	@Override
-	public void onArriveDestination() {
-
-	}
-
-	@Override
-	public void onCalculateRouteSuccess() {
-		initNavi();
-		TTSController.getInstance(this.getApplicationContext()).playText("规划成功");
-		ToastUtil.show(getApplicationContext(), "规划成功");
-	}
-
-	@Override
-	public void onCalculateRouteFailure(int i) {
-		ToastUtil.show(getApplicationContext(), "规划失败");
-		TTSController.getInstance(this.getApplicationContext()).playText("规划失败");
-	}
-
-	@Override
-	public void onReCalculateRouteForYaw() {
-
-	}
-
-	@Override
-	public void onReCalculateRouteForTrafficJam() {
-
-	}
-
-	@Override
-	public void onArrivedWayPoint(int i) {
-
-	}
-
-	@Override
-	public void onGpsOpenStatus(boolean b) {
-
-	}
-
-	@Override
-	public void onNaviInfoUpdated(AMapNaviInfo aMapNaviInfo) {
-
-	}
-
-	@Override
-	public void onNaviInfoUpdate(NaviInfo naviInfo) {
-
-	}
 }
