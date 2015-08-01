@@ -186,19 +186,6 @@ public class NaviCustomActivity extends BaseActivity implements
 		setIntent(intent);
 	}
 
-	@Override
-	public boolean onKeyDown(int keyCode, KeyEvent event) {
-
-		if (keyCode == KeyEvent.KEYCODE_BACK) {
-			Intent intent = new Intent(NaviCustomActivity.this,
-					MapsMainActivity.class);
-			intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-			startActivity(intent);
-			finish();
-		}
-		return super.onKeyDown(keyCode, event);
-	}
-
 	// ------------------------------生命周期方法---------------------------
 	@Override
 	protected void onSaveInstanceState(Bundle outState) {
@@ -215,10 +202,6 @@ public class NaviCustomActivity extends BaseActivity implements
 		setAmapNaviViewOptions();
 		AMapNavi.getInstance(this).setAMapNaviListener(getAMapNaviListener());
 		mAmapAMapNaviView.onResume();
-
-		//语音播报开始
-		TTSController.getInstance(NaviCustomActivity.this).startSpeaking();
-		ToastUtil.show(NaviCustomActivity.this, "onInitNaviSuccess");
 
 	}
 
