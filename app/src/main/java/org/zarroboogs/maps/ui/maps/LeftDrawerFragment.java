@@ -131,21 +131,16 @@ public class LeftDrawerFragment extends Fragment implements View.OnClickListener
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
+        ViewGroup.LayoutParams layoutParams = mLeftTopView.getLayoutParams();
         if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
-            // land do nothing is ok
             mLeftTopView.setBackgroundResource(R.drawable.left_drawer_bg_land);
-            ViewGroup.LayoutParams layoutParams = mLeftTopView.getLayoutParams();
             layoutParams.height = (int) getResources().getDimension(R.dimen.left_drawer_top_view_height_land);
-            mLeftTopView.setLayoutParams(layoutParams);
-
         } else if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
-            // port do nothing is ok
             mLeftTopView.setBackgroundResource(R.drawable.left_drawer_bg);
-            ViewGroup.LayoutParams layoutParams = mLeftTopView.getLayoutParams();
             layoutParams.height = (int) getResources().getDimension(R.dimen.left_drawer_top_view_height);
-            mLeftTopView.setLayoutParams(layoutParams);
-
         }
+
+        mLeftTopView.setLayoutParams(layoutParams);
     }
 
     @Override
@@ -154,8 +149,7 @@ public class LeftDrawerFragment extends Fragment implements View.OnClickListener
         try {
             mListener = (OnFragmentInteractionListener) activity;
         } catch (ClassCastException e) {
-            throw new ClassCastException(activity.toString()
-                    + " must implement OnFragmentInteractionListener");
+            throw new ClassCastException(activity.toString() + " must implement OnFragmentInteractionListener");
         }
     }
 
