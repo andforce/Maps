@@ -2,6 +2,7 @@ package org.zarroboogs.maps.ui.maps;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.net.Uri;
 import android.os.Bundle;
@@ -40,6 +41,8 @@ public class LeftDrawerFragment extends Fragment implements View.OnClickListener
     private Button mSatelliteBtn;
     private Button mSettingBtn;
     private Button mCameraBtn;
+
+    private View mLeftTopView;
 
     private OnFragmentInteractionListener mListener;
 
@@ -97,6 +100,8 @@ public class LeftDrawerFragment extends Fragment implements View.OnClickListener
         mCameraBtn = (Button) view.findViewById(R.id.left_drawer_camera);
         mCameraBtn.setOnClickListener(this);
 
+        mLeftTopView = view.findViewById(R.id.left_top_banner);
+
         initViewAfterViewCreated();
     }
 
@@ -120,6 +125,26 @@ public class LeftDrawerFragment extends Fragment implements View.OnClickListener
     public void onButtonPressed(int id) {
         if (mListener != null) {
             mListener.onFragmentInteraction(id);
+        }
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            // land do nothing is ok
+            mLeftTopView.setBackgroundResource(R.drawable.left_drawer_bg_land);
+            ViewGroup.LayoutParams layoutParams = mLeftTopView.getLayoutParams();
+            layoutParams.height = (int) getResources().getDimension(R.dimen.left_drawer_top_view_height_land);
+            mLeftTopView.setLayoutParams(layoutParams);
+
+        } else if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
+            // port do nothing is ok
+            mLeftTopView.setBackgroundResource(R.drawable.left_drawer_bg);
+            ViewGroup.LayoutParams layoutParams = mLeftTopView.getLayoutParams();
+            layoutParams.height = (int) getResources().getDimension(R.dimen.left_drawer_top_view_height);
+            mLeftTopView.setLayoutParams(layoutParams);
+
         }
     }
 

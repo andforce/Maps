@@ -282,10 +282,10 @@ public class OfflineMapActivity extends BaseActivity implements
                     .getProvinceName());
             if (isOpen[groupPosition]) {
                 group_image.setImageDrawable(getResources().getDrawable(
-                        R.drawable.downarrow));
+                        R.drawable.offline_maps_down_arrow));
             } else {
                 group_image.setImageDrawable(getResources().getDrawable(
-                        R.drawable.rightarrow));
+                        R.drawable.offline_maps_right_arrow));
             }
             return convertView;
         }

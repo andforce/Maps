@@ -8,7 +8,7 @@
     <View
         android:id="@+id/left_top_banner"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="@dimen/left_drawer_top_view_height"
         android:background="@drawable/left_drawer_bg" />
 
     <LinearLayout
