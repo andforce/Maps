@@ -24,6 +24,7 @@ import org.zarroboogs.maps.ui.maps.MapsFragment;
 import org.zarroboogs.maps.OnLocationChangedListener;
 import org.zarroboogs.maps.R;
 import org.zarroboogs.maps.utils.FileUtils;
+import org.zarroboogs.maps.utils.SettingUtils;
 
 import java.util.ArrayList;
 
@@ -67,6 +68,7 @@ public class MapsModule implements IGaoDeMapsView, AMap.OnMapLoadedListener, AMa
         mUiSetting.setMyLocationButtonEnabled(false);
         mUiSetting.setLogoPosition(AMapOptions.LOGO_POSITION_BOTTOM_CENTER);
 
+        mGaodeMap.setMapType(SettingUtils.readCurrentMapsStyle());
     }
 
     public void setMaps(){

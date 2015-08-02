@@ -1,5 +1,6 @@
 package org.zarroboogs.maps.ui.maps;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
@@ -10,6 +11,7 @@ import android.view.View;
 import org.zarroboogs.maps.ui.BaseActivity;
 import org.zarroboogs.maps.DrawerStateListener;
 import org.zarroboogs.maps.R;
+import org.zarroboogs.maps.ui.offlinemaps.OfflineMapActivity;
 
 
 /**
@@ -20,6 +22,8 @@ public class MapsMainActivity extends BaseActivity implements MapsFragment.OnFra
 
     private DrawerLayout mDrawerLayout;
     private DrawerStateListener mDrawerStateListener;
+    private boolean mIsDrawerClicked = false;
+    private int mDrawerClickedId = -1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,28 +39,40 @@ public class MapsMainActivity extends BaseActivity implements MapsFragment.OnFra
         mDrawerLayout.setDrawerListener(new DrawerLayout.DrawerListener() {
             @Override
             public void onDrawerSlide(View drawerView, float slideOffset) {
-                if (mDrawerStateListener != null){
+                if (mDrawerStateListener != null) {
                     mDrawerStateListener.onDrawerSlide(drawerView, slideOffset);
                 }
             }
 
             @Override
             public void onDrawerOpened(View drawerView) {
-                if (mDrawerStateListener != null){
+                if (mDrawerStateListener != null) {
                     mDrawerStateListener.onDrawerOpened(drawerView);
                 }
             }
 
             @Override
             public void onDrawerClosed(View drawerView) {
-                if (mDrawerStateListener != null){
-                    mDrawerStateListener.onDrawerClosed(drawerView);
+                if (mIsDrawerClicked){
+                    if (mDrawerClickedId == R.id.leftDrawerOfflineBtn){
+                        Intent intent = new Intent(MapsMainActivity.this, OfflineMapActivity.class);
+                        startActivity(intent);
+
+                    } else{
+                        getMapsFragment().onLeftDrawerViewClick(mDrawerClickedId);
+                    }
+                    mDrawerClickedId = -1;
+                    mIsDrawerClicked = false;
+                }else {
+                    if (mDrawerStateListener != null) {
+                        mDrawerStateListener.onDrawerClosed(drawerView);
+                    }
                 }
             }
 
             @Override
             public void onDrawerStateChanged(int newState) {
-                if (mDrawerStateListener != null){
+                if (mDrawerStateListener != null) {
                     mDrawerStateListener.onDrawerStateChanged(newState);
                 }
             }
@@ -72,11 +88,11 @@ public class MapsMainActivity extends BaseActivity implements MapsFragment.OnFra
 
     }
 
-    public void openLeftDrawer(){
+    public void openLeftDrawer() {
         mDrawerLayout.openDrawer(Gravity.START);
     }
 
-    public void closeLeftDrawer(){
+    public void closeLeftDrawer() {
         mDrawerLayout.closeDrawer(Gravity.END);
     }
 
@@ -99,7 +115,7 @@ public class MapsMainActivity extends BaseActivity implements MapsFragment.OnFra
 
     @Override
     public void onBackPressed() {
-        if (getMapsFragment().isInSearch()){
+        if (getMapsFragment().isInSearch()) {
             getMapsFragment().exitSearch();
         } else {
             super.onBackPressed();
@@ -108,7 +124,9 @@ public class MapsMainActivity extends BaseActivity implements MapsFragment.OnFra
 
     @Override
     public void onFragmentInteraction(int id) {
-        getMapsFragment().onLeftDrawerViewClick(id);
+        mIsDrawerClicked = true;
+        mDrawerClickedId = id;
+        mDrawerLayout.closeDrawer(Gravity.START);
     }
 
     @Override

@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <color name="grey"> #ebebeb</color>
+    <color name="grey">#ebebeb</color>
 
-    <color name="draw_text_color">#FF616161</color>
+
 
     <color name="search_result_title">#FF232323</color>
     <color name="search_result_sum">#FF757575</color>
 
+    <color name="drawer_text_color_normal">#FF616161</color>
+    <color name="drawer_text_color_blue">#2D60C6</color>
 </resources>

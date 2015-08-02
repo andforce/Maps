@@ -2,6 +2,7 @@ package org.zarroboogs.maps.ui.maps;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -10,8 +11,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import com.amap.api.maps.AMap;
+
 import org.zarroboogs.maps.R;
 import org.zarroboogs.maps.ui.offlinemaps.OfflineMapActivity;
+import org.zarroboogs.maps.utils.SettingUtils;
 
 
 /**
@@ -89,6 +93,17 @@ public class LeftDrawerFragment extends Fragment implements View.OnClickListener
         mSettingBtn = (Button) view.findViewById(R.id.left_drawer_setting);
         mSettingBtn.setOnClickListener(this);
 
+        initViewAfterViewCreated();
+    }
+
+    private void initViewAfterViewCreated(){
+        Resources resources = getResources();
+
+        if (SettingUtils.readCurrentMapsStyle() == AMap.MAP_TYPE_NORMAL){
+            mSatelliteBtn.setTextColor(resources.getColor(R.color.drawer_text_color_normal));
+        } else {
+            mSatelliteBtn.setTextColor(resources.getColor(R.color.drawer_text_color_blue));
+        }
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -118,13 +133,15 @@ public class LeftDrawerFragment extends Fragment implements View.OnClickListener
     @Override
     public void onClick(View view) {
         int id = view.getId();
-        if (id == R.id.leftDrawerOfflineBtn){
-            Intent intent = new Intent(getActivity(), OfflineMapActivity.class);
-            getActivity().startActivity(intent);
+        if (id == R.id.left_drawer_satellite){
 
-        } else{
-            onButtonPressed(id);
+            if (SettingUtils.readCurrentMapsStyle() == AMap.MAP_TYPE_SATELLITE){
+                mSatelliteBtn.setTextColor(getResources().getColor(R.color.drawer_text_color_normal));
+            } else {
+                mSatelliteBtn.setTextColor(getResources().getColor(R.color.drawer_text_color_blue));
+            }
         }
+        onButtonPressed(id);
 
 
     }

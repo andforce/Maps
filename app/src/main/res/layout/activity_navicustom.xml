@@ -3,7 +3,7 @@
     android:id="@+id/map_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#2D60C6"
+    android:background="@color/drawer_text_color_blue"
     android:orientation="vertical">
 
     <com.amap.api.navi.AMapNaviView
