@@ -326,6 +326,14 @@ public class MapsFragment extends Fragment implements View.OnClickListener, Draw
 
             mMapsModule.changeMapStyle(newStyle);
 
+        } else if (id == R.id.left_drawer_camera){
+            int cameraSwitch = SettingUtils.readCurrentCameraState();
+            if (cameraSwitch == SettingUtils.SWITCH_ON){
+                mMapsModule.removeCameras();
+            } else {
+                mMapsModule.loadCameras();
+            }
+            SettingUtils.writeCurrentCameraState(~cameraSwitch);
         }
     }
     @Override

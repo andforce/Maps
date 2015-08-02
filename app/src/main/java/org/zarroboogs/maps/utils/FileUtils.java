@@ -37,8 +37,8 @@ public class FileUtils {
         sPreference.edit().putString(key, value).commit();
     }
 
-    public static int readIntFromSharedPreference(String key) {
-        return sPreference.getInt(key, -1);
+    public static int readIntFromSharedPreference(String key, int def) {
+        return sPreference.getInt(key, def);
     }
 
     public static void writeIntToSharedPreference(String key, int value) {

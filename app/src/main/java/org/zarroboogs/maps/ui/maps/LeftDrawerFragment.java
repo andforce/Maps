@@ -39,6 +39,7 @@ public class LeftDrawerFragment extends Fragment implements View.OnClickListener
     private Button mOfflineBtn;
     private Button mSatelliteBtn;
     private Button mSettingBtn;
+    private Button mCameraBtn;
 
     private OnFragmentInteractionListener mListener;
 
@@ -93,6 +94,9 @@ public class LeftDrawerFragment extends Fragment implements View.OnClickListener
         mSettingBtn = (Button) view.findViewById(R.id.left_drawer_setting);
         mSettingBtn.setOnClickListener(this);
 
+        mCameraBtn = (Button) view.findViewById(R.id.left_drawer_camera);
+        mCameraBtn.setOnClickListener(this);
+
         initViewAfterViewCreated();
     }
 
@@ -103,6 +107,12 @@ public class LeftDrawerFragment extends Fragment implements View.OnClickListener
             mSatelliteBtn.setTextColor(resources.getColor(R.color.drawer_text_color_normal));
         } else {
             mSatelliteBtn.setTextColor(resources.getColor(R.color.drawer_text_color_blue));
+        }
+
+        if (SettingUtils.readCurrentCameraState() == SettingUtils.SWITCH_ON){
+            mCameraBtn.setTextColor(getResources().getColor(R.color.drawer_text_color_blue));
+        } else{
+            mCameraBtn.setTextColor(getResources().getColor(R.color.drawer_text_color_normal));
         }
     }
 
@@ -139,6 +149,12 @@ public class LeftDrawerFragment extends Fragment implements View.OnClickListener
                 mSatelliteBtn.setTextColor(getResources().getColor(R.color.drawer_text_color_normal));
             } else {
                 mSatelliteBtn.setTextColor(getResources().getColor(R.color.drawer_text_color_blue));
+            }
+        } else if (id == R.id.left_drawer_camera){
+            if (SettingUtils.readCurrentCameraState() == SettingUtils.SWITCH_OFF){
+                mCameraBtn.setTextColor(getResources().getColor(R.color.drawer_text_color_blue));
+            } else{
+                mCameraBtn.setTextColor(getResources().getColor(R.color.drawer_text_color_normal));
             }
         }
         onButtonPressed(id);

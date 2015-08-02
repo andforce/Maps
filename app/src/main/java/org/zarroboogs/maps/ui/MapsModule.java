@@ -27,6 +27,7 @@ import org.zarroboogs.maps.utils.FileUtils;
 import org.zarroboogs.maps.utils.SettingUtils;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by andforce on 15/7/19.
@@ -42,6 +43,7 @@ public class MapsModule implements IGaoDeMapsView, AMap.OnMapLoadedListener, AMa
     private AMap mGaodeMap;
     private MapsFragment mMapsFragment;
     private Marker marker;
+    private List<Marker> mCameras;
 
     private MyLocationChangedListener myLocationChangedListener = new MyLocationChangedListener();
 
@@ -69,6 +71,7 @@ public class MapsModule implements IGaoDeMapsView, AMap.OnMapLoadedListener, AMa
         mUiSetting.setLogoPosition(AMapOptions.LOGO_POSITION_BOTTOM_CENTER);
 
         mGaodeMap.setMapType(SettingUtils.readCurrentMapsStyle());
+
     }
 
     public void setMaps(){
@@ -93,7 +96,7 @@ public class MapsModule implements IGaoDeMapsView, AMap.OnMapLoadedListener, AMa
     private static final String MYLOCATION_KEY = "location_mode";
 
     private int readMyLocationMode() {
-        return FileUtils.readIntFromSharedPreference(MYLOCATION_KEY);
+        return SettingUtils.readCurrentMyLocationMode();
     }
 
 
@@ -159,8 +162,9 @@ public class MapsModule implements IGaoDeMapsView, AMap.OnMapLoadedListener, AMa
 
     @Override
     public void addMarkers(ArrayList<MarkerOptions> markers) {
+        removeCameras();
         // false 不移动到中心
-        mGaodeMap.addMarkers(markers, false);
+        mCameras = mGaodeMap.addMarkers(markers, false);
     }
 
     @Override
@@ -204,8 +208,24 @@ public class MapsModule implements IGaoDeMapsView, AMap.OnMapLoadedListener, AMa
 
     @Override
     public void onMapLoaded() {
-        mMapsPresenter.loadDefaultCameraMarkers();
+        if (SettingUtils.readCurrentCameraState() == SettingUtils.SWITCH_ON){
+            mMapsPresenter.loadDefaultCameraMarkers();
+        }
+
         mMapsPresenter.enableDefaultGeoFences();
+    }
+
+    public void loadCameras(){
+        mMapsPresenter.loadDefaultCameraMarkers();
+    }
+
+    public void removeCameras(){
+        if (mCameras != null && !mCameras.isEmpty()){
+            for (Marker marker : mCameras){
+                marker.remove();
+                marker.destroy();
+            }
+        }
     }
 
     @Override
