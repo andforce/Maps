@@ -42,7 +42,6 @@ import org.zarroboogs.maps.DrawerStateListener;
 import org.zarroboogs.maps.ui.poi.PoiSearchAdapter;
 import org.zarroboogs.maps.R;
 import org.zarroboogs.maps.ui.navi.NaviRouteActivity;
-import org.zarroboogs.maps.ui.poi.PoiKeywordSearchActivity;
 import org.zarroboogs.maps.presenters.iviews.ISearchMapsView;
 import org.zarroboogs.maps.ui.MapsModule;
 import org.zarroboogs.maps.presenters.SearchMapsPresenter;
@@ -365,9 +364,6 @@ public class MapsFragment extends Fragment implements View.OnClickListener, Draw
 
         } else if (id == R.id.poi_search_in_maps) {
             mSearchMapsPresenter.enterSearch();
-        } else {
-            Intent intent = new Intent(getActivity(), PoiKeywordSearchActivity.class);
-            startActivity(intent);
         }
     }
 

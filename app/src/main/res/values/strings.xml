@@ -205,7 +205,7 @@
     <string name="tapmap">点击地图设置</string>
     <string name="starttapmap">我的位置（可点击地图设置）</string>
     <string name="walkdescription">步行状态不可用</string>
-
+    <string name="poi_search_hint">请输入关键字</string>
 
 
 </resources>

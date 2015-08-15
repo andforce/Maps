@@ -49,12 +49,6 @@
             android:configChanges="orientation|keyboardHidden|screenSize"/>
 
         <activity
-            android:name=".ui.poi.PoiKeywordSearchActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize">
-
-        </activity>
-
-        <activity
             android:name=".ui.navi.NaviSettingActivity"
             android:configChanges="orientation|keyboardHidden|screenSize" />
 
