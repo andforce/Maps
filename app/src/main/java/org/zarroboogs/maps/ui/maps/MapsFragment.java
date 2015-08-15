@@ -3,6 +3,7 @@ package org.zarroboogs.maps.ui.maps;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -70,12 +71,14 @@ public class MapsFragment extends Fragment implements View.OnClickListener, Draw
     private String mParam1;
     private String mParam2;
 
+    private boolean mLandscape = false;
+    private float mOri = 0;
+
     private AMap aMap;
     private MapView mapView;
     private MapsModule mMapsModule;
 
     private SensorManager mSensorManager;
-    private Sensor mSensor;
     private MySensorEventListener mEventListener = new MySensorEventListener();
     private float mDevicesDirection = 0f;
     private ImageButton mCompass;
@@ -133,6 +136,9 @@ public class MapsFragment extends Fragment implements View.OnClickListener, Draw
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
+        mLandscape = getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE;
+
         mSensorManager = (SensorManager) getActivity().getApplicationContext().getSystemService(Context.SENSOR_SERVICE);
         mSearchMapsPresenter = new SearchMapsPresenter(this);
 
@@ -262,8 +268,11 @@ public class MapsFragment extends Fragment implements View.OnClickListener, Draw
     public void onResume() {
         super.onResume();
         mapView.onResume();
-        mSensor = mSensorManager.getDefaultSensor(Sensor.TYPE_ORIENTATION);
+        Sensor mSensor = mSensorManager.getDefaultSensor(Sensor.TYPE_ORIENTATION);
+        Sensor mPSensor = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+
         mSensorManager.registerListener(mEventListener, mSensor, SensorManager.SENSOR_DELAY_UI);
+        mSensorManager.registerListener(mEventListener,mPSensor, SensorManager.SENSOR_DELAY_UI);
     }
 
     @Override
@@ -624,6 +633,11 @@ public class MapsFragment extends Fragment implements View.OnClickListener, Draw
         public void onFragmentInteraction(Uri uri);
     }
 
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        mLandscape = (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE);
+    }
 
     class MySensorEventListener implements SensorEventListener {
 
@@ -631,13 +645,33 @@ public class MapsFragment extends Fragment implements View.OnClickListener, Draw
         public void onSensorChanged(SensorEvent sensorEvent) {
             if (sensorEvent.sensor.getType() == Sensor.TYPE_ORIENTATION) {
                 float x = sensorEvent.values[SensorManager.DATA_X];
-                if (Math.abs(x - mDevicesDirection) > 5) {
-                    mCompass.setRotation(-x);
-                    mDevicesDirection = x;
+
+                float fixedX = x;
+                if (mLandscape ){
+                    if (mOri < 0) {
+                        fixedX -= 90;
+                        Log.d("onSensorChanged","Right" + x + "   fixedX :" + fixedX);
+                    } else {
+                        fixedX += 90;
+                        Log.d("onSensorChanged","Left " + x + "   fixedX :" + fixedX);
+                    }
+                }
+
+                if (Math.abs(fixedX - mDevicesDirection) > 2) {
+                    mCompass.setRotation(-fixedX);
+                    mDevicesDirection = fixedX;
 
                     mMapsModule.onOrientationChanged(mDevicesDirection);
                 }
+            } else if (sensorEvent.sensor.getType() == Sensor.TYPE_ACCELEROMETER){
+                float x = sensorEvent.values[SensorManager.DATA_X];
+                float y = sensorEvent.values[SensorManager.DATA_Y];
+                float z = sensorEvent.values[SensorManager.DATA_Z];
+                mOri = x;
+//                Log.d("PSensor-onSensorChanged","" + x + "   Ori :" + x);
             }
+
+
         }
 
         @Override
