@@ -77,6 +77,7 @@ public class OfflineMapActivity extends BaseActivity implements
         // 此版本限制，使用离线地图，请初始化一个MapView
         mapView = new MapView(this);
         amapManager = new OfflineMapManager(this, this);
+
         ExpandableListView expandableListView = (ExpandableListView) findViewById(R.id.list);
         expandableListView.setGroupIndicator(null);
         amapManager.getItemByProvinceName("安徽省").getCityList();
@@ -359,10 +360,10 @@ public class OfflineMapActivity extends BaseActivity implements
                 changeOfflineMapTitle(OfflineMapStatus.SUCCESS);
                 break;
             case OfflineMapStatus.LOADING:
-                OfflineMapActivity.this.completeCode = completeCode;
+                this.completeCode = completeCode;
                 break;
             case OfflineMapStatus.UNZIP:
-                OfflineMapActivity.this.completeCode = completeCode;
+                this.completeCode = completeCode;
                 changeOfflineMapTitle(OfflineMapStatus.UNZIP);
                 break;
             case OfflineMapStatus.WAITING:
@@ -378,6 +379,11 @@ public class OfflineMapActivity extends BaseActivity implements
         }
         ((BaseExpandableListAdapter) adapter).notifyDataSetChanged();
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
     }
 
     /**

@@ -22,7 +22,7 @@ public class SettingUtils {
     }
 
     public static int readCurrentMapsStyle() {
-        return FileUtils.readIntFromSharedPreference(MAPS_STYLE_KEY, AMap.LOCATION_TYPE_MAP_FOLLOW);
+        return FileUtils.readIntFromSharedPreference(MAPS_STYLE_KEY, AMap.MAP_TYPE_NORMAL);
     }
 
     public static void writeCurrentMapsStyle(int style) {
@@ -30,7 +30,7 @@ public class SettingUtils {
     }
 
     public static int readCurrentCameraState() {
-        return FileUtils.readIntFromSharedPreference(JING_CAMERA, SWITCH_ON);
+        return FileUtils.readIntFromSharedPreference(JING_CAMERA, SWITCH_OFF);
     }
 
     public static void writeCurrentCameraState(int state) {
