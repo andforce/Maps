@@ -654,7 +654,12 @@ public class MapsFragment extends Fragment implements View.OnClickListener, Draw
                 }
 
                 if (Math.abs(fixedX - mDevicesDirection) > 2) {
-                    mCompass.setRotation(-fixedX);
+                    if (SettingUtils.readCurrentMyLocationMode() == AMap.LOCATION_TYPE_MAP_ROTATE){
+                        mCompass.setRotation(-fixedX);
+                    } else{
+                        mCompass.setRotation(0);
+                    }
+
                     mDevicesDirection = fixedX;
 
                     mMapsModule.onOrientationChanged(mDevicesDirection);

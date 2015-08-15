@@ -4,9 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import android.content.Context;
 import android.os.Bundle;
-import android.os.Environment;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -40,14 +38,13 @@ import org.zarroboogs.maps.utils.OffLineMapUtils;
 public class OfflineMapActivity extends BaseActivity implements
         OfflineMapDownloadListener {
     private OfflineMapManager amapManager = null;// 离线地图下载控制器
-    private List<OfflineMapProvince> provinceList = new ArrayList<OfflineMapProvince>();// 保存一级目录的省直辖市
-    private HashMap<Object, List<OfflineMapCity>> cityMap = new HashMap<Object, List<OfflineMapCity>>();// 保存二级目录的市
+    private List<OfflineMapProvince> provinceList = new ArrayList<>();// 保存一级目录的省直辖市
+    private HashMap<Object, List<OfflineMapCity>> cityMap = new HashMap<>();// 保存二级目录的市
     private int groupPosition = -1;// 记录一级目录的position
     private int childPosition = -1;// 记录二级目录的position
     private int completeCode;// 记录下载比例
     private boolean isStart = false;// 判断是否开始下载,true表示开始下载，false表示下载失败
     private boolean[] isOpen;// 记录一级目录是否打开
-    private ImageButton mOffLineMapsBack;
 
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,7 +58,7 @@ public class OfflineMapActivity extends BaseActivity implements
         setContentView(R.layout.offlinemap_activity);
         init();
 
-        mOffLineMapsBack = (ImageButton) findViewById(R.id.offline_back);
+        ImageButton mOffLineMapsBack = (ImageButton) findViewById(R.id.offline_back);
 
         mOffLineMapsBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -84,13 +81,13 @@ public class OfflineMapActivity extends BaseActivity implements
         expandableListView.setGroupIndicator(null);
         amapManager.getItemByProvinceName("安徽省").getCityList();
         provinceList = amapManager.getOfflineMapProvinceList();
-        List<OfflineMapProvince> bigCityList = new ArrayList<OfflineMapProvince>();// 以省格式保存直辖市、港澳、全国概要图
-        List<OfflineMapCity> cityList = new ArrayList<OfflineMapCity>();// 以市格式保存直辖市、港澳、全国概要图
-        List<OfflineMapCity> gangaoList = new ArrayList<OfflineMapCity>();// 保存港澳城市
-        List<OfflineMapCity> gaiyaotuList = new ArrayList<OfflineMapCity>();// 保存概要图
+        List<OfflineMapProvince> bigCityList = new ArrayList<>();// 以省格式保存直辖市、港澳、全国概要图
+        List<OfflineMapCity> cityList = new ArrayList<>();// 以市格式保存直辖市、港澳、全国概要图
+        List<OfflineMapCity> gangaoList = new ArrayList<>();// 保存港澳城市
+        List<OfflineMapCity> gaiyaotuList = new ArrayList<>();// 保存概要图
         for (int i = 0; i < provinceList.size(); i++) {
             OfflineMapProvince offlineMapProvince = provinceList.get(i);
-            List<OfflineMapCity> city = new ArrayList<OfflineMapCity>();
+            List<OfflineMapCity> city = new ArrayList<>();
             OfflineMapCity aMapCity = getCicy(offlineMapProvince);
             if (offlineMapProvince.getCityList().size() != 1) {
                 city.add(aMapCity);
@@ -272,7 +269,7 @@ public class OfflineMapActivity extends BaseActivity implements
             TextView group_text;
             ImageView group_image;
             if (convertView == null) {
-                convertView = (RelativeLayout) RelativeLayout.inflate(
+                convertView = RelativeLayout.inflate(
                         getBaseContext(), R.layout.offlinemap_group, null);
             }
             group_text = (TextView) convertView.findViewById(R.id.group_text);
@@ -281,11 +278,9 @@ public class OfflineMapActivity extends BaseActivity implements
             group_text.setText(provinceList.get(groupPosition)
                     .getProvinceName());
             if (isOpen[groupPosition]) {
-                group_image.setImageDrawable(getResources().getDrawable(
-                        R.drawable.offline_maps_down_arrow));
+                group_image.setImageResource(R.drawable.offline_maps_down_arrow);
             } else {
-                group_image.setImageDrawable(getResources().getDrawable(
-                        R.drawable.offline_maps_right_arrow));
+                group_image.setImageResource(R.drawable.offline_maps_right_arrow);
             }
             return convertView;
         }
@@ -298,7 +293,7 @@ public class OfflineMapActivity extends BaseActivity implements
                                  final int childPosition, boolean isLastChild, View convertView,
                                  ViewGroup parent) {
             if (convertView == null) {
-                convertView = (RelativeLayout) RelativeLayout.inflate(
+                convertView = RelativeLayout.inflate(
                         getBaseContext(), R.layout.offlinemap_child, null);
             }
             ViewHolder holder = new ViewHolder(convertView);
@@ -402,31 +397,6 @@ public class OfflineMapActivity extends BaseActivity implements
         }
 
 
-    }
-
-    /**
-     * 获取map 缓存和读取目录
-     */
-    private String getSdCacheDir(Context context) {
-        if (Environment.getExternalStorageState().equals(
-                Environment.MEDIA_MOUNTED)) {
-            java.io.File fExternalStorageDirectory = Environment
-                    .getExternalStorageDirectory();
-            java.io.File autonaviDir = new java.io.File(
-                    fExternalStorageDirectory, "amapsdk");
-            boolean result = false;
-            if (!autonaviDir.exists()) {
-                result = autonaviDir.mkdir();
-            }
-            java.io.File minimapDir = new java.io.File(autonaviDir,
-                    "offlineMap");
-            if (!minimapDir.exists()) {
-                result = minimapDir.mkdir();
-            }
-            return minimapDir.toString() + "/";
-        } else {
-            return "";
-        }
     }
 
     @Override

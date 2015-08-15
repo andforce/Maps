@@ -93,8 +93,6 @@ public class MapsModule implements IGaoDeMapsView, AMap.OnMapLoadedListener, AMa
 
     }
 
-    private static final String MYLOCATION_KEY = "location_mode";
-
     private int readMyLocationMode() {
         return SettingUtils.readCurrentMyLocationMode();
     }
