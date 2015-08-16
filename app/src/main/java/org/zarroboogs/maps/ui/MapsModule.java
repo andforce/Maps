@@ -11,6 +11,7 @@ import com.amap.api.maps.AMap;
 import com.amap.api.maps.AMapOptions;
 import com.amap.api.maps.CameraUpdateFactory;
 import com.amap.api.maps.UiSettings;
+import com.amap.api.maps.model.BitmapDescriptor;
 import com.amap.api.maps.model.BitmapDescriptorFactory;
 import com.amap.api.maps.model.CameraPosition;
 import com.amap.api.maps.model.LatLng;
@@ -44,6 +45,8 @@ public class MapsModule implements IGaoDeMapsView, AMap.OnMapLoadedListener, AMa
     private MapsFragment mMapsFragment;
     private Marker marker;
     private List<Marker> mCameras;
+
+    private BitmapDescriptor mMyLocationIcon = BitmapDescriptorFactory.fromResource(R.drawable.ic_mylocation);
 
     private MyLocationChangedListener myLocationChangedListener = new MyLocationChangedListener();
 
@@ -129,7 +132,7 @@ public class MapsModule implements IGaoDeMapsView, AMap.OnMapLoadedListener, AMa
                     mGaodeMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15));
 
                     if (marker == null) {
-                        MarkerOptions mMyLocationMarker = new MarkerOptions().anchor(0.5f, 0.5f).position(latLng).icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_resume));
+                        MarkerOptions mMyLocationMarker = new MarkerOptions().anchor(0.5f, 0.5f).position(latLng).icon(mMyLocationIcon);
                         marker = mGaodeMap.addMarker(mMyLocationMarker);
                     } else {
                         marker.setPosition(latLng);
