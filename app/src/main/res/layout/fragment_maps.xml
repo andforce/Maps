@@ -51,7 +51,8 @@
                 android:layout_centerVertical="true"
                 android:layout_margin="2dp"
                 android:background="@drawable/button_background_selector"
-                android:src="@drawable/ic_qu_search" />
+                android:src="@drawable/ic_qu_search"
+                tools:ignore="ContentDescription,RtlHardcoded" />
 
             <AutoCompleteTextView
                 android:id="@+id/poi_search_in_maps"
@@ -182,7 +183,7 @@
             android:layout_marginRight="36px"
             android:background="@drawable/circle_button_with_shadow"
 
-            android:src="@mipmap/ic_qu_direction_mylocation" />
+            android:src="@drawable/ic_qu_direction_mylocation" />
     </RelativeLayout>
 
 

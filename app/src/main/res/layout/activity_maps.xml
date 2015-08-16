@@ -35,7 +35,7 @@
             android:layout_marginRight="36px"
             android:background="@drawable/circle_btn_bg"
             android:elevation="2dp"
-            android:src="@mipmap/ic_qu_direction_mylocation" />
+            android:src="@drawable/ic_qu_direction_mylocation" />
 
         <ImageButton
             android:id="@+id/poi_search_btn"
@@ -47,7 +47,7 @@
             android:layout_marginLeft="36px"
             android:background="@drawable/circle_btn_bg"
             android:elevation="2dp"
-            android:src="@mipmap/ic_qu_direction_mylocation" />
+            android:src="@drawable/ic_qu_direction_mylocation" />
 
 
         <ImageButton
@@ -60,6 +60,6 @@
             android:layout_marginRight="36px"
             android:background="@drawable/circle_btn_bg"
             android:elevation="2dp"
-            android:src="@mipmap/ic_qu_direction_mylocation" />
+            android:src="@drawable/ic_qu_direction_mylocation" />
     </RelativeLayout>
 </FrameLayout>

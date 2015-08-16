@@ -27,6 +27,7 @@ import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.amap.api.maps.AMap;
 import com.amap.api.maps.MapView;
@@ -357,7 +358,12 @@ public class MapsFragment extends Fragment implements View.OnClickListener, Draw
 
         } else if (id == R.id.cancel_search) {
             if (mSearchViewHelper.isInSearch()) {
-                mSearchMapsPresenter.searchPoi(getActivity().getApplicationContext(), mSearchEditText.getText().toString(), "");
+                String mSearchText = mSearchEditText.getText().toString();
+                if (TextUtils.isEmpty(mSearchText)){
+                    Toast.makeText(getActivity().getApplicationContext(),R.string.search_no_text, Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                mSearchMapsPresenter.searchPoi(getActivity().getApplicationContext(),mSearchText , "");
             } else {
                 mSearchMapsPresenter.enterSearch();
             }
@@ -446,6 +452,7 @@ public class MapsFragment extends Fragment implements View.OnClickListener, Draw
             searchMaskView.setVisibility(View.VISIBLE);
             drawerSwitch.setImageResource(R.drawable.ic_qu_appbar_back);
             searchEditText.setCursorVisible(true);
+
             showKeyboard(searchEditText);
         }
 
@@ -459,7 +466,10 @@ public class MapsFragment extends Fragment implements View.OnClickListener, Draw
             drawerSwitch.setImageResource(R.drawable.ic_qu_menu_grabber);
             searchEditText.setText("");
             searchEditText.setCursorVisible(false);
+
             hideKeyboard(searchEditText);
+
+
         }
 
         public void showSuggestTips() {
