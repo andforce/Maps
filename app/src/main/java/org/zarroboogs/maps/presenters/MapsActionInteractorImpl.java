@@ -37,7 +37,7 @@ public class MapsActionInteractorImpl implements MapsActionInteractor {
     public void stopFollowMode(OnMyLocationModeChangedListener listener) {
         if (listener != null) {
             SettingUtils.writeCurrentMyLocationMode(AMap.LOCATION_TYPE_LOCATE);
-            listener.onStopFllowMode();
+            listener.onStopFollowMode();
         }
     }
 }

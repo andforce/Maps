@@ -184,19 +184,29 @@ public class MapsModule implements IGaoDeMapsView, AMap.OnMapLoadedListener, AMa
         if (mode == AMap.LOCATION_TYPE_MAP_FOLLOW) {
             CameraPosition newCP= new CameraPosition(new LatLng(mLocation.getLatitude(), mLocation.getLongitude()),15, 0, 0);
             mGaodeMap.animateCamera(CameraUpdateFactory.newCameraPosition(newCP), null);
+
+            mMapsFragment.getMyLocationBtn().setImageResource(R.drawable.ic_qu_direction_mylocation);
+
         } else if (mode == AMap.LOCATION_TYPE_MAP_ROTATE) {
             CameraPosition newCP= new CameraPosition(new LatLng(mLocation.getLatitude(), mLocation.getLongitude()),15, 45, mMapsFragment.getDevicesDirection());
             mGaodeMap.animateCamera(CameraUpdateFactory.newCameraPosition(newCP), null);
+
+            mMapsFragment.getMyLocationBtn().setImageResource(R.drawable.ic_qu_explore);
+
         } else if (mode == AMap.LOCATION_TYPE_LOCATE){
             CameraPosition currentCP = mGaodeMap.getCameraPosition();
             CameraPosition newCP= new CameraPosition(new LatLng(mLocation.getLatitude(), mLocation.getLongitude()),15, currentCP.tilt, currentCP.bearing);
             mGaodeMap.animateCamera(CameraUpdateFactory.newCameraPosition(newCP), null);
+
+            mMapsFragment.getMyLocationBtn().setImageResource(R.drawable.ic_qu_direction_mylocation_lost);
+
         }
 
     }
 
     @Override
     public void stopFollowMode() {
+        mMapsFragment.getMyLocationBtn().setImageResource(R.drawable.ic_qu_direction_mylocation_lost);
     }
 
     @Override
@@ -226,11 +236,17 @@ public class MapsModule implements IGaoDeMapsView, AMap.OnMapLoadedListener, AMa
         }
     }
 
+    private boolean mIsChanged = false;
     @Override
     public void onTouch(MotionEvent motionEvent) {
-        if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
-            mIsEnableMyLocation = false;
-            mMapsPresenter.stopFollowMode();
+        if (motionEvent.getAction() == MotionEvent.ACTION_MOVE){
+            if (!mIsChanged){
+                mIsEnableMyLocation = false;
+                mMapsPresenter.stopFollowMode();
+                mIsChanged = true;
+            }
+        } else if (motionEvent.getAction() == MotionEvent.ACTION_UP){
+            mIsChanged = false;
         }
     }
 

@@ -8,7 +8,7 @@ import com.amap.api.location.AMapLocationListener;
 public interface MapsActionInteractor {
     interface OnMyLocationModeChangedListener {
         void onMyLocationModeChanged(int mode);
-        void onStopFllowMode();
+        void onStopFollowMode();
     }
 
     void changeMyLocationMode(OnMyLocationModeChangedListener listener);

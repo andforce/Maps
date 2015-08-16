@@ -100,7 +100,7 @@ public class MapsPresenterImpl implements MapsPresenter, OnMarkerCreatedListener
     }
 
     @Override
-    public void onStopFllowMode() {
+    public void onStopFollowMode() {
         mGaodeMapsView.stopFollowMode();
     }
 }

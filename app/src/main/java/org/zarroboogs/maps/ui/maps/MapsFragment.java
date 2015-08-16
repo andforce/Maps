@@ -84,8 +84,6 @@ public class MapsFragment extends Fragment implements View.OnClickListener, Draw
     private ImageButton mCompass;
 
     private ImageButton mMyLocation;
-    private ImageButton mDrawerSwitch;
-    private ImageButton mSearchBtn;
     private AutoCompleteTextView mSearchEditText;
 
     private SearchMapsPresenter mSearchMapsPresenter;
@@ -169,9 +167,9 @@ public class MapsFragment extends Fragment implements View.OnClickListener, Draw
 
         aMap.setMyLocationType(AMap.LOCATION_TYPE_MAP_ROTATE);
 
-        mDrawerSwitch = (ImageButton) view.findViewById(R.id.left_drawer_switch);
+        ImageButton mDrawerSwitch = (ImageButton) view.findViewById(R.id.left_drawer_switch);
         mDrawerSwitch.setOnClickListener(this);
-        mSearchBtn = (ImageButton) view.findViewById(R.id.cancel_search);
+        ImageButton mSearchBtn = (ImageButton) view.findViewById(R.id.cancel_search);
         mSearchBtn.setOnClickListener(this);
         mSearchEditText = (AutoCompleteTextView) view.findViewById(R.id.poi_search_in_maps);
         mSearchEditText.setOnClickListener(this);
