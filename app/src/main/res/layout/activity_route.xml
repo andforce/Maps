@@ -49,6 +49,7 @@
                 tools:ignore="RtlHardcoded" />
 
             <TextView
+                android:id="@+id/show_route_tpe"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"

@@ -52,6 +52,7 @@ public class NaviRouteActivity extends BaseActivity implements OnClickListener,
 	private TextView mRouteTimeView;// 时间显示控件
 	private TextView mRouteCostView;// 花费显示控件
 	private ListView mRoutSettingListView;
+    private TextView mShowRoutType;
 
 
 	// 地图导航资源
@@ -140,6 +141,9 @@ public class NaviRouteActivity extends BaseActivity implements OnClickListener,
 		mRouteBackView.setOnClickListener(this);
 		mRouteOverLay = new RouteOverLay(mAmap, null);
 
+        mShowRoutType = (TextView) findViewById(R.id.show_route_tpe);
+        mShowRoutType.setText("速度优先");
+
 		mRoutSettingListView = (ListView) findViewById(R.id.search_setting_list_view);
 		mRoutSettingListView.setAdapter(new RoutSettingAdapter(getApplicationContext()));
 
@@ -148,6 +152,9 @@ public class NaviRouteActivity extends BaseActivity implements OnClickListener,
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 RoutSettingAdapter adapter = (RoutSettingAdapter) parent.getAdapter();
                 RoutType routType = (RoutType) adapter.getItem(position);
+
+                mShowRoutType.setText(routType.getName());
+
 
                 ViewAnimUtils.pushOutWithInterpolator(mRoutSettingListView, new AnimEndListener() {
                     @Override

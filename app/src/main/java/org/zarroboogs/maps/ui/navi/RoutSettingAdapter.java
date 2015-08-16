@@ -29,11 +29,11 @@ public class RoutSettingAdapter extends BaseAdapter {
         }
 
         mRoutTypes.add(new RoutType("速度优先", AMapNavi.DrivingDefault));
-        mRoutTypes.add(new RoutType("避免收费", AMapNavi.DrivingDefault));
-        mRoutTypes.add(new RoutType("距离最短", AMapNavi.DrivingDefault));
-        mRoutTypes.add(new RoutType("不走高速", AMapNavi.DrivingDefault));
-        mRoutTypes.add(new RoutType("时间最短且躲避拥堵", AMapNavi.DrivingDefault));
-        mRoutTypes.add(new RoutType("躲避收费且躲避拥堵", AMapNavi.DrivingDefault));
+        mRoutTypes.add(new RoutType("避免收费", AMapNavi.DrivingSaveMoney));
+        mRoutTypes.add(new RoutType("距离最短", AMapNavi.DrivingShortDistance));
+        mRoutTypes.add(new RoutType("不走高速", AMapNavi.DrivingNoExpressways));
+        mRoutTypes.add(new RoutType("时间最短且躲避拥堵", AMapNavi.DrivingFastestTime));
+        mRoutTypes.add(new RoutType("躲避收费且躲避拥堵", AMapNavi.DrivingAvoidCongestion));
 
 
     }
