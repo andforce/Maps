@@ -38,14 +38,15 @@
 
 
             <ImageButton
-                android:id="@+id/cancel_search"
+                android:id="@+id/route_setting"
                 android:layout_width="50dp"
                 android:layout_height="match_parent"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:layout_margin="2dp"
                 android:background="@drawable/button_background_selector"
-                android:src="@drawable/ic_qu_menu_grabber" />
+                android:src="@drawable/ic_qu_menu_grabber"
+                tools:ignore="RtlHardcoded" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -56,6 +57,20 @@
                 android:textSize="20dp" />
 
         </RelativeLayout>
+
+        <ListView
+            android:id="@+id/search_setting_list_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignEnd="@id/search_maps_bar"
+            android:layout_alignStart="@+id/search_maps_bar"
+            android:layout_below="@+id/search_maps_bar"
+            android:background="@drawable/new_card"
+            android:clickable="true"
+            android:focusable="true"
+            android:visibility="gone">
+
+        </ListView>
 
 
         <RelativeLayout

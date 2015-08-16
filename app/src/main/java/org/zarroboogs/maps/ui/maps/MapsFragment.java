@@ -20,6 +20,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnKeyListener;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.AutoCompleteTextView;
@@ -40,6 +42,8 @@ import com.amap.api.services.help.Inputtips;
 import com.amap.api.services.help.Tip;
 
 import org.zarroboogs.maps.DrawerStateListener;
+import org.zarroboogs.maps.ui.anim.AnimEndListener;
+import org.zarroboogs.maps.ui.anim.ViewAnimUtils;
 import org.zarroboogs.maps.ui.poi.PoiSearchAdapter;
 import org.zarroboogs.maps.R;
 import org.zarroboogs.maps.ui.navi.NaviRouteActivity;
@@ -447,7 +451,14 @@ public class MapsFragment extends Fragment implements View.OnClickListener, Draw
             listView.setVisibility(View.VISIBLE);
             compassView.setVisibility(View.GONE);
             myLocationView.setVisibility(View.GONE);
-            searchMaskView.setVisibility(View.VISIBLE);
+
+            ViewAnimUtils.popupinWithInterpolator(searchMaskView, new AnimEndListener() {
+                @Override
+                public void onAnimEnd() {
+                    searchMaskView.setVisibility(View.VISIBLE);
+                }
+            });
+
             drawerSwitch.setImageResource(R.drawable.ic_qu_appbar_back);
             searchEditText.setCursorVisible(true);
 
@@ -460,7 +471,14 @@ public class MapsFragment extends Fragment implements View.OnClickListener, Draw
             listView.setVisibility(View.GONE);
             compassView.setVisibility(View.VISIBLE);
             myLocationView.setVisibility(View.VISIBLE);
-            searchMaskView.setVisibility(View.GONE);
+
+            ViewAnimUtils.popupoutWithInterpolator(searchMaskView, new AnimEndListener() {
+                @Override
+                public void onAnimEnd() {
+                    searchMaskView.setVisibility(View.GONE);
+                }
+            });
+
             drawerSwitch.setImageResource(R.drawable.ic_qu_menu_grabber);
             searchEditText.setText("");
             searchEditText.setCursorVisible(false);

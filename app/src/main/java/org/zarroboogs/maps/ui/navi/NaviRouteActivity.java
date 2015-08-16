@@ -6,8 +6,10 @@ import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.AdapterView;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.amap.api.maps.AMap;
@@ -23,6 +25,8 @@ import com.amap.api.navi.model.NaviLatLng;
 import com.amap.api.navi.view.RouteOverLay;
 
 import org.zarroboogs.maps.ui.BaseActivity;
+import org.zarroboogs.maps.ui.anim.AnimEndListener;
+import org.zarroboogs.maps.ui.anim.ViewAnimUtils;
 import org.zarroboogs.maps.ui.maps.MapsMainActivity;
 import org.zarroboogs.maps.R;
 import org.zarroboogs.maps.db.beans.CameraBean;
@@ -47,6 +51,9 @@ public class NaviRouteActivity extends BaseActivity implements OnClickListener,
 	private TextView mRouteDistanceView;// 距离显示控件
 	private TextView mRouteTimeView;// 时间显示控件
 	private TextView mRouteCostView;// 花费显示控件
+	private ListView mRoutSettingListView;
+
+
 	// 地图导航资源
 	private AMap mAmap;
 	private AMapNavi mAmapNavi;
@@ -132,6 +139,30 @@ public class NaviRouteActivity extends BaseActivity implements OnClickListener,
 		mStartNaviButton.setOnClickListener(this);
 		mRouteBackView.setOnClickListener(this);
 		mRouteOverLay = new RouteOverLay(mAmap, null);
+
+		mRoutSettingListView = (ListView) findViewById(R.id.search_setting_list_view);
+		mRoutSettingListView.setAdapter(new RoutSettingAdapter(getApplicationContext()));
+
+		mRoutSettingListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                RoutSettingAdapter adapter = (RoutSettingAdapter) parent.getAdapter();
+                RoutType routType = (RoutType) adapter.getItem(position);
+
+                ViewAnimUtils.pushOutWithInterpolator(mRoutSettingListView, new AnimEndListener() {
+                    @Override
+                    public void onAnimEnd() {
+                        mRoutSettingListView.setVisibility(View.GONE);
+                    }
+                });
+                mAmapNavi.calculateDriveRoute(mStartNavi, mEndNavi, null, routType.getType());
+            }
+        });
+
+        ImageButton settingBtn = (ImageButton) findViewById(R.id.route_setting);
+        settingBtn.setOnClickListener(this);
+
+
 	}
 
 	/**
@@ -167,27 +198,48 @@ public class NaviRouteActivity extends BaseActivity implements OnClickListener,
 	// ------------------------------事件处理-----------------------------
 	@Override
 	public void onClick(View v) {
-		switch (v.getId()) {
-		// 实时导航操作
-		case R.id.routestartnavi:
-			Bundle bundle = new Bundle();
-			bundle.putInt(Utils.THEME, getThemeStyle());
-			Intent routeIntent = new Intent(NaviRouteActivity.this,
-					NaviCustomActivity.class);
-			routeIntent.putExtras(bundle);
-			startActivity(routeIntent);
-			break;
-		// 返回操作
-		case R.id.route_back_view:
-			Intent startIntent = new Intent(NaviRouteActivity.this,
-					MapsMainActivity.class);
-			startIntent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-			startActivity(startIntent);
-			finish();
-			break;
-		}
+        switch (v.getId()) {
+            // 实时导航操作
+            case R.id.routestartnavi: {
+                Bundle bundle = new Bundle();
+                bundle.putInt(Utils.THEME, getThemeStyle());
+                Intent routeIntent = new Intent(NaviRouteActivity.this,
+                        NaviCustomActivity.class);
+                routeIntent.putExtras(bundle);
+                startActivity(routeIntent);
+                break;
+            }
+            // 返回操作
+            case R.id.route_back_view: {
+                Intent startIntent = new Intent(NaviRouteActivity.this,
+                        MapsMainActivity.class);
+                startIntent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                startActivity(startIntent);
+                finish();
+                break;
+            }
+            case R.id.route_setting: {
+                if (mRoutSettingListView.getVisibility() == View.VISIBLE){
+                    ViewAnimUtils.pushOutWithInterpolator(mRoutSettingListView, new AnimEndListener() {
+                        @Override
+                        public void onAnimEnd() {
+                            mRoutSettingListView.setVisibility(View.GONE);
+                        }
+                    });
+                } else{
+                    ViewAnimUtils.dropDownWithInterpolator(mRoutSettingListView, new AnimEndListener() {
+                        @Override
+                        public void onAnimEnd() {
+                            mRoutSettingListView.setVisibility(View.VISIBLE);
+                        }
+                    });
+                }
 
-	}
+                break;
+            }
+        }
+
+    }
 
 	/**
 	 * 

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="50dp"
+    android:background="@drawable/button_background_selector"
+    android:descendantFocusability="blocksDescendants"
+    android:minHeight="50dp">
+
+    <TextView
+        android:id="@+id/rout_setting"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:text="搜索结果"
+        android:textColor="@color/search_result_title"
+        android:textSize="15sp" />
+
+
+</RelativeLayout>
