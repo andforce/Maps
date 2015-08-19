@@ -44,4 +44,12 @@ public class FileUtils {
     public static void writeIntToSharedPreference(String key, int value) {
         sPreference.edit().putInt(key, value).commit();
     }
+
+    public static boolean readBooleanFromSharedPreference(String key, boolean def){
+        return sPreference.getBoolean(key, def);
+    }
+
+    public static void writeBooleanToSharedPreference(String key , boolean value){
+        sPreference.edit().putBoolean(key, value).commit();
+    }
 }

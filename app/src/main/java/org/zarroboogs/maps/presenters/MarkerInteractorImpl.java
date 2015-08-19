@@ -6,7 +6,7 @@ import com.amap.api.maps.model.MarkerOptions;
 
 import org.zarroboogs.maps.MapsApplication;
 import org.zarroboogs.maps.R;
-import org.zarroboogs.maps.db.beans.CameraBean;
+import org.zarroboogs.maps.beans.BJCamera;
 import org.zarroboogs.maps.utils.FileUtils;
 import org.zarroboogs.maps.utils.JsonUtils;
 
@@ -33,8 +33,8 @@ public class MarkerInteractorImpl implements MarkerInteractor {
 
     private ArrayList<MarkerOptions> creayeMarkerOptions(){
         ArrayList<MarkerOptions> markerOptionses = new ArrayList<>();
-        ArrayList<CameraBean> cameraBeans = readCameras();
-        for (CameraBean cameraBean : cameraBeans) {
+        ArrayList<BJCamera> cameraBeans = readCameras();
+        for (BJCamera cameraBean : cameraBeans) {
             LatLng latLng = new LatLng(cameraBean.getLatitude(), cameraBean.getLongtitude());
             MarkerOptions mo = new MarkerOptions().position(latLng).draggable(true).icon(BitmapDescriptorFactory.fromResource(R.mipmap.icon_camera_location));
             markerOptionses.add(mo);
@@ -42,8 +42,8 @@ public class MarkerInteractorImpl implements MarkerInteractor {
         return  markerOptionses;
     }
 
-    private ArrayList<CameraBean> readCameras(){
-        ArrayList<CameraBean> cameraBeans = JsonUtils.prasePaperCameras(FileUtils.readStringFromAsset(MapsApplication.getAppContext(), "beijing_paper.json"));;
+    private ArrayList<BJCamera> readCameras(){
+        ArrayList<BJCamera> cameraBeans = JsonUtils.prasePaperCameras(FileUtils.readStringFromAsset(MapsApplication.getAppContext(), "beijing_paper.json"));
         return cameraBeans;
     }
 

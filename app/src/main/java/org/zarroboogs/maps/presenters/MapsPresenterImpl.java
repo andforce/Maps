@@ -4,8 +4,8 @@ import com.amap.api.maps.model.LatLng;
 import com.amap.api.maps.model.MarkerOptions;
 
 import org.zarroboogs.maps.MapsApplication;
+import org.zarroboogs.maps.beans.BJCamera;
 import org.zarroboogs.maps.beans.GeoFenceInfo;
-import org.zarroboogs.maps.db.beans.CameraBean;
 import org.zarroboogs.maps.module.GeoFenceManager;
 import org.zarroboogs.maps.presenters.iviews.IGaoDeMapsView;
 import org.zarroboogs.maps.presenters.MarkerInteractor.OnMarkerCreatedListener;
@@ -68,7 +68,7 @@ public class MapsPresenterImpl implements MapsPresenter, OnMarkerCreatedListener
     }
 
     @Override
-    public void onReadCameras(ArrayList<CameraBean> cameraBeans) {
+    public void onReadCameras(ArrayList<BJCamera> cameraBeans) {
         if (geoFenceManager == null){
             geoFenceManager = new GeoFenceManager(MapsApplication.getAppContext());
         }
@@ -77,7 +77,7 @@ public class MapsPresenterImpl implements MapsPresenter, OnMarkerCreatedListener
 
         if (cameraBeans != null){
             ArrayList<GeoFenceInfo> geoFenceInfos = new ArrayList<>();
-            for (CameraBean cameraBean : cameraBeans){
+            for (BJCamera cameraBean : cameraBeans){
                 LatLng latLng = new LatLng(cameraBean.getLatitude(), cameraBean.getLongtitude());
                 GeoFenceInfo info = new GeoFenceInfo(MapsApplication.getAppContext(),latLng,cameraBean.getId());
                 geoFenceInfos.add(info);

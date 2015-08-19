@@ -2,7 +2,7 @@ package org.zarroboogs.maps.presenters;
 
 import com.amap.api.maps.model.MarkerOptions;
 
-import org.zarroboogs.maps.db.beans.CameraBean;
+import org.zarroboogs.maps.beans.BJCamera;
 
 import java.util.ArrayList;
 
@@ -17,7 +17,7 @@ public interface MarkerInteractor {
 
 
     interface OnReadCamerasListener {
-        void onReadCameras(ArrayList<CameraBean> cameraBeans);
+        void onReadCameras(ArrayList<BJCamera> cameraBeans);
     }
 
     void createMarkers(OnMarkerCreatedListener listener);

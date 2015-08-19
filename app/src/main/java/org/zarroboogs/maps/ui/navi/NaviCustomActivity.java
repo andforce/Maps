@@ -13,9 +13,9 @@ import com.amap.api.navi.AMapNaviView;
 import com.amap.api.navi.AMapNaviViewListener;
 import com.amap.api.navi.AMapNaviViewOptions;
 
+import org.zarroboogs.maps.beans.BJCamera;
 import org.zarroboogs.maps.ui.BaseActivity;
 import org.zarroboogs.maps.R;
-import org.zarroboogs.maps.db.beans.CameraBean;
 import org.zarroboogs.maps.module.TTSController;
 import org.zarroboogs.maps.presenters.MarkerInteractor;
 import org.zarroboogs.maps.presenters.MarkerInteractorImpl;
@@ -59,9 +59,9 @@ public class NaviCustomActivity extends BaseActivity implements
 		MarkerInteractor markerInteractor = new MarkerInteractorImpl();
 		markerInteractor.readCameras(new MarkerInteractor.OnReadCamerasListener() {
 			@Override
-			public void onReadCameras(ArrayList<CameraBean> cameraBeans) {
+			public void onReadCameras(ArrayList<BJCamera> cameraBeans) {
 				ArrayList<MarkerOptions> markerOptionses = new ArrayList<>();
-				for (CameraBean cameraBean : cameraBeans) {
+				for (BJCamera cameraBean : cameraBeans) {
 					LatLng latLng = new LatLng(cameraBean.getLatitude(), cameraBean.getLongtitude());
 					MarkerOptions mo = new MarkerOptions().position(latLng).draggable(true).icon(BitmapDescriptorFactory.fromResource(R.mipmap.icon_camera_location));
 					markerOptionses.add(mo);

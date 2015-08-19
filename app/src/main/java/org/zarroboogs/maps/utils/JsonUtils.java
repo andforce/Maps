@@ -6,7 +6,7 @@ import android.util.Log;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.zarroboogs.maps.db.beans.CameraBean;
+import org.zarroboogs.maps.beans.BJCamera;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -38,8 +38,8 @@ public class JsonUtils {
         return null;
     }
 
-    public static ArrayList<CameraBean> prasePaperCameras(String json){
-        ArrayList<CameraBean> cameraBeans = new ArrayList<>();
+    public static ArrayList<BJCamera> prasePaperCameras(String json){
+        ArrayList<BJCamera> cameraBeans = new ArrayList<>();
 
         JSONObject responseJsonObject;
         try {
@@ -52,14 +52,18 @@ public class JsonUtils {
                 String name = jsonObject.getString("name");
                 int id = jsonObject.getInt("id");
                 String direction = jsonObject.getString("direction");
+                String address = jsonObject.getString("address");
+
                 Log.d("JsonUtils", "lat:" + lat + "lon:" + lat);
 
-                CameraBean paperCameraBean = new CameraBean();
-                paperCameraBean.setId(id);
+                BJCamera paperCameraBean = new BJCamera();
+                paperCameraBean.setId((long) id);
                 paperCameraBean.setDirection(direction);
                 paperCameraBean.setLatitude(lat);
                 paperCameraBean.setLongtitude(lon);
                 paperCameraBean.setName(name);
+                paperCameraBean.setAddress(address);
+
                 cameraBeans.add(paperCameraBean);
             }
             return cameraBeans;

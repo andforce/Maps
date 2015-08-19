@@ -14,7 +14,7 @@ import com.amap.api.maps.model.LatLng;
  */
 public class GeoFenceInfo {
     private LatLng latLng;
-    private int mId = 0;
+    private long mId = 0;
 
     public static final String GEOFENCE_BROADCAST_ACTION = "org.zarroboogs.maps.geofence_broadcast";
 
@@ -22,7 +22,7 @@ public class GeoFenceInfo {
 
     private PendingIntent mPendingIntent;
 
-    public GeoFenceInfo(Context context, LatLng ll, int id) {
+    public GeoFenceInfo(Context context, LatLng ll, long id) {
         this.mId = id;
         this.latLng = ll;
         filter.addAction(GEOFENCE_BROADCAST_ACTION + mId);

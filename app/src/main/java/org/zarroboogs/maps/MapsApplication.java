@@ -6,24 +6,59 @@ import android.content.Context;
 
 import com.amap.api.navi.AMapNavi;
 
+import org.zarroboogs.maps.beans.BJCamera;
+import org.zarroboogs.maps.dao.DaoMaster;
+import org.zarroboogs.maps.dao.DaoSession;
 import org.zarroboogs.maps.module.TTSController;
+import org.zarroboogs.maps.utils.Constants;
+import org.zarroboogs.maps.utils.FileUtils;
+import org.zarroboogs.maps.utils.JsonUtils;
+
+import java.util.ArrayList;
 
 public class MapsApplication extends Application {
 
-	private static Context sCntext;
+    private static Context sCntext;
+    private static DaoMaster sDaoMaster;
+    private static DaoSession sDaoSession;
 
-	@Override
-	public void onCreate() {
-		super.onCreate();
-		sCntext = this;
-		TTSController ttsController = TTSController.getInstance(this.getApplicationContext());
-		ttsController.init();
 
-		AMapNavi navi = AMapNavi.getInstance(sCntext);
-	}
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        sCntext = this;
+        TTSController ttsController = TTSController.getInstance(this.getApplicationContext());
+        ttsController.init();
 
-	public static Context getAppContext(){
-		return sCntext;
-	}
+        AMapNavi navi = AMapNavi.getInstance(sCntext);
+
+        if (!FileUtils.readBooleanFromSharedPreference(Constants.PreferenceKeys.KEY_INIT, false)){
+            ArrayList<BJCamera> cameraBeans = JsonUtils.prasePaperCameras(FileUtils.readStringFromAsset(MapsApplication.getAppContext(), "beijing_paper.json"));
+            for (BJCamera camera: cameraBeans){
+                getDaoSession().insert(camera);
+            }
+            FileUtils.writeBooleanToSharedPreference(Constants.PreferenceKeys.KEY_INIT,true);
+        }
+
+    }
+
+    public static Context getAppContext() {
+        return sCntext;
+    }
+
+    public static DaoMaster getDaoMaster() {
+        if (sDaoMaster == null) {
+            DaoMaster.OpenHelper helper = new DaoMaster.DevOpenHelper(sCntext, "maps", null);
+            sDaoMaster = new DaoMaster(helper.getWritableDatabase());
+        }
+        return sDaoMaster;
+    }
+
+    public static DaoSession getDaoSession() {
+        if (sDaoSession == null) {
+            sDaoSession = getDaoMaster().newSession();
+        }
+        return sDaoSession;
+    }
 
 }
