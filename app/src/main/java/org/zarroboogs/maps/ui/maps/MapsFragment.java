@@ -40,6 +40,8 @@ import com.amap.api.services.help.Inputtips;
 import com.amap.api.services.help.Tip;
 
 import org.zarroboogs.maps.DrawerStateListener;
+import org.zarroboogs.maps.MapsApplication;
+import org.zarroboogs.maps.beans.PoiSearchTip;
 import org.zarroboogs.maps.ui.anim.AnimEndListener;
 import org.zarroboogs.maps.ui.anim.ViewAnimUtils;
 import org.zarroboogs.maps.ui.poi.PoiSearchAdapter;
@@ -194,12 +196,28 @@ public class MapsFragment extends Fragment implements View.OnClickListener, Draw
 
                             @Override
                             public void onGetInputtips(List<Tip> tipList, int rCode) {
+
                                 if (rCode == 0 && tipList != null) {// 正确返回
-                                    List<String> listString = new ArrayList<String>();
+                                    List<PoiSearchTip> tips = new ArrayList<>();
+
+                                    MapsApplication.getDaoSession().getPoiSearchTipDao().deleteAll();
+
+
+                                    for (Tip tip : tipList){
+
+                                        PoiSearchTip mtip = new PoiSearchTip(tip.getName(), tip.getDistrict(),tip.getAdcode());
+
+                                        MapsApplication.getDaoSession().getPoiSearchTipDao().insert(mtip);
+                                        tips.add(mtip);
+                                    }
+
+                                    List<String> listString = new ArrayList<>();
+
                                     for (int i = 0; i < tipList.size(); i++) {
                                         listString.add(tipList.get(i).getName());
                                     }
-                                    mPoiSearchAdapter.addResultTips(tipList);
+
+                                    mPoiSearchAdapter.addResultTips(tips);
                                 }
                             }
                         });
@@ -226,7 +244,7 @@ public class MapsFragment extends Fragment implements View.OnClickListener, Draw
                 hideKeyboard(mSearchEditText);
 
                 PoiSearchAdapter adapter = (PoiSearchAdapter) parent.getAdapter();
-                Tip tip = ((Tip) adapter.getItem(position));
+                PoiSearchTip tip = (PoiSearchTip) adapter.getItem(position);
                 mSearchEditText.setText(tip.getName());
                 mSearchEditText.setSelection(mSearchEditText.getText().toString().length());
 
@@ -448,14 +466,26 @@ public class MapsFragment extends Fragment implements View.OnClickListener, Draw
         public void enterSearch() {
             isInSearch = true;
             floatWindow.setVisibility(View.GONE);
-            listView.setVisibility(View.VISIBLE);
+
             compassView.setVisibility(View.GONE);
             myLocationView.setVisibility(View.GONE);
+
+            if (listView.getAdapter().getCount() == 0){
+                List<PoiSearchTip> tips = MapsApplication.getDaoSession().getPoiSearchTipDao().loadAll();
+                mPoiSearchAdapter.addResultTips(tips);
+            }
 
             ViewAnimUtils.popupinWithInterpolator(searchMaskView, new AnimEndListener() {
                 @Override
                 public void onAnimEnd() {
                     searchMaskView.setVisibility(View.VISIBLE);
+                }
+            });
+
+            ViewAnimUtils.popupinWithInterpolator(listView, new AnimEndListener() {
+                @Override
+                public void onAnimEnd() {
+                    listView.setVisibility(View.VISIBLE);
                 }
             });
 
@@ -468,14 +498,20 @@ public class MapsFragment extends Fragment implements View.OnClickListener, Draw
         public void exitSearch() {
             isInSearch = false;
             floatWindow.setVisibility(View.GONE);
-            listView.setVisibility(View.GONE);
-            compassView.setVisibility(View.VISIBLE);
-            myLocationView.setVisibility(View.VISIBLE);
 
             ViewAnimUtils.popupoutWithInterpolator(searchMaskView, new AnimEndListener() {
                 @Override
                 public void onAnimEnd() {
                     searchMaskView.setVisibility(View.GONE);
+                }
+            });
+
+            ViewAnimUtils.popupoutWithInterpolator(listView, new AnimEndListener() {
+                @Override
+                public void onAnimEnd() {
+                    listView.setVisibility(View.GONE);
+                    compassView.setVisibility(View.VISIBLE);
+                    myLocationView.setVisibility(View.VISIBLE);
                 }
             });
 

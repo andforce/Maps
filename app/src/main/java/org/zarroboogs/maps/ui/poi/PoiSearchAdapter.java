@@ -14,6 +14,7 @@ import android.widget.Toast;
 import com.amap.api.services.help.Tip;
 
 import org.zarroboogs.maps.R;
+import org.zarroboogs.maps.beans.PoiSearchTip;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,7 +24,7 @@ import java.util.List;
  */
 public class PoiSearchAdapter extends BaseAdapter {
 
-    private List<Tip> mTips = new ArrayList<>();
+    private List<PoiSearchTip> mTips = new ArrayList<>();
     private LayoutInflater mInflater;
 
     public PoiSearchAdapter(Context context){
@@ -31,10 +32,15 @@ public class PoiSearchAdapter extends BaseAdapter {
             mInflater = LayoutInflater.from(context.getApplicationContext());
         }
     }
-    public void addResultTips(List<Tip> tips){
+    public void addResultTips(List<PoiSearchTip> tips){
         mTips.clear();
         mTips.addAll(tips);
 
+        notifyDataSetChanged();
+    }
+
+    public void clearTips(){
+        mTips.clear();
         notifyDataSetChanged();
     }
 
