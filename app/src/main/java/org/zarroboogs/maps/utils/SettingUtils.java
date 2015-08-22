@@ -45,7 +45,15 @@ public class SettingUtils {
 
     private static SharedPreferences sPref = MapsApplication.getAppContext().getSharedPreferences(MapsApplication.getAppContext().getPackageName() + "_preferences", Context.MODE_PRIVATE);
     public static final String SETTING_PREF_JING_CAMERA = "setting_pref_jing_camera";
+    public static final String SETTING_PREF_JING_CAMERA_ALERT = "setting_pref_jing_camera_alert";
+
     public static boolean isEnableBeijingCamera(){
         return sPref.getBoolean(SETTING_PREF_JING_CAMERA, true);
     }
+
+    public static boolean isEnableBeijingCameraAlert(){
+        return sPref.getBoolean(SETTING_PREF_JING_CAMERA_ALERT, true);
+    }
+
+
 }

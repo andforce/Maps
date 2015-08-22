@@ -4,6 +4,12 @@
 
     <PreferenceCategory android:title="导航设置">
         <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="setting_pref_navi_beijng_camera"
+            android:summary="导航页面显示并播报进京证摄像头信息"
+            android:title="进京证摄像头" />
+
+        <CheckBoxPreference
             android:defaultValue="false"
             android:key="setting_pref_navi_night"
             android:summary="开关夜间导航模式"

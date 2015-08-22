@@ -9,7 +9,6 @@ import org.zarroboogs.maps.beans.GeoFenceInfo;
 import org.zarroboogs.maps.module.GeoFenceManager;
 import org.zarroboogs.maps.presenters.iviews.IGaoDeMapsView;
 import org.zarroboogs.maps.presenters.MarkerInteractor.OnMarkerCreatedListener;
-import org.zarroboogs.maps.utils.SettingUtils;
 
 import java.util.ArrayList;
 
@@ -28,10 +27,19 @@ public class MapsPresenterImpl implements MapsPresenter, OnMarkerCreatedListener
 
     private GeoFenceManager geoFenceManager;
 
+    private ArrayList<BJCamera> mBeijingCameras;
+
+
     public MapsPresenterImpl(IGaoDeMapsView gaoDeMapsView) {
         this.mGaodeMapsView = gaoDeMapsView;
         this.mMapsInteractor = new MarkerInteractorImpl();
         this.mMapsActionInteractor = new MapsActionInteractorImpl();
+
+        initCameras();
+    }
+
+    private void initCameras(){
+        mMapsInteractor.readCameras(this);
     }
 
     @Override
@@ -41,7 +49,21 @@ public class MapsPresenterImpl implements MapsPresenter, OnMarkerCreatedListener
 
     @Override
     public void enableDefaultGeoFences() {
-        mMapsInteractor.readCameras(this);
+        if (mBeijingCameras != null){
+            ArrayList<GeoFenceInfo> geoFenceInfos = new ArrayList<>();
+            for (BJCamera cameraBean : mBeijingCameras){
+                LatLng latLng = new LatLng(cameraBean.getLatitude(), cameraBean.getLongtitude());
+                GeoFenceInfo info = new GeoFenceInfo(MapsApplication.getAppContext(),latLng,cameraBean.getId());
+                geoFenceInfos.add(info);
+            }
+
+            if (DEBUG){
+                GeoFenceInfo geoFenceInfo = new GeoFenceInfo(MapsApplication.getAppContext(), new LatLng(40.09705f, 116.426019f), 100);
+                geoFenceInfos.add(geoFenceInfo);
+            }
+
+            geoFenceManager.addAllGeoFenceAler(geoFenceInfos);
+        }
     }
 
     @Override
@@ -69,29 +91,13 @@ public class MapsPresenterImpl implements MapsPresenter, OnMarkerCreatedListener
 
     @Override
     public void onReadCameras(ArrayList<BJCamera> cameraBeans) {
+        mBeijingCameras = cameraBeans;
+
         if (geoFenceManager == null){
             geoFenceManager = new GeoFenceManager(MapsApplication.getAppContext());
         }
 
         geoFenceManager.requestLocation();
-
-        if (cameraBeans != null){
-            ArrayList<GeoFenceInfo> geoFenceInfos = new ArrayList<>();
-            for (BJCamera cameraBean : cameraBeans){
-                LatLng latLng = new LatLng(cameraBean.getLatitude(), cameraBean.getLongtitude());
-                GeoFenceInfo info = new GeoFenceInfo(MapsApplication.getAppContext(),latLng,cameraBean.getId());
-                geoFenceInfos.add(info);
-            }
-
-            if (DEBUG){
-                GeoFenceInfo geoFenceInfo = new GeoFenceInfo(MapsApplication.getAppContext(), new LatLng(40.09705f, 116.426019f), 100);
-                geoFenceInfos.add(geoFenceInfo);
-            }
-
-            geoFenceManager.addAllGeoFenceAler(geoFenceInfos);
-        }
-
-
     }
 
     @Override

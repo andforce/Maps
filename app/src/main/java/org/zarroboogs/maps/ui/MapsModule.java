@@ -17,6 +17,7 @@ import com.amap.api.maps.model.CameraPosition;
 import com.amap.api.maps.model.LatLng;
 import com.amap.api.maps.model.Marker;
 import com.amap.api.maps.model.MarkerOptions;
+import com.iflytek.cloud.Setting;
 
 import org.zarroboogs.maps.presenters.MapsPresenter;
 import org.zarroboogs.maps.presenters.MapsPresenterImpl;
@@ -227,7 +228,10 @@ public class MapsModule implements IGaoDeMapsView, AMap.OnMapLoadedListener, AMa
             mMapsPresenter.loadDefaultCameraMarkers();
         }
 
-        mMapsPresenter.enableDefaultGeoFences();
+        if (SettingUtils.isEnableBeijingCameraAlert()){
+            mMapsPresenter.enableDefaultGeoFences();
+        }
+
     }
 
     public void loadCameras(){

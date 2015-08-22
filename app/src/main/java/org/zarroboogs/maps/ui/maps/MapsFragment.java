@@ -1,6 +1,7 @@
 package org.zarroboogs.maps.ui.maps;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
@@ -109,6 +110,9 @@ public class MapsFragment extends Fragment implements View.OnClickListener, Draw
     private TextView mSearchPoiSummary;
     private TextView mSearchPoiTel;
     private ImageButton mLineBtn;
+
+    // progress dialog
+    private ProgressDialog mSearchProgressDialog;
 
 
 
@@ -629,12 +633,17 @@ public class MapsFragment extends Fragment implements View.OnClickListener, Draw
 
     @Override
     public void showSearchProgress() {
+        if (mSearchProgressDialog == null){
+            mSearchProgressDialog = new ProgressDialog(getActivity());
+            mSearchProgressDialog.setMessage(getResources().getString(R.string.search_message));
+        }
+        mSearchProgressDialog.show();
 
     }
 
     @Override
     public void hideSearchProgress() {
-
+        mSearchProgressDialog.hide();
     }
 
     @Override

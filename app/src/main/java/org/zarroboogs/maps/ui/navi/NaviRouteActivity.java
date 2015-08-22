@@ -34,6 +34,7 @@ import org.zarroboogs.maps.R;
 import org.zarroboogs.maps.module.TTSController;
 import org.zarroboogs.maps.presenters.MarkerInteractor;
 import org.zarroboogs.maps.presenters.MarkerInteractorImpl;
+import org.zarroboogs.maps.utils.SettingUtils;
 import org.zarroboogs.maps.utils.Utils;
 
 import java.util.ArrayList;
@@ -91,21 +92,24 @@ public class NaviRouteActivity extends BaseActivity implements OnClickListener,
 		Log.d("NaviRouteActivity ", "onCreate- calculateDriveRoute- " + iscalDrive);
 
 
-		MarkerInteractor markerInteractor = new MarkerInteractorImpl();
-		markerInteractor.readCameras(new MarkerInteractor.OnReadCamerasListener() {
-			BitmapDescriptor icon = BitmapDescriptorFactory.fromResource(R.drawable.icon_camera_location);
-			@Override
-			public void onReadCameras(ArrayList<BJCamera> cameraBeans) {
-				ArrayList<MarkerOptions> markerOptionses = new ArrayList<>();
-				for (BJCamera cameraBean : cameraBeans) {
-					LatLng latLng = new LatLng(cameraBean.getLatitude(), cameraBean.getLongtitude());
-					MarkerOptions mo = new MarkerOptions().position(latLng).draggable(true).icon(icon);
-					markerOptionses.add(mo);
-				}
+		if (SettingUtils.readCurrentCameraState() == SettingUtils.SWITCH_ON){
+			MarkerInteractor markerInteractor = new MarkerInteractorImpl();
+			markerInteractor.readCameras(new MarkerInteractor.OnReadCamerasListener() {
+				BitmapDescriptor icon = BitmapDescriptorFactory.fromResource(R.drawable.icon_camera_location);
+				@Override
+				public void onReadCameras(ArrayList<BJCamera> cameraBeans) {
+					ArrayList<MarkerOptions> markerOptionses = new ArrayList<>();
+					for (BJCamera cameraBean : cameraBeans) {
+						LatLng latLng = new LatLng(cameraBean.getLatitude(), cameraBean.getLongtitude());
+						MarkerOptions mo = new MarkerOptions().position(latLng).draggable(true).icon(icon);
+						markerOptionses.add(mo);
+					}
 
-				mAmap.addMarkers(markerOptionses,false);
-			}
-		});
+					mAmap.addMarkers(markerOptionses,false);
+				}
+			});
+		}
+
 	}
 
 	private  NaviRouteListener naviRouteListener = new NaviRouteListener() {

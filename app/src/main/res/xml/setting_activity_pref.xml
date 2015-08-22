@@ -9,6 +9,12 @@
             android:summary="抽屉菜单显示进京证选项"
             android:title="进京证摄像头" />
 
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="setting_pref_jing_camera_alert"
+            android:summary="距离进京证摄像头一公里内语音提醒注意规避"
+            android:title="进京证摄像头语音播报" />
+
         <Preference
             android:summary="下载离线地图"
             android:title="离线地图">
@@ -21,6 +27,13 @@
 
 
     <PreferenceCategory android:title="导航设置">
+
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="setting_pref_navi_beijng_camera"
+            android:summary="导航页面显示进京证摄像头"
+            android:title="进京证摄像头" />
+
         <CheckBoxPreference
             android:defaultValue="false"
             android:key="setting_pref_navi_night"
@@ -63,7 +76,6 @@
     <PreferenceCategory android:title="关于">
 
         <Preference
-            android:key="pref_official_weibo_key"
             android:summary="@string/setting_pref_developer_summary"
             android:title="开发者">
             <intent
@@ -72,7 +84,7 @@
         </Preference>
 
         <Preference
-            android:summary="@string/setting_pref_developer_summary"
+            android:key="setting_pref_version"
             android:title="版本" />
     </PreferenceCategory>
 

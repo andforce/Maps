@@ -18,6 +18,8 @@ public class NaviSetting {
     public static final String SETTING_PREF_NAVI_CAMERA = "setting_pref_navi_camera";
     public static final String SETTING_PREF_NAVI_SCREEN_ON = "setting_pref_navi_screen_on";
 
+    public static final String SETTING_PREF_NAVI_BEIJNG_CAMERA = "setting_pref_navi_beijng_camera";
+
     private static SharedPreferences sPref = MapsApplication.getAppContext().getSharedPreferences(MapsApplication.getAppContext().getPackageName() + "_preferences", Context.MODE_PRIVATE);
 
     public static boolean getNaviNight(){
@@ -42,6 +44,10 @@ public class NaviSetting {
 
     public static boolean getScreenAlwaysBright(){
         return sPref.getBoolean(SETTING_PREF_NAVI_SCREEN_ON, true);
+    }
+
+    public static boolean getBeijingCamera(){
+        return sPref.getBoolean(SETTING_PREF_NAVI_BEIJNG_CAMERA, true);
     }
 
 //    viewOptions.setNaviNight(mDayNightFlag);// 设置导航是否为黑夜模式
