@@ -22,7 +22,7 @@
             android:layout_marginTop="18px"
             android:background="@android:color/transparent"
             android:elevation="2dp"
-            android:src="@mipmap/maps_dav_compass_needle_large" />
+            android:src="@drawable/maps_dav_compass_needle_large" />
 
 
         <ImageButton

@@ -371,7 +371,9 @@ public class MapsFragment extends Fragment implements View.OnClickListener, Draw
             }
 
         } else if (id == R.id.poi_search_in_maps) {
-            mSearchMapsPresenter.enterSearch();
+            if (!mSearchViewHelper.isInSearch) {
+                mSearchMapsPresenter.enterSearch();
+            }
         }
     }
 

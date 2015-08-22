@@ -1,5 +1,6 @@
 package org.zarroboogs.maps.presenters;
 
+import com.amap.api.maps.model.BitmapDescriptor;
 import com.amap.api.maps.model.BitmapDescriptorFactory;
 import com.amap.api.maps.model.LatLng;
 import com.amap.api.maps.model.MarkerOptions;
@@ -7,8 +8,6 @@ import com.amap.api.maps.model.MarkerOptions;
 import org.zarroboogs.maps.MapsApplication;
 import org.zarroboogs.maps.R;
 import org.zarroboogs.maps.beans.BJCamera;
-import org.zarroboogs.maps.utils.FileUtils;
-import org.zarroboogs.maps.utils.JsonUtils;
 
 import java.util.ArrayList;
 
@@ -17,10 +16,11 @@ import java.util.ArrayList;
  */
 public class MarkerInteractorImpl implements MarkerInteractor {
 
+    private BitmapDescriptor mMarkerDesc = BitmapDescriptorFactory.fromResource(R.drawable.icon_camera_location);
     @Override
     public void createMarkers(OnMarkerCreatedListener listener) {
         if (null != listener){
-            listener.onMarkerCreated(creayeMarkerOptions());
+            listener.onMarkerCreated(createMarkerOptions());
         }
     }
 
@@ -31,19 +31,20 @@ public class MarkerInteractorImpl implements MarkerInteractor {
         }
     }
 
-    private ArrayList<MarkerOptions> creayeMarkerOptions(){
-        ArrayList<MarkerOptions> markerOptionses = new ArrayList<>();
+    private ArrayList<MarkerOptions> createMarkerOptions(){
+        ArrayList<MarkerOptions> markerOptions = new ArrayList<>();
         ArrayList<BJCamera> cameraBeans = readCameras();
         for (BJCamera cameraBean : cameraBeans) {
             LatLng latLng = new LatLng(cameraBean.getLatitude(), cameraBean.getLongtitude());
-            MarkerOptions mo = new MarkerOptions().position(latLng).draggable(true).icon(BitmapDescriptorFactory.fromResource(R.mipmap.icon_camera_location));
-            markerOptionses.add(mo);
+            MarkerOptions mo = new MarkerOptions().position(latLng).draggable(true).icon(mMarkerDesc);
+            markerOptions.add(mo);
         }
-        return  markerOptionses;
+        return  markerOptions;
     }
 
     private ArrayList<BJCamera> readCameras(){
-        ArrayList<BJCamera> cameraBeans = JsonUtils.prasePaperCameras(FileUtils.readStringFromAsset(MapsApplication.getAppContext(), "beijing_paper.json"));
+        ArrayList<BJCamera> cameraBeans = (ArrayList<BJCamera>) MapsApplication.getDaoSession().loadAll(BJCamera.class);
+        //ArrayList<BJCamera> cameraBeans = JsonUtils.prasePaperCameras(FileUtils.readStringFromAsset(MapsApplication.getAppContext(), "beijing_paper.json"));
         return cameraBeans;
     }
 

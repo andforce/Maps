@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.amap.api.maps.AMap;
+import com.amap.api.maps.model.BitmapDescriptor;
 import com.amap.api.maps.model.BitmapDescriptorFactory;
 import com.amap.api.maps.model.LatLng;
 import com.amap.api.maps.model.MarkerOptions;
@@ -58,12 +59,13 @@ public class NaviCustomActivity extends BaseActivity implements
 
 		MarkerInteractor markerInteractor = new MarkerInteractorImpl();
 		markerInteractor.readCameras(new MarkerInteractor.OnReadCamerasListener() {
+			BitmapDescriptor icon = BitmapDescriptorFactory.fromResource(R.drawable.icon_camera_location);
 			@Override
 			public void onReadCameras(ArrayList<BJCamera> cameraBeans) {
 				ArrayList<MarkerOptions> markerOptionses = new ArrayList<>();
 				for (BJCamera cameraBean : cameraBeans) {
 					LatLng latLng = new LatLng(cameraBean.getLatitude(), cameraBean.getLongtitude());
-					MarkerOptions mo = new MarkerOptions().position(latLng).draggable(true).icon(BitmapDescriptorFactory.fromResource(R.mipmap.icon_camera_location));
+					MarkerOptions mo = new MarkerOptions().position(latLng).draggable(true).icon(icon);
 					markerOptionses.add(mo);
 				}
 

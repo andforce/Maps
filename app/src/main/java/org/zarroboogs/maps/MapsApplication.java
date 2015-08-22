@@ -18,7 +18,7 @@ import java.util.ArrayList;
 
 public class MapsApplication extends Application {
 
-    private static Context sCntext;
+    private static Context sContext;
     private static DaoMaster sDaoMaster;
     private static DaoSession sDaoSession;
 
@@ -26,11 +26,11 @@ public class MapsApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        sCntext = this;
+        sContext = this;
         TTSController ttsController = TTSController.getInstance(this.getApplicationContext());
         ttsController.init();
 
-        AMapNavi navi = AMapNavi.getInstance(sCntext);
+        AMapNavi navi = AMapNavi.getInstance(sContext);
 
         if (!FileUtils.readBooleanFromSharedPreference(Constants.PreferenceKeys.KEY_INIT, false)){
             ArrayList<BJCamera> cameraBeans = JsonUtils.prasePaperCameras(FileUtils.readStringFromAsset(MapsApplication.getAppContext(), "beijing_paper.json"));
@@ -43,12 +43,12 @@ public class MapsApplication extends Application {
     }
 
     public static Context getAppContext() {
-        return sCntext;
+        return sContext;
     }
 
     public static DaoMaster getDaoMaster() {
         if (sDaoMaster == null) {
-            DaoMaster.OpenHelper helper = new DaoMaster.DevOpenHelper(sCntext, "maps", null);
+            DaoMaster.OpenHelper helper = new DaoMaster.DevOpenHelper(sContext, "maps.db", null);
             sDaoMaster = new DaoMaster(helper.getWritableDatabase());
         }
         return sDaoMaster;
