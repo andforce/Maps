@@ -11,7 +11,7 @@ import java.util.List;
 /**
  * Created by wangdiyuan on 15-7-24.
  */
-public class SearchMapsPresenter implements SearchMapsInteractor.OnPoiSearchFinishedListener{
+public class SearchMapsPresenter implements SearchMapsInteractor.OnPoiSearchFinishedListener {
 
 
     private ISearchMapsView mSearchMapsView;
@@ -36,13 +36,13 @@ public class SearchMapsPresenter implements SearchMapsInteractor.OnPoiSearchFini
     }
 
 
-    public void exitSearch(){
+    public void exitSearch() {
         mSearchMapsView.exitSearch();
     }
 
-    public void searchPoi(Context context ,String keyWord, String city) {
+    public void searchPoi(Context context, String keyWord, String city) {
         mSearchMapsView.showSearchProgress();
-        mSearchInteractor.poiSearch(context, keyWord, city,this);
+        mSearchInteractor.poiSearch(context, keyWord, city, this);
     }
 
     @Override
@@ -51,7 +51,7 @@ public class SearchMapsPresenter implements SearchMapsInteractor.OnPoiSearchFini
         mSearchMapsView.showSearchResult(poiItems);
     }
 
-    public void showPoiFloatWindow(PoiItem poiItem){
+    public void showPoiFloatWindow(PoiItem poiItem) {
         mSearchMapsView.showPoiFloatWindow(poiItem);
     }
 }

@@ -212,6 +212,10 @@ public class MapsModule implements IGaoDeMapsView, AMap.OnMapLoadedListener, AMa
         mMapsFragment.getMyLocationBtn().setImageResource(R.drawable.ic_qu_direction_mylocation_lost);
     }
 
+    public void disableAutoLocation(){
+        mMapsPresenter.stopFollowMode();
+    }
+
     @Override
     public void changeMapStyle(int style) {
         mGaodeMap.setMapType(style);

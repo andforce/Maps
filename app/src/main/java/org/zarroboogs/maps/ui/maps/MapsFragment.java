@@ -243,6 +243,9 @@ public class MapsFragment extends Fragment implements View.OnClickListener, Draw
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 hideKeyboard(mSearchEditText);
 
+                // stop follow mode
+                mMapsModule.disableAutoLocation();
+
                 PoiSearchAdapter adapter = (PoiSearchAdapter) parent.getAdapter();
                 PoiSearchTip tip = (PoiSearchTip) adapter.getItem(position);
                 mSearchEditText.setText(tip.getName());
@@ -375,21 +378,31 @@ public class MapsFragment extends Fragment implements View.OnClickListener, Draw
             }
 
         } else if (id == R.id.cancel_search) {
-            if (mSearchViewHelper.isInSearch()) {
-                String mSearchText = mSearchEditText.getText().toString();
-                if (TextUtils.isEmpty(mSearchText)){
-                    Toast.makeText(getActivity().getApplicationContext(),R.string.search_no_text, Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                mSearchMapsPresenter.searchPoi(getActivity().getApplicationContext(),mSearchText , "");
-            } else {
+            if (mSearchFloatWindow.getVisibility() == View.VISIBLE){
                 mSearchMapsPresenter.enterSearch();
+            } else{
+                if (mSearchViewHelper.isInSearch()) {
+                    String mSearchText = mSearchEditText.getText().toString();
+                    if (TextUtils.isEmpty(mSearchText)){
+                        Toast.makeText(getActivity().getApplicationContext(),R.string.search_no_text, Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                    mSearchMapsPresenter.searchPoi(getActivity().getApplicationContext(),mSearchText , "");
+                } else {
+                    mSearchMapsPresenter.enterSearch();
+                }
             }
 
+
         } else if (id == R.id.poi_search_in_maps) {
-            if (!mSearchViewHelper.isInSearch) {
+            if (mSearchFloatWindow.getVisibility() == View.VISIBLE){
                 mSearchMapsPresenter.enterSearch();
+            } else{
+                if (!mSearchViewHelper.isInSearch) {
+                    mSearchMapsPresenter.enterSearch();
+                }
             }
+
         }
     }
 
