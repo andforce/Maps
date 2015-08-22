@@ -209,4 +209,5 @@
 
 
     <string name="search_no_text">搜索为空</string>
+    <string name="setting_pref_developer_summary">新浪微博@andforce</string>
 </resources>

@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory android:title="常规设置">
+
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="setting_pref_navigationbar_md"
+            android:summary="开关进京证摄像头"
+            android:title="进京证摄像头" />
+
+        <Preference
+            android:summary="下载离线地图"
+            android:title="离线地图">
+            <intent
+                android:targetClass="org.zarroboogs.maps.ui.offlinemaps.OfflineMapActivity"
+                android:targetPackage="org.zarroboogs.maps" />
+        </Preference>
+
+    </PreferenceCategory>
+
+
+    <PreferenceCategory android:title="导航设置">
+        <CheckBoxPreference
+            android:defaultValue="false"
+            android:key="setting_pref_navigationbar_md"
+            android:summary="开关夜间导航模式"
+            android:title="夜间模式" />
+
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="setting_pref_navigationbar_md"
+            android:summary="开关偏航计算"
+            android:title="偏航计算" />
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="setting_pref_navigationbar_md"
+            android:summary="开关拥堵重新计算路线"
+            android:title="拥堵重算" />
+
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="setting_pref_navigationbar_md"
+            android:summary="开关交通语音播报"
+            android:title="交通播报" />
+
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="setting_pref_navigationbar_md"
+            android:summary="开关摄像头播报"
+            android:title="摄像头播报" />
+
+
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="setting_pref_navigationbar_md"
+            android:summary="导航时候屏幕常亮"
+            android:title="屏幕常亮" />
+
+    </PreferenceCategory>
+
+
+    <PreferenceCategory android:title="关于">
+
+        <Preference
+            android:key="pref_official_weibo_key"
+            android:summary="@string/setting_pref_developer_summary"
+            android:title="开发者">
+            <intent
+                android:action="android.intent.action.VIEW"
+                android:data="org.zarroboogs.weibo://@andforce" />
+        </Preference>
+
+        <Preference
+            android:summary="@string/setting_pref_developer_summary"
+            android:title="版本" />
+    </PreferenceCategory>
+
+</PreferenceScreen>
