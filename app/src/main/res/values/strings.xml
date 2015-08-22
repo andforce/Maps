@@ -212,4 +212,6 @@
     <string name="setting_pref_developer_summary">新浪微博@andforce</string>
 
     <string name="search_message">搜索中…</string>
+    <string name="setting_pref_icon_designer">新浪微博@酸爽的</string>
+    <string name="setting_about">关于</string>
 </resources>

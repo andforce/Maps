@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory android:title="关于">
+
+        <Preference
+            android:summary="@string/setting_pref_developer_summary"
+            android:title="开发者"/>
+
+        <Preference
+            android:summary="@string/setting_pref_icon_designer"
+            android:title="图标设计者"/>
+
+        <Preference
+            android:summary="https://github.com/andforce/Maps"
+            android:title="开源地址" />
+
+        <Preference
+            android:key="setting_pref_version"
+            android:title="版本" />
+
+        <Preference
+            android:summary="如果不是北漂，可能不知道[进京证]是咋回事，关掉相关设置就可以。如果你是北漂，且知道哪里有摄像头，希望你提供给我，一块完善一下，毕竟弄进京证太操蛋了！"
+            android:title="说明" />
+
+    </PreferenceCategory>
+
+</PreferenceScreen>

@@ -60,6 +60,15 @@
             android:text="@string/left_drawer_setting"
             tools:ignore="RtlHardcoded" />
 
+        <Button
+            android:id="@+id/leftDrawerAbout"
+            style="@style/drawerMenuButton"
+            android:layout_width="match_parent"
+            android:layout_weight="0"
+            android:drawableLeft="@drawable/left_drawer_offline"
+            android:text="@string/setting_about"
+            tools:ignore="RtlHardcoded" />
+
 
     </LinearLayout>
 

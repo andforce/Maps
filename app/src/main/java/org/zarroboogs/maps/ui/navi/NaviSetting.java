@@ -50,11 +50,4 @@ public class NaviSetting {
         return sPref.getBoolean(SETTING_PREF_NAVI_BEIJNG_CAMERA, true);
     }
 
-//    viewOptions.setNaviNight(mDayNightFlag);// 设置导航是否为黑夜模式
-//    viewOptions.setReCalculateRouteForYaw(mDeviationFlag);// 设置导偏航是否重算
-//    viewOptions.setReCalculateRouteForTrafficJam(mJamFlag);// 设置交通拥挤是否重算
-//    viewOptions.setTrafficInfoUpdateEnabled(mTrafficFlag);// 设置是否更新路况
-//    viewOptions.setCameraInfoUpdateEnabled(mCameraFlag);// 设置摄像头播报
-//    viewOptions.setScreenAlwaysBright(mScreenFlag);// 设置屏幕常亮情况
-
 }

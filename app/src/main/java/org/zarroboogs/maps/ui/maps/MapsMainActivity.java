@@ -10,6 +10,7 @@ import android.view.Gravity;
 import android.view.View;
 import android.view.WindowManager;
 
+import org.zarroboogs.maps.ui.AboutActivity;
 import org.zarroboogs.maps.ui.BaseActivity;
 import org.zarroboogs.maps.DrawerStateListener;
 import org.zarroboogs.maps.R;
@@ -63,6 +64,9 @@ public class MapsMainActivity extends BaseActivity implements MapsFragment.OnFra
 
                     } else if (mDrawerClickedId == R.id.left_drawer_setting){
                         Intent intent = new Intent(MapsMainActivity.this, SettingActivity.class);
+                        startActivity(intent);
+                    } else if (mDrawerClickedId == R.id.leftDrawerAbout){
+                        Intent intent = new Intent(MapsMainActivity.this, AboutActivity.class);
                         startActivity(intent);
                     } else{
                         getMapsFragment().onLeftDrawerViewClick(mDrawerClickedId);

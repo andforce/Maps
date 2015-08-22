@@ -41,6 +41,7 @@ public class LeftDrawerFragment extends Fragment implements View.OnClickListener
     private Button mSatelliteBtn;
     private Button mSettingBtn;
     private Button mCameraBtn;
+    private Button mAboutBtn;
 
     private View mLeftTopView;
 
@@ -99,6 +100,9 @@ public class LeftDrawerFragment extends Fragment implements View.OnClickListener
 
         mCameraBtn = (Button) view.findViewById(R.id.left_drawer_camera);
         mCameraBtn.setOnClickListener(this);
+
+        mAboutBtn = (Button)view.findViewById(R.id.leftDrawerAbout);
+        mAboutBtn.setOnClickListener(this);
 
         mLeftTopView = view.findViewById(R.id.left_top_banner);
 

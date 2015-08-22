@@ -53,6 +53,10 @@
             android:configChanges="orientation|keyboardHidden|screenSize"/>
 
         <activity
+            android:name=".ui.AboutActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"/>
+
+        <activity
             android:name=".ui.navi.NaviSettingActivity"
             android:configChanges="orientation|keyboardHidden|screenSize" />
 
