@@ -1,12 +1,15 @@
 package org.zarroboogs.maps.ui.navi;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import com.amap.api.maps.AMap;
 import com.amap.api.maps.model.BitmapDescriptor;
 import com.amap.api.maps.model.BitmapDescriptorFactory;
 import com.amap.api.maps.model.LatLng;
+import com.amap.api.maps.model.Marker;
 import com.amap.api.maps.model.MarkerOptions;
 import com.amap.api.navi.AMapNavi;
 import com.amap.api.navi.AMapNaviListener;
@@ -28,18 +31,28 @@ import java.util.ArrayList;
  * 
  */
 public class NaviCustomActivity extends BaseActivity implements
-		AMapNaviViewListener {
+		AMapNaviViewListener , SharedPreferences.OnSharedPreferenceChangeListener{
 
 	private AMapNaviView mAmapAMapNaviView;
-	// 导航界面风格
-	private int mThemeStle;
 	// 导航监听
 	private AMapNaviListener mAmapNaviListener;
 	private AMap mAmap;
 
+
+    private SharedPreferences mPref;
+
+    private ArrayList<Marker> markers;
+    private ArrayList<BJCamera> mBJCameras;
+
+    private BitmapDescriptor icon = BitmapDescriptorFactory.fromResource(R.drawable.icon_camera_location);
+
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_navicustom);
+
+        mPref = getSharedPreferences(getPackageName() + "_preferences", Context.MODE_PRIVATE);
+        mPref.registerOnSharedPreferenceChangeListener(this);
+
 
 		//语音播报开始
 		TTSController.getInstance(this).startSpeaking();
@@ -51,20 +64,30 @@ public class NaviCustomActivity extends BaseActivity implements
 
 		MarkerInteractor markerInteractor = new MarkerInteractorImpl();
 		markerInteractor.readCameras(new MarkerInteractor.OnReadCamerasListener() {
-			BitmapDescriptor icon = BitmapDescriptorFactory.fromResource(R.drawable.icon_camera_location);
-			@Override
-			public void onReadCameras(ArrayList<BJCamera> cameraBeans) {
-				ArrayList<MarkerOptions> markerOptionses = new ArrayList<>();
-				for (BJCamera cameraBean : cameraBeans) {
-					LatLng latLng = new LatLng(cameraBean.getLatitude(), cameraBean.getLongtitude());
-					MarkerOptions mo = new MarkerOptions().position(latLng).draggable(true).icon(icon);
-					markerOptionses.add(mo);
-				}
 
-				mAmap.addMarkers(markerOptionses, false);
-			}
-		});
+            @Override
+            public void onReadCameras(ArrayList<BJCamera> cameraBeans) {
+                mBJCameras = cameraBeans;
+
+                if (NaviSetting.getBeijingCamera()){
+                    addCameraMarkers(mBJCameras);
+                }
+            }
+
+        });
 	}
+
+
+    public void addCameraMarkers(ArrayList<BJCamera> cameraBeans) {
+        ArrayList<MarkerOptions> markerOptionses = new ArrayList<>();
+        for (BJCamera cameraBean : cameraBeans) {
+            LatLng latLng = new LatLng(cameraBean.getLatitude(), cameraBean.getLongtitude());
+            MarkerOptions mo = new MarkerOptions().position(latLng).draggable(true).icon(icon);
+            markerOptionses.add(mo);
+        }
+
+        markers = mAmap.addMarkers(markerOptionses, false);
+    }
 
 	private void initView(Bundle savedInstanceState) {
 		mAmapAMapNaviView = (AMapNaviView) findViewById(R.id.customnavimap);
@@ -88,7 +111,7 @@ public class NaviCustomActivity extends BaseActivity implements
 		viewOptions.setTrafficInfoUpdateEnabled(NaviSetting.getTrafficInfoUpdateEnabled());// 设置是否更新路况
 		viewOptions.setCameraInfoUpdateEnabled(NaviSetting.getCameraInfoUpdateEnabled());// 设置摄像头播报
 		viewOptions.setScreenAlwaysBright(NaviSetting.getScreenAlwaysBright());// 设置屏幕常亮情况
-		viewOptions.setNaviViewTopic(mThemeStle);// 设置导航界面主题样式
+		viewOptions.setNaviViewTopic(AMapNaviViewOptions.BLUE_COLOR_TOPIC);// 设置导航界面主题样式
 
 		mAmapAMapNaviView.setViewOptions(viewOptions);
 
@@ -180,6 +203,9 @@ public class NaviCustomActivity extends BaseActivity implements
 	public void onDestroy() {
 
 		super.onDestroy();
+
+        mPref.unregisterOnSharedPreferenceChangeListener(this);
+
 		mAmapAMapNaviView.onDestroy();
 	 	//页面结束时，停止语音播报
 		TTSController.getInstance(this).stopSpeaking();
@@ -192,6 +218,21 @@ public class NaviCustomActivity extends BaseActivity implements
 		
 	}
 
-	
 
+    @Override
+    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+        if (key.equals(NaviSetting.SETTING_PREF_NAVI_BEIJNG_CAMERA)){
+            if (NaviSetting.getBeijingCamera()){
+                addCameraMarkers(mBJCameras);
+            } else{
+                if (markers != null ){
+                    for (Marker marker : markers){
+                        marker.remove();
+                        marker.destroy();
+                        marker = null;
+                    }
+                }
+            }
+        }
+    }
 }

@@ -6,7 +6,7 @@
         <CheckBoxPreference
             android:defaultValue="true"
             android:key="setting_pref_navi_beijng_camera"
-            android:summary="导航页面显示并播报进京证摄像头信息"
+            android:summary="导航页面显示进京证摄像头"
             android:title="进京证摄像头" />
 
         <CheckBoxPreference

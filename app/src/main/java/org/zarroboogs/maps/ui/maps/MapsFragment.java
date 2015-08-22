@@ -317,6 +317,7 @@ public class MapsFragment extends Fragment implements View.OnClickListener, Draw
     @Override
     public void onDestroy() {
         super.onDestroy();
+        mMapsModule.onDestroy();
         mapView.onDestroy();
     }
 

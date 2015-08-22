@@ -1,5 +1,7 @@
 package org.zarroboogs.maps.ui;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
@@ -34,7 +36,7 @@ import java.util.List;
 /**
  * Created by andforce on 15/7/19.
  */
-public class MapsModule implements IGaoDeMapsView, AMap.OnMapLoadedListener, AMap.OnMapTouchListener, View.OnClickListener {
+public class MapsModule implements IGaoDeMapsView, AMap.OnMapLoadedListener, AMap.OnMapTouchListener, View.OnClickListener, SharedPreferences.OnSharedPreferenceChangeListener {
     private ArrayList<Marker> mMarkers = new ArrayList<>();
 
     private MapsPresenter mMapsPresenter;
@@ -47,6 +49,8 @@ public class MapsModule implements IGaoDeMapsView, AMap.OnMapLoadedListener, AMa
     private Marker marker;
     private List<Marker> mCameras;
 
+    private SharedPreferences mPref;
+
     private BitmapDescriptor mMyLocationIcon = BitmapDescriptorFactory.fromResource(R.drawable.ic_mylocation);
 
     private MyLocationChangedListener myLocationChangedListener = new MyLocationChangedListener();
@@ -54,6 +58,9 @@ public class MapsModule implements IGaoDeMapsView, AMap.OnMapLoadedListener, AMa
     public MapsModule(MapsFragment fragment ,AMap map) {
         this.mMapsFragment = fragment;
         this.mGaodeMap = map;
+
+        mPref = fragment.getActivity().getApplicationContext().getSharedPreferences(fragment.getActivity().getPackageName()+ "_preferences", Context.MODE_PRIVATE);
+        mPref.registerOnSharedPreferenceChangeListener(this);
 
         mMapsPresenter = new MapsPresenterImpl(this);
         mGaodeMap.setOnMapLoadedListener(this);
@@ -119,6 +126,18 @@ public class MapsModule implements IGaoDeMapsView, AMap.OnMapLoadedListener, AMa
         }
 
     }
+
+    @Override
+    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+        if (key.equals(SettingUtils.SETTING_PREF_JING_CAMERA_ALERT)){
+            if (SettingUtils.isEnableBeijingCameraAlert()){
+                mMapsPresenter.enableDefaultGeoFences();
+            } else {
+                disableAutoLocation();
+            }
+        }
+    }
+
     class MyLocationChangedListener extends OnLocationChangedListener {
 
         @Override
@@ -147,6 +166,10 @@ public class MapsModule implements IGaoDeMapsView, AMap.OnMapLoadedListener, AMa
 
     }
 
+
+    public void onDestroy() {
+        mPref.unregisterOnSharedPreferenceChangeListener(this);
+    }
 
     public void deactivate() {
         if (mAMapLocationManager != null) {
