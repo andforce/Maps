@@ -1,24 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <PreferenceCategory android:title="常规设置">
-
-        <CheckBoxPreference
-            android:defaultValue="true"
-            android:key="setting_pref_navigationbar_md"
-            android:summary="开关进京证摄像头"
-            android:title="进京证摄像头" />
-
-        <Preference
-            android:summary="下载离线地图"
-            android:title="离线地图">
-            <intent
-                android:targetClass="org.zarroboogs.maps.ui.offlinemaps.OfflineMapActivity"
-                android:targetPackage="org.zarroboogs.maps" />
-        </Preference>
-
-    </PreferenceCategory>
-
 
     <PreferenceCategory android:title="导航设置">
         <CheckBoxPreference
@@ -59,21 +41,5 @@
 
     </PreferenceCategory>
 
-
-    <PreferenceCategory android:title="关于">
-
-        <Preference
-            android:key="pref_official_weibo_key"
-            android:summary="@string/setting_pref_developer_summary"
-            android:title="开发者">
-            <intent
-                android:action="android.intent.action.VIEW"
-                android:data="org.zarroboogs.weibo://@andforce" />
-        </Preference>
-
-        <Preference
-            android:summary="@string/setting_pref_developer_summary"
-            android:title="版本" />
-    </PreferenceCategory>
 
 </PreferenceScreen>

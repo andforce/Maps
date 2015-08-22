@@ -20,7 +20,6 @@ import org.zarroboogs.maps.R;
 import org.zarroboogs.maps.module.TTSController;
 import org.zarroboogs.maps.presenters.MarkerInteractor;
 import org.zarroboogs.maps.presenters.MarkerInteractorImpl;
-import org.zarroboogs.maps.utils.Utils;
 
 import java.util.ArrayList;
 
@@ -32,13 +31,6 @@ public class NaviCustomActivity extends BaseActivity implements
 		AMapNaviViewListener {
 
 	private AMapNaviView mAmapAMapNaviView;
-	// 导航可以设置的参数
-	private boolean mDayNightFlag = Utils.DAY_MODE;// 默认为白天模式
-	private boolean mDeviationFlag = Utils.YES_MODE;// 默认进行偏航重算
-	private boolean mJamFlag = Utils.YES_MODE;// 默认进行拥堵重算
-	private boolean mTrafficFlag = Utils.OPEN_MODE;// 默认进行交通播报
-	private boolean mCameraFlag = Utils.OPEN_MODE;// 默认进行摄像头播报
-	private boolean mScreenFlag = Utils.YES_MODE;// 默认是屏幕常亮
 	// 导航界面风格
 	private int mThemeStle;
 	// 导航监听
@@ -90,12 +82,12 @@ public class NaviCustomActivity extends BaseActivity implements
 		}
 		AMapNaviViewOptions viewOptions = new AMapNaviViewOptions();
 		viewOptions.setSettingMenuEnabled(true);// 设置导航setting可用
-		viewOptions.setNaviNight(mDayNightFlag);// 设置导航是否为黑夜模式
-		viewOptions.setReCalculateRouteForYaw(mDeviationFlag);// 设置导偏航是否重算
-		viewOptions.setReCalculateRouteForTrafficJam(mJamFlag);// 设置交通拥挤是否重算
-		viewOptions.setTrafficInfoUpdateEnabled(mTrafficFlag);// 设置是否更新路况
-		viewOptions.setCameraInfoUpdateEnabled(mCameraFlag);// 设置摄像头播报
-		viewOptions.setScreenAlwaysBright(mScreenFlag);// 设置屏幕常亮情况
+		viewOptions.setNaviNight(NaviSetting.getNaviNight());// 设置导航是否为黑夜模式
+		viewOptions.setReCalculateRouteForYaw(NaviSetting.getReCalculateRouteForYaw());// 设置导偏航是否重算
+		viewOptions.setReCalculateRouteForTrafficJam(NaviSetting.getReCalculateRouteForTrafficJam());// 设置交通拥挤是否重算
+		viewOptions.setTrafficInfoUpdateEnabled(NaviSetting.getTrafficInfoUpdateEnabled());// 设置是否更新路况
+		viewOptions.setCameraInfoUpdateEnabled(NaviSetting.getCameraInfoUpdateEnabled());// 设置摄像头播报
+		viewOptions.setScreenAlwaysBright(NaviSetting.getScreenAlwaysBright());// 设置屏幕常亮情况
 		viewOptions.setNaviViewTopic(mThemeStle);// 设置导航界面主题样式
 
 		mAmapAMapNaviView.setViewOptions(viewOptions);
@@ -123,17 +115,7 @@ public class NaviCustomActivity extends BaseActivity implements
 	 */
 	@Override
 	public void onNaviSetting() {
-		Bundle bundle = new Bundle();
-		bundle.putInt(Utils.THEME, mThemeStle);
-		bundle.putBoolean(Utils.DAY_NIGHT_MODE, mDayNightFlag);
-		bundle.putBoolean(Utils.DEVIATION, mDeviationFlag);
-		bundle.putBoolean(Utils.JAM, mJamFlag);
-		bundle.putBoolean(Utils.TRAFFIC, mTrafficFlag);
-		bundle.putBoolean(Utils.CAMERA, mCameraFlag);
-		bundle.putBoolean(Utils.SCREEN, mScreenFlag);
-		Intent intent = new Intent(NaviCustomActivity.this,
-				NaviSettingActivity.class);
-		intent.putExtras(bundle);
+		Intent intent = new Intent(this,NaviSettingActivity.class);
 		startActivity(intent);
 
 	}
@@ -159,19 +141,6 @@ public class NaviCustomActivity extends BaseActivity implements
 		// TODO Auto-generated method stub
 		
 	}
-	private void processBundle(Bundle bundle) {
-
-		if (bundle != null) {
-			mDayNightFlag = bundle.getBoolean(Utils.DAY_NIGHT_MODE, mDayNightFlag);
-			mDeviationFlag = bundle.getBoolean(Utils.DEVIATION, mDeviationFlag);
-			mJamFlag = bundle.getBoolean(Utils.JAM, mJamFlag);
-			mTrafficFlag = bundle.getBoolean(Utils.TRAFFIC, mTrafficFlag);
-			mCameraFlag = bundle.getBoolean(Utils.CAMERA, mCameraFlag);
-			mScreenFlag = bundle.getBoolean(Utils.SCREEN, mScreenFlag);
-			mThemeStle = bundle.getInt(Utils.THEME);
-
-		}
-	}
 
 	@Override
 	protected void onNewIntent(Intent intent) {
@@ -191,9 +160,8 @@ public class NaviCustomActivity extends BaseActivity implements
 	public void onResume() {
 		// TODO Auto-generated method stub
 		super.onResume();
-		Bundle bundle = getIntent().getExtras();
-		processBundle(bundle);
 		setAmapNaviViewOptions();
+
 		AMapNavi.getInstance(this).setAMapNaviListener(getAMapNaviListener());
 		mAmapAMapNaviView.onResume();
 
