@@ -379,7 +379,7 @@ public class MapsFragment extends Fragment implements View.OnClickListener, Draw
 
         } else if (id == R.id.cancel_search) {
             if (mSearchFloatWindow.getVisibility() == View.VISIBLE){
-                mSearchMapsPresenter.enterSearch();
+                mSearchMapsPresenter.exitSearch();
             } else{
                 if (mSearchViewHelper.isInSearch()) {
                     String mSearchText = mSearchEditText.getText().toString();
@@ -512,21 +512,30 @@ public class MapsFragment extends Fragment implements View.OnClickListener, Draw
             isInSearch = false;
             floatWindow.setVisibility(View.GONE);
 
-            ViewAnimUtils.popupoutWithInterpolator(searchMaskView, new AnimEndListener() {
-                @Override
-                public void onAnimEnd() {
-                    searchMaskView.setVisibility(View.GONE);
-                }
-            });
+            if (searchMaskView.getVisibility() == View.VISIBLE){
+                ViewAnimUtils.popupoutWithInterpolator(searchMaskView, new AnimEndListener() {
+                    @Override
+                    public void onAnimEnd() {
+                        searchMaskView.setVisibility(View.GONE);
+                    }
+                });
+            }
 
-            ViewAnimUtils.popupoutWithInterpolator(listView, new AnimEndListener() {
-                @Override
-                public void onAnimEnd() {
-                    listView.setVisibility(View.GONE);
-                    compassView.setVisibility(View.VISIBLE);
-                    myLocationView.setVisibility(View.VISIBLE);
-                }
-            });
+
+            if (listView.getVisibility() == View.VISIBLE){
+                ViewAnimUtils.popupoutWithInterpolator(listView, new AnimEndListener() {
+                    @Override
+                    public void onAnimEnd() {
+                        listView.setVisibility(View.GONE);
+                        compassView.setVisibility(View.VISIBLE);
+                        myLocationView.setVisibility(View.VISIBLE);
+                    }
+                });
+            } else{
+                compassView.setVisibility(View.VISIBLE);
+                myLocationView.setVisibility(View.VISIBLE);
+            }
+
 
             drawerSwitch.setImageResource(R.drawable.ic_qu_menu_grabber);
             searchEditText.setText("");
