@@ -23,6 +23,7 @@ import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.AutoCompleteTextView;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
@@ -66,6 +67,10 @@ import java.util.List;
  * create an instance of this fragment.
  */
 public class MapsFragment extends Fragment implements View.OnClickListener, DrawerStateListener, ISearchMapsView, OnKeyListener {
+
+    private static final boolean DEBUG = false;
+
+
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -88,7 +93,7 @@ public class MapsFragment extends Fragment implements View.OnClickListener, Draw
     private ImageButton mCompass;
 
     private ImageButton mMyLocation;
-    private AutoCompleteTextView mSearchEditText;
+    private EditText mSearchEditText;
 
     private SearchMapsPresenter mSearchMapsPresenter;
 
@@ -175,12 +180,11 @@ public class MapsFragment extends Fragment implements View.OnClickListener, Draw
         mDrawerSwitch.setOnClickListener(this);
         ImageButton mSearchBtn = (ImageButton) view.findViewById(R.id.cancel_search);
         mSearchBtn.setOnClickListener(this);
-        mSearchEditText = (AutoCompleteTextView) view.findViewById(R.id.poi_search_in_maps);
+        mSearchEditText = (EditText) view.findViewById(R.id.poi_search_in_maps);
         mSearchEditText.setOnClickListener(this);
 
         mSearchViewHelper = new SearchViewHelper(view);
 
-        mSearchEditText = (AutoCompleteTextView) view.findViewById(R.id.poi_search_in_maps);
         mSearchEditText.setOnKeyListener(this);
         mSearchEditText.addTextChangedListener(new TextWatcher() {
             @Override
@@ -203,9 +207,9 @@ public class MapsFragment extends Fragment implements View.OnClickListener, Draw
                                     MapsApplication.getDaoSession().getPoiSearchTipDao().deleteAll();
 
 
-                                    for (Tip tip : tipList){
+                                    for (Tip tip : tipList) {
 
-                                        PoiSearchTip mtip = new PoiSearchTip(tip.getName(), tip.getDistrict(),tip.getAdcode());
+                                        PoiSearchTip mtip = new PoiSearchTip(tip.getName(), tip.getDistrict(), tip.getAdcode());
 
                                         MapsApplication.getDaoSession().getPoiSearchTipDao().insert(mtip);
                                         tips.add(mtip);
@@ -218,6 +222,10 @@ public class MapsFragment extends Fragment implements View.OnClickListener, Draw
                                     }
 
                                     mPoiSearchAdapter.addResultTips(tips);
+
+                                    if (mListView.getVisibility() == View.GONE){
+                                        mListView.setVisibility(View.VISIBLE);
+                                    }
                                 }
                             }
                         });
@@ -457,7 +465,7 @@ public class MapsFragment extends Fragment implements View.OnClickListener, Draw
         View myLocationView;
         View searchMaskView;
         ImageButton drawerSwitch;
-        AutoCompleteTextView searchEditText;
+        EditText searchEditText;
         ListView listView;
         private View floatWindow;
         private boolean isInSearch = false;
@@ -471,7 +479,7 @@ public class MapsFragment extends Fragment implements View.OnClickListener, Draw
             myLocationView = rootView.findViewById(R.id.my_location_btn);
             searchMaskView = rootView.findViewById(R.id.search_mask);
             drawerSwitch = (ImageButton) rootView.findViewById(R.id.left_drawer_switch);
-            searchEditText = (AutoCompleteTextView) rootView.findViewById(R.id.poi_search_in_maps);
+            searchEditText = (EditText) rootView.findViewById(R.id.poi_search_in_maps);
             listView = (ListView) rootView.findViewById(R.id.search_result_list_view);
             floatWindow =  rootView.findViewById(R.id.search_float_rl);
         }
@@ -485,7 +493,11 @@ public class MapsFragment extends Fragment implements View.OnClickListener, Draw
 
             if (listView.getAdapter().getCount() == 0){
                 List<PoiSearchTip> tips = MapsApplication.getDaoSession().getPoiSearchTipDao().loadAll();
-                mPoiSearchAdapter.addResultTips(tips);
+                if (tips.isEmpty()){
+                    listView.setVisibility(View.GONE);
+                } else{
+                    mPoiSearchAdapter.addResultTips(tips);
+                }
             }
 
             ViewAnimUtils.popupinWithInterpolator(searchMaskView, new AnimEndListener() {
@@ -495,12 +507,15 @@ public class MapsFragment extends Fragment implements View.OnClickListener, Draw
                 }
             });
 
-            ViewAnimUtils.popupinWithInterpolator(listView, new AnimEndListener() {
-                @Override
-                public void onAnimEnd() {
-                    listView.setVisibility(View.VISIBLE);
-                }
-            });
+            if (listView.getAdapter().getCount() > 0){
+                ViewAnimUtils.popupinWithInterpolator(listView, new AnimEndListener() {
+                    @Override
+                    public void onAnimEnd() {
+                        listView.setVisibility(View.VISIBLE);
+                    }
+                });
+            }
+
 
             drawerSwitch.setImageResource(R.drawable.ic_qu_appbar_back);
             searchEditText.setCursorVisible(true);
@@ -629,7 +644,7 @@ public class MapsFragment extends Fragment implements View.OnClickListener, Draw
 
         PoiItem item = poiItem;
 
-        if (true){
+        if (DEBUG){
             Log.d("showPoiFloatWindow     adCode                -"  , poiItem.getAdCode());
             Log.d("showPoiFloatWindow     adName                -"  , poiItem.getAdName());
             Log.d("showPoiFloatWindow     CityCOde              -"  , poiItem.getCityCode());
@@ -645,9 +660,10 @@ public class MapsFragment extends Fragment implements View.OnClickListener, Draw
             Log.d("showPoiFloatWindow     title                 -"  , poiItem.getTitle());
             Log.d("showPoiFloatWindow     typedes               -"  , poiItem.getTypeDes());
             Log.d("showPoiFloatWindow     website               -"  , poiItem.getWebsite());
+            Log.d("showPoiFloatWindow     distance              -"  , poiItem.getDistance() + "");
         }
 
-        Log.d("showPoiFloatWindow     distance              -", " " + poiItem.getDistance());
+
         
         mSearchPoiTitle.setText(poiItem.getTitle());
         String sum = "";
