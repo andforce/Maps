@@ -62,6 +62,8 @@ public class PoiSearchAdapter extends BaseAdapter {
             holder = new ViewHolder();
             holder.searchLocation = (ImageButton) convertView.findViewById(R.id.search_location);
             holder.searchNavi = (ImageButton) convertView.findViewById(R.id.search_navi);
+            holder.searchNavi.setVisibility(View.GONE);
+
             holder.searchTitle = (TextView) convertView.findViewById(R.id.search_result_name);
             holder.searchSummary = (TextView) convertView.findViewById(R.id.search_result_summary);
             convertView.setTag(holder);
@@ -70,19 +72,7 @@ public class PoiSearchAdapter extends BaseAdapter {
         }
         holder.searchTitle.setText(mTips.get(i).getName());
         holder.searchSummary.setText(mTips.get(i).getDistrict());
-        holder.searchLocation.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(v.getContext(),"Location", Toast.LENGTH_SHORT).show();
-            }
-        });
 
-        holder.searchNavi.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(v.getContext(),"Navi", Toast.LENGTH_SHORT).show();
-            }
-        });
         return convertView;
     }
 
