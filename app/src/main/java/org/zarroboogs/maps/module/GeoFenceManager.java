@@ -96,7 +96,7 @@ public class GeoFenceManager {
 
     private void addGeoFenceAlert(GeoFenceInfo geofence) {
         LatLng latLng = geofence.getLatLng();
-        mLocationManagerProxy.addGeoFenceAlert(latLng.latitude, latLng.longitude, 1000, 1000 * 60 * 30, geofence.getPendingIntent());
+        mLocationManagerProxy.addGeoFenceAlert(latLng.latitude, latLng.longitude, 1000, 1000 * 60 * 60 * 12, geofence.getPendingIntent());
     }
 
     private void removeGeoFenceAlert(PendingIntent pi) {
@@ -162,8 +162,7 @@ public class GeoFenceManager {
                         mOnGenFenceListener.onGeoFenceIn(mCurrentLatLng,latLng);
                     }
                 } else {
-                    Toast.makeText(mContext, "在区域内", Toast.LENGTH_SHORT).show();
-                    ttsController.playText("在区域内");
+                    ttsController.playText("请注意，一公里范围内有进京证摄像头");
                     if (mOnGenFenceListener != null){
                         mOnGenFenceListener.onGeoFenceOut();
                     }

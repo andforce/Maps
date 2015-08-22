@@ -19,7 +19,7 @@ import java.util.ArrayList;
 public class MapsPresenterImpl implements MapsPresenter, OnMarkerCreatedListener, MarkerInteractor.OnReadCamerasListener,
         MapsActionInteractor.OnMyLocationModeChangedListener{
 
-    private static final boolean DEBUG = true;
+    private static final boolean DEBUG = false;
 
     private IGaoDeMapsView mGaodeMapsView;
     private MarkerInteractor mMapsInteractor;

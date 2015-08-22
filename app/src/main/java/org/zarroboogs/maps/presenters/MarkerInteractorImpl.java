@@ -43,9 +43,7 @@ public class MarkerInteractorImpl implements MarkerInteractor {
     }
 
     private ArrayList<BJCamera> readCameras(){
-        ArrayList<BJCamera> cameraBeans = (ArrayList<BJCamera>) MapsApplication.getDaoSession().loadAll(BJCamera.class);
-        //ArrayList<BJCamera> cameraBeans = JsonUtils.prasePaperCameras(FileUtils.readStringFromAsset(MapsApplication.getAppContext(), "beijing_paper.json"));
-        return cameraBeans;
+        return (ArrayList<BJCamera>) MapsApplication.getDaoSession().loadAll(BJCamera.class);
     }
 
 }
