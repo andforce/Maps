@@ -1,6 +1,11 @@
 package org.zarroboogs.maps.utils;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+
 import com.amap.api.maps.AMap;
+
+import org.zarroboogs.maps.MapsApplication;
 
 /**
  * Created by andforce on 15/8/1.
@@ -35,5 +40,12 @@ public class SettingUtils {
 
     public static void writeCurrentCameraState(int state) {
         FileUtils.writeIntToSharedPreference(JING_CAMERA, state);
+    }
+
+
+    private static SharedPreferences sPref = MapsApplication.getAppContext().getSharedPreferences(MapsApplication.getAppContext().getPackageName() + "_preferences", Context.MODE_PRIVATE);
+    public static final String SETTING_PREF_JING_CAMERA = "setting_pref_jing_camera";
+    public static boolean isEnableBeijingCamera(){
+        return sPref.getBoolean(SETTING_PREF_JING_CAMERA, true);
     }
 }

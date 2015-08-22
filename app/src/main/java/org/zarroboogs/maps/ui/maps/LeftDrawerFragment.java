@@ -27,7 +27,7 @@ import org.zarroboogs.maps.utils.SettingUtils;
  * Use the {@link LeftDrawerFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class LeftDrawerFragment extends Fragment implements View.OnClickListener{
+public class LeftDrawerFragment extends Fragment implements View.OnClickListener {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -105,20 +105,27 @@ public class LeftDrawerFragment extends Fragment implements View.OnClickListener
         initViewAfterViewCreated();
     }
 
-    private void initViewAfterViewCreated(){
+    private void initViewAfterViewCreated() {
         Resources resources = getResources();
 
-        if (SettingUtils.readCurrentMapsStyle() == AMap.MAP_TYPE_NORMAL){
+        if (SettingUtils.readCurrentMapsStyle() == AMap.MAP_TYPE_NORMAL) {
             mSatelliteBtn.setTextColor(resources.getColor(R.color.drawer_text_color_normal));
         } else {
             mSatelliteBtn.setTextColor(resources.getColor(R.color.drawer_text_color_blue));
         }
 
-        if (SettingUtils.readCurrentCameraState() == SettingUtils.SWITCH_ON){
+        if (SettingUtils.readCurrentCameraState() == SettingUtils.SWITCH_ON) {
             mCameraBtn.setTextColor(getResources().getColor(R.color.drawer_text_color_blue));
-        } else{
+        } else {
             mCameraBtn.setTextColor(getResources().getColor(R.color.drawer_text_color_normal));
         }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        mCameraBtn.setVisibility(SettingUtils.isEnableBeijingCamera() ? View.VISIBLE : View.GONE);
+
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -162,17 +169,17 @@ public class LeftDrawerFragment extends Fragment implements View.OnClickListener
     @Override
     public void onClick(View view) {
         int id = view.getId();
-        if (id == R.id.left_drawer_satellite){
+        if (id == R.id.left_drawer_satellite) {
 
-            if (SettingUtils.readCurrentMapsStyle() == AMap.MAP_TYPE_SATELLITE){
+            if (SettingUtils.readCurrentMapsStyle() == AMap.MAP_TYPE_SATELLITE) {
                 mSatelliteBtn.setTextColor(getResources().getColor(R.color.drawer_text_color_normal));
             } else {
                 mSatelliteBtn.setTextColor(getResources().getColor(R.color.drawer_text_color_blue));
             }
-        } else if (id == R.id.left_drawer_camera){
-            if (SettingUtils.readCurrentCameraState() == SettingUtils.SWITCH_OFF){
+        } else if (id == R.id.left_drawer_camera) {
+            if (SettingUtils.readCurrentCameraState() == SettingUtils.SWITCH_OFF) {
                 mCameraBtn.setTextColor(getResources().getColor(R.color.drawer_text_color_blue));
-            } else{
+            } else {
                 mCameraBtn.setTextColor(getResources().getColor(R.color.drawer_text_color_normal));
             }
         }

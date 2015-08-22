@@ -34,6 +34,7 @@
         <Button
             android:id="@+id/leftDrawerOfflineBtn"
             style="@style/drawerMenuButton"
+            android:visibility="gone"
             android:layout_width="match_parent"
             android:layout_weight="0"
             android:drawableLeft="@drawable/left_drawer_offline"

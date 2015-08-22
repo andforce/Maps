@@ -5,8 +5,8 @@
 
         <CheckBoxPreference
             android:defaultValue="true"
-            android:key="setting_pref_navigationbar_md"
-            android:summary="开关进京证摄像头"
+            android:key="setting_pref_jing_camera"
+            android:summary="抽屉菜单显示进京证选项"
             android:title="进京证摄像头" />
 
         <Preference
