@@ -4,7 +4,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import android.content.ComponentName;
+import android.content.Context;
+import android.content.Intent;
+import android.content.ServiceConnection;
 import android.os.Bundle;
+import android.os.IBinder;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,7 +24,6 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.amap.api.maps.AMapException;
 import com.amap.api.maps.MapView;
 import com.amap.api.maps.MapsInitializer;
 import com.amap.api.maps.offlinemap.OfflineMapCity;
@@ -28,6 +32,7 @@ import com.amap.api.maps.offlinemap.OfflineMapManager.OfflineMapDownloadListener
 import com.amap.api.maps.offlinemap.OfflineMapProvince;
 import com.amap.api.maps.offlinemap.OfflineMapStatus;
 
+import org.zarroboogs.maps.service.OfflineMapDownloadService;
 import org.zarroboogs.maps.ui.BaseActivity;
 import org.zarroboogs.maps.R;
 import org.zarroboogs.maps.utils.OffLineMapUtils;
@@ -37,20 +42,35 @@ import org.zarroboogs.maps.utils.OffLineMapUtils;
  */
 public class OfflineMapActivity extends BaseActivity implements
         OfflineMapDownloadListener {
-    private OfflineMapManager amapManager = null;// 离线地图下载控制器
     private List<OfflineMapProvince> provinceList = new ArrayList<>();// 保存一级目录的省直辖市
     private HashMap<Object, List<OfflineMapCity>> cityMap = new HashMap<>();// 保存二级目录的市
     private int groupPosition = -1;// 记录一级目录的position
     private int childPosition = -1;// 记录二级目录的position
     private int completeCode;// 记录下载比例
-    private boolean isStart = false;// 判断是否开始下载,true表示开始下载，false表示下载失败
     private boolean[] isOpen;// 记录一级目录是否打开
 
+    private boolean isServiceBound;
+
+    private OfflineMapDownloadService.OfflineMapDownloadServiceBinder mBinder;
+
+    private ServiceConnection mConnection = new ServiceConnection() {
+        @Override
+        public void onServiceConnected(ComponentName name, IBinder service) {
+            mBinder = (OfflineMapDownloadService.OfflineMapDownloadServiceBinder) service;
+            isServiceBound = true;
+        }
+
+        @Override
+        public void onServiceDisconnected(ComponentName name) {
+            isServiceBound = false;
+            Log.i("SSS", "[OfflineMapActivity] disconnected, unbound service!");
+        }
+    };
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         /*
-		 * 设置离线地图存储目录，在下载离线地图或初始化地图设置; 使用过程中可自行设置, 若自行设置了离线地图存储的路径，
+         * 设置离线地图存储目录，在下载离线地图或初始化地图设置; 使用过程中可自行设置, 若自行设置了离线地图存储的路径，
 		 * 则需要在离线地图下载和使用地图页面都进行路径设置
 		 */
         // Demo中为了其他界面可以使用下载的离线地图，使用默认位置存储，屏蔽了自定义设置
@@ -76,8 +96,8 @@ public class OfflineMapActivity extends BaseActivity implements
     private void init() {
         // 此版本限制，使用离线地图，请初始化一个MapView
         mapView = new MapView(this);
-        amapManager = new OfflineMapManager(this, this);
-
+        OfflineMapManager amapManager = OfflineMapDownloadService.OfflineMapManagerWrapper.getOfflineMapManager(this);
+        OfflineMapDownloadService.OfflineMapManagerWrapper.addOfflineMapDownloadListener(this);
         ExpandableListView expandableListView = (ExpandableListView) findViewById(R.id.list);
         expandableListView.setGroupIndicator(null);
         amapManager.getItemByProvinceName("安徽省").getCityList();
@@ -155,42 +175,47 @@ public class OfflineMapActivity extends BaseActivity implements
             @Override
             public boolean onChildClick(ExpandableListView parent, View v,
                                         int groupPosition, int childPosition, long id) {
-                try {
-                    // 下载全国概要图、直辖市、港澳离线地图数据
-                    if (groupPosition == 0 || groupPosition == 1
-                            || groupPosition == 2) {
-                        isStart = amapManager.downloadByProvinceName(cityMap
+                Intent intent = new Intent();
+                intent.setClass(OfflineMapActivity.this, OfflineMapDownloadService.class);
+                // 下载全国概要图、直辖市、港澳离线地图数据
+                if (groupPosition == 0 || groupPosition == 1
+                        || groupPosition == 2) {
+                    intent.putExtra("type", OfflineMapDownloadService.TYPE_PROVINCE);
+                    intent.putExtra("name", cityMap
+                            .get(groupPosition).get(childPosition)
+                            .getCity());
+                }
+                // 下载各省的离线地图数据
+                else {
+                    // 下载各省列表中的省份离线地图数据
+                    if (childPosition == 0) {
+                        intent.putExtra("type", OfflineMapDownloadService.TYPE_PROVINCE);
+                        intent.putExtra("name", provinceList
+                                .get(groupPosition).getProvinceName());
+                    }
+                    // 下载各省列表中的城市离线地图数据
+                    else if (childPosition > 0) {
+                        intent.putExtra("type", OfflineMapDownloadService.TYPE_CITY);
+                        intent.putExtra("name", cityMap
                                 .get(groupPosition).get(childPosition)
                                 .getCity());
                     }
-                    // 下载各省的离线地图数据
-                    else {
-                        // 下载各省列表中的省份离线地图数据
-                        if (childPosition == 0) {
-                            isStart = amapManager
-                                    .downloadByProvinceName(provinceList.get(
-                                            groupPosition).getProvinceName());
-                        }
-                        // 下载各省列表中的城市离线地图数据
-                        else if (childPosition > 0) {
-                            isStart = amapManager.downloadByCityName(cityMap
-                                    .get(groupPosition).get(childPosition)
-                                    .getCity());
-                        }
-                    }
-                } catch (AMapException e) {
-                    e.printStackTrace();
-                    Log.e("离线地图下载", "离线地图下载抛出异常" + e.getErrorMessage());
                 }
-                Log.i("yiyi.qi", groupPosition + " " + childPosition);
-                // 保存当前正在正在下载省份或者城市的position位置
-                if (isStart) {
-                    OfflineMapActivity.this.groupPosition = groupPosition;
-                    OfflineMapActivity.this.childPosition = childPosition;
-                }
+                //保存数据的view位置，方便服务修改对应item的状态
+                intent.putExtra("groupPosition", groupPosition);
+                intent.putExtra("childPosition", childPosition);
+                startService(intent);
                 return false;
             }
         });
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        Intent intent = new Intent(this, OfflineMapDownloadService.class);
+        boolean bound = bindService(intent, mConnection, Context.BIND_AUTO_CREATE);
+        Log.d("SSS", "[OfflineMapActivity] onStart, service bound:" + bound);
     }
 
     /**
@@ -316,8 +341,6 @@ public class OfflineMapActivity extends BaseActivity implements
                     } else {
                         holder.cityDown.setText("");
                     }
-
-
                 }
             } else if (cityMap.get(groupPosition).get(childPosition).getState() == OfflineMapStatus.UNZIP) {
                 holder.cityDown.setText("正在解压" + completeCode + "%");
@@ -354,31 +377,24 @@ public class OfflineMapActivity extends BaseActivity implements
      */
     @Override
     public void onDownload(int status, int completeCode, String downName) {
-
-        switch (status) {
-            case OfflineMapStatus.SUCCESS:
-                changeOfflineMapTitle(OfflineMapStatus.SUCCESS);
-                break;
-            case OfflineMapStatus.LOADING:
-                this.completeCode = completeCode;
-                break;
-            case OfflineMapStatus.UNZIP:
-                this.completeCode = completeCode;
-                changeOfflineMapTitle(OfflineMapStatus.UNZIP);
-                break;
-            case OfflineMapStatus.WAITING:
-                break;
-            case OfflineMapStatus.PAUSE:
-                break;
-            case OfflineMapStatus.STOP:
-                break;
-            case OfflineMapStatus.ERROR:
-                break;
-            default:
-                break;
+         //只有与服务绑定了才更新Activity的进度
+        if (isServiceBound && mBinder != null) {
+            groupPosition = mBinder.groupPosition;
+            childPosition = mBinder.childPosition;
+            if (groupPosition == 0 || groupPosition == 1 || groupPosition == 2) {
+                cityMap.get(groupPosition).get(childPosition).setState(status);
+            } else {
+                if (childPosition == 0) {
+                    for (int i = 0; i < cityMap.get(groupPosition).size(); i++) {
+                        cityMap.get(groupPosition).get(i).setState(status);//
+                    }
+                } else {
+                    cityMap.get(groupPosition).get(childPosition).setState(status);
+                }
+            }
+            this.completeCode = completeCode;
+            ((BaseExpandableListAdapter) adapter).notifyDataSetChanged();
         }
-        ((BaseExpandableListAdapter) adapter).notifyDataSetChanged();
-
     }
 
     @Override
@@ -386,23 +402,14 @@ public class OfflineMapActivity extends BaseActivity implements
         super.onBackPressed();
     }
 
-    /**
-     * 更改离线地图下载状态文字
-     */
-    private void changeOfflineMapTitle(int status) {
-        if (groupPosition == 0 || groupPosition == 1 || groupPosition == 2) {
-            cityMap.get(groupPosition).get(childPosition).setState(status);
-        } else {
-            if (childPosition == 0) {
-                for (int i = 0; i < cityMap.get(groupPosition).size(); i++) {
-                    cityMap.get(groupPosition).get(i).setState(status);//
-                }
-            } else {
-                cityMap.get(groupPosition).get(childPosition).setState(status);
-            }
+    @Override
+    public void onStop() {
+        super.onStop();
+        if (isServiceBound) {
+            unbindService(mConnection);
+            isServiceBound = false;
+            Log.i("SSS", "[OfflineMapActivity] onStop, unbound service!");
         }
-
-
     }
 
     @Override
