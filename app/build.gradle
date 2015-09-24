@@ -28,20 +28,17 @@ android {
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile 'com.android.support:appcompat-v7:23.0.1'
-
     // greenDao
     compile 'de.greenrobot:greendao:2.0.0'
-
     // 讯飞语音
     // 内部引用libs/libmsc.so
     compile files('libs/Msc.jar')
-
     // 高德
-    // 内部引用libs/libgdamapv4sdk736.so 和 libs/libgdamapv4sdk736ex.so
-    compile files('libs/Android_Map_V3.0.20150831.jar')
-
+    // 内部引用libs/libamapv304.so 和 libs/libamapv304.so
+    compile files('libs/AMap_3DMap_v2.6.0_20150914.jar')
     compile files('libs/AMap_Location_v1.4.1_20150917.jar')
     compile files('libs/AMap_Search_v2.6.0_20150914.jar')
     // 内部引用libs/libtbt.so 和 libs/libwtbt.so
     compile files('libs/AMap_Navi_v1.4.0_20150916.jar')
+    compile files('libs/AMap_3DMap_v2.6.0_20150914.jar')
 }

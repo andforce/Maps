@@ -398,6 +398,16 @@ public class OfflineMapActivity extends BaseActivity implements
     }
 
     @Override
+    public void onCheckUpdate(boolean b, String s) {
+
+    }
+
+    @Override
+    public void onRemove(boolean b, String s, String s1) {
+
+    }
+
+    @Override
     public void onBackPressed() {
         super.onBackPressed();
     }

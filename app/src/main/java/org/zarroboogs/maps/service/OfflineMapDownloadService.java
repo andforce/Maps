@@ -91,9 +91,9 @@ public class OfflineMapDownloadService extends Service implements
             if (type != null && name != null) {
                 try {
                     if (type.equals(TYPE_CITY)) {
-                        isCurDownloading = mOfflineMapManager.downloadByCityName(name);
+                        mOfflineMapManager.downloadByCityName(name);
                     } else if (type.equals(TYPE_PROVINCE)) {
-                        isCurDownloading = mOfflineMapManager.downloadByProvinceName(name);
+                        mOfflineMapManager.downloadByProvinceName(name);
                     }
                     mBinder.groupPosition = intentExtras.getInt("groupPosition");
                     mBinder.childPosition = intentExtras.getInt("childPosition");
@@ -133,6 +133,16 @@ public class OfflineMapDownloadService extends Service implements
 
         mNotificationBuilder.setContentText(sb);
         mNotificationManager.notify(OFFLINEMAP_DOWNLOAD_NOTIFICATION_ID, mNotificationBuilder.build());
+    }
+
+    @Override
+    public void onCheckUpdate(boolean b, String s) {
+
+    }
+
+    @Override
+    public void onRemove(boolean b, String s, String s1) {
+
     }
 
     private static class ServiceHandler extends Handler {
@@ -188,6 +198,16 @@ public class OfflineMapDownloadService extends Service implements
                     listener.onDownload(status, completeCode, name);
                 }
             }
+        }
+
+        @Override
+        public void onCheckUpdate(boolean b, String s) {
+
+        }
+
+        @Override
+        public void onRemove(boolean b, String s, String s1) {
+
         }
     }
 }
