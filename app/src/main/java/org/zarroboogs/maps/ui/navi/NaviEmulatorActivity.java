@@ -60,7 +60,12 @@ public class NaviEmulatorActivity extends Activity implements
 		finish();
 		
 	}
-	 
+
+	@Override
+	public boolean onNaviBackClick() {
+		return false;
+	}
+
 
 	@Override
 	public void onNaviSetting() {

@@ -133,6 +133,11 @@ public class NaviCustomActivity extends BaseActivity implements
 		finish();
 	}
 
+	@Override
+	public boolean onNaviBackClick() {
+		return false;
+	}
+
 	/**
 	 * 点击设置按钮的事件
 	 */
