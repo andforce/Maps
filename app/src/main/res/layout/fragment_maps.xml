@@ -10,17 +10,17 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 
-    <org.zarroboogs.maps.widget.StatusBarView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="#4C000000"/>
-
     <View
         android:id="@+id/search_mask"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#EEEEEE"
         android:visibility="gone"/>
+
+    <org.zarroboogs.maps.widget.StatusBarView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="#4C000000"/>
 
     <RelativeLayout
         android:id="@+id/top_action"
