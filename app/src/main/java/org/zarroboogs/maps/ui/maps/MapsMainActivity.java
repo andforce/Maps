@@ -99,11 +99,11 @@ public class MapsMainActivity extends BaseActivity implements MapsFragment.OnFra
     }
 
     public void openLeftDrawer() {
-        mDrawerLayout.openDrawer(Gravity.START);
+        mDrawerLayout.openDrawer(Gravity.LEFT);
     }
 
     public void closeLeftDrawer() {
-        mDrawerLayout.closeDrawer(Gravity.END);
+        mDrawerLayout.closeDrawer(Gravity.RIGHT);
     }
 
     private MapsFragment getMapsFragment() {

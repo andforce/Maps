@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+             xmlns:tools="http://schemas.android.com/tools"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent">
 
     <com.amap.api.maps.MapView
         android:id="@+id/routemap"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"/>
 
 
     <RelativeLayout
@@ -34,7 +34,7 @@
                 android:layout_centerVertical="true"
                 android:layout_margin="2dp"
                 android:background="@drawable/button_background_selector"
-                android:src="@drawable/ic_qu_appbar_back" />
+                android:src="@drawable/ic_qu_appbar_back"/>
 
 
             <ImageButton
@@ -46,7 +46,7 @@
                 android:layout_margin="2dp"
                 android:background="@drawable/button_background_selector"
                 android:src="@drawable/ic_qu_menu_grabber"
-                tools:ignore="RtlHardcoded" />
+                tools:ignore="RtlHardcoded"/>
 
             <TextView
                 android:id="@+id/show_route_tpe"
@@ -55,7 +55,7 @@
                 android:layout_centerInParent="true"
                 android:text="@string/routeshow"
                 android:textColor="@android:color/black"
-                android:textSize="20dp" />
+                android:textSize="20dp"/>
 
         </RelativeLayout>
 
@@ -86,10 +86,10 @@
 
             <RelativeLayout
 
-                android:layout_alignParentBottom="true"
                 android:id="@+id/navi_cast_root_rl"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
                 android:background="@drawable/new_card">
 
 
@@ -103,100 +103,100 @@
                     android:paddingTop="15dp"
                     android:text="@string/routeinfo_1"
                     android:textColor="@android:color/black"
-                    android:textSize="@dimen/route_text_size" />
+                    android:textSize="@dimen/route_text_size"/>
 
                 <TextView
-                    android:paddingTop="15dp"
                     android:id="@+id/navi_route_distance"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:paddingBottom="@dimen/margin_bottom"
-                    android:layout_toRightOf="@id/navi_route_distance_before"
                     android:layout_alignTop="@id/navi_route_distance_before"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_toRightOf="@id/navi_route_distance_before"
+                    android:paddingBottom="@dimen/margin_bottom"
+                    android:paddingTop="15dp"
                     android:text="@string/routeinfo_default"
                     android:textColor="@android:color/holo_red_dark"
                     android:textSize="@dimen/route_text_size"
-                    tools:ignore="RtlHardcoded" />
+                    tools:ignore="RtlHardcoded"/>
 
                 <TextView
-                    android:paddingTop="15dp"
                     android:id="@+id/navi_route_time_before"
-                    android:layout_toRightOf="@id/navi_route_distance"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
+                    android:layout_toRightOf="@id/navi_route_distance"
                     android:paddingBottom="@dimen/margin_bottom"
+                    android:paddingTop="15dp"
                     android:text="@string/routeinfo_2"
                     android:textColor="@android:color/black"
-                    android:textSize="@dimen/route_text_size" />
+                    android:textSize="@dimen/route_text_size"/>
 
                 <TextView
-                    android:paddingTop="15dp"
-                    android:layout_toRightOf="@id/navi_route_time_before"
                     android:id="@+id/navi_route_time"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
+                    android:layout_toRightOf="@id/navi_route_time_before"
                     android:paddingBottom="@dimen/margin_bottom"
                     android:paddingLeft="@dimen/margin_left"
+                    android:paddingTop="15dp"
                     android:text="@string/routeinfo_default"
                     android:textColor="@android:color/holo_red_dark"
-                    android:textSize="@dimen/route_text_size" />
+                    android:textSize="@dimen/route_text_size"/>
 
                 <TextView
-                    android:paddingTop="15dp"
-                    android:layout_toRightOf="@id/navi_route_time"
                     android:id="@+id/navi_time"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
+                    android:layout_toRightOf="@id/navi_route_time"
                     android:paddingBottom="@dimen/margin_bottom"
+                    android:paddingTop="15dp"
                     android:text="分钟"
                     android:textColor="@android:color/black"
-                    android:textSize="@dimen/route_text_size" />
+                    android:textSize="@dimen/route_text_size"/>
 
 
                 <TextView
-                    android:layout_below="@id/navi_route_distance_before"
                     android:id="@+id/navi_route_cost_before"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_below="@id/navi_route_distance_before"
                     android:layout_gravity="center_horizontal"
+                    android:layout_marginBottom="10dp"
                     android:layout_marginLeft="10dp"
                     android:paddingBottom="@dimen/margin_bottom"
                     android:paddingTop="@dimen/margin_top"
                     android:text="收费"
-                    android:layout_marginBottom="10dp"
                     android:textColor="@android:color/black"
-                    android:textSize="@dimen/route_text_size" />
+                    android:textSize="@dimen/route_text_size"/>
 
                 <TextView
-                    android:layout_toRightOf="@id/navi_route_cost_before"
-                    android:layout_alignTop="@id/navi_route_cost_before"
                     android:id="@+id/navi_route_cost"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_alignTop="@id/navi_route_cost_before"
                     android:layout_gravity="center_horizontal"
+                    android:layout_toRightOf="@id/navi_route_cost_before"
                     android:paddingBottom="@dimen/margin_bottom"
                     android:paddingTop="@dimen/margin_top"
                     android:singleLine="true"
                     android:text="@string/routeinfo_default"
                     android:textColor="@android:color/holo_red_dark"
-                    android:textSize="@dimen/route_text_size" />
+                    android:textSize="@dimen/route_text_size"/>
 
                 <TextView
-                    android:layout_toRightOf="@id/navi_route_cost"
-                    android:layout_alignTop="@id/navi_route_cost"
                     android:id="@+id/navi_route_cost_after"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_alignTop="@id/navi_route_cost"
                     android:layout_gravity="center_horizontal"
+                    android:layout_toRightOf="@id/navi_route_cost"
                     android:paddingBottom="@dimen/margin_bottom"
                     android:paddingTop="@dimen/margin_top"
                     android:text="@string/routeinfo_4"
                     android:textColor="@android:color/black"
-                    android:textSize="@dimen/route_text_size" />
+                    android:textSize="@dimen/route_text_size"/>
             </RelativeLayout>
 
 
@@ -209,7 +209,7 @@
                 android:layout_marginTop="-25dp"
                 android:background="@drawable/circle_button_with_shadow"
                 android:src="@drawable/ic_qu_navigation"
-                tools:ignore="RtlHardcoded" />
+                tools:ignore="RtlHardcoded"/>
 
         </RelativeLayout>
 
@@ -217,4 +217,8 @@
     </RelativeLayout>
 
 
+    <org.zarroboogs.maps.widget.StatusBarView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="#4C000000"/>
 </FrameLayout>
