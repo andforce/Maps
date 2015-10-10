@@ -1,21 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+             xmlns:tools="http://schemas.android.com/tools"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             android:orientation="vertical">
 
     <com.amap.api.maps.MapView
         android:id="@+id/map"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"/>
+
+    <org.zarroboogs.maps.widget.StatusBarView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="#4C000000"/>
 
     <View
         android:id="@+id/search_mask"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#EEEEEE"
-        android:visibility="gone" />
+        android:visibility="gone"/>
 
     <RelativeLayout
         android:id="@+id/top_action"
@@ -40,7 +45,7 @@
                 android:layout_centerVertical="true"
                 android:layout_margin="2dp"
                 android:background="@drawable/button_background_selector"
-                android:src="@drawable/ic_qu_menu_grabber" />
+                android:src="@drawable/ic_qu_menu_grabber"/>
 
 
             <ImageButton
@@ -52,14 +57,12 @@
                 android:layout_margin="2dp"
                 android:background="@drawable/button_background_selector"
                 android:src="@drawable/ic_qu_search"
-                tools:ignore="ContentDescription,RtlHardcoded" />
+                tools:ignore="ContentDescription,RtlHardcoded"/>
 
             <EditText
                 android:id="@+id/poi_search_in_maps"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:minHeight="50dp"
-                android:maxHeight="50dp"
                 android:layout_centerInParent="true"
                 android:layout_marginLeft="5.0dip"
                 android:layout_marginRight="5.0dip"
@@ -72,10 +75,12 @@
                 android:hint="请输入关键字"
                 android:imeOptions="actionSearch|flagNoExtractUi"
                 android:inputType="text|textAutoComplete"
+                android:maxHeight="50dp"
                 android:maxLength="20"
+                android:minHeight="50dp"
                 android:singleLine="true"
                 android:textColor="#000000"
-                android:textSize="16.0sp" />
+                android:textSize="16.0sp"/>
 
         </RelativeLayout>
 
@@ -94,20 +99,20 @@
         </ListView>
 
         <RelativeLayout
+            android:id="@+id/search_float_rl"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/search_float_rl"
             android:layout_alignParentBottom="true"
-            android:visibility="gone"
             android:layout_marginBottom="10dp"
             android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp">
+            android:layout_marginRight="10dp"
+            android:visibility="gone">
 
 
             <RelativeLayout
+                android:id="@+id/search_float_content"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/search_float_content"
                 android:layout_alignParentBottom="true"
                 android:background="@drawable/new_card">
 
@@ -122,7 +127,7 @@
                     android:layout_marginTop="10dp"
                     android:text="摩托罗拉大厦"
                     android:textColor="@android:color/black"
-                    android:textSize="20sp" />
+                    android:textSize="20sp"/>
 
                 <TextView
                     android:id="@+id/search_poi_summary"
@@ -133,7 +138,7 @@
                     android:layout_marginLeft="15dp"
                     android:layout_marginRight="15dp"
                     android:layout_marginTop="10dp"
-                    android:text="地址，具体地址" />
+                    android:text="地址，具体地址"/>
 
                 <TextView
                     android:id="@+id/search_poi_tel"
@@ -141,23 +146,23 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/search_poi_summary"
                     android:layout_centerHorizontal="true"
-                    android:layout_marginLeft="15dp"
                     android:layout_marginBottom="15dp"
+                    android:layout_marginLeft="15dp"
                     android:layout_marginRight="15dp"
-                    android:layout_marginTop="10dp" />
+                    android:layout_marginTop="10dp"/>
 
             </RelativeLayout>
 
             <ImageButton
                 android:id="@+id/maps_drive_line_btn"
-                tools:ignore="RtlHardcoded"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_alignTop="@+id/search_float_content"
                 android:layout_marginTop="-25dp"
                 android:background="@drawable/circle_button_with_shadow"
-                android:src="@drawable/ic_qu_map" />
+                android:src="@drawable/ic_qu_map"
+                tools:ignore="RtlHardcoded"/>
 
         </RelativeLayout>
 
@@ -172,7 +177,7 @@
             android:layout_marginTop="18px"
             android:background="@android:color/transparent"
 
-            android:src="@drawable/maps_dav_compass_needle_large" />
+            android:src="@drawable/maps_dav_compass_needle_large"/>
 
 
         <ImageButton
@@ -185,7 +190,7 @@
             android:layout_marginRight="36px"
             android:background="@drawable/circle_button_with_shadow"
 
-            android:src="@drawable/ic_qu_direction_mylocation" />
+            android:src="@drawable/ic_qu_direction_mylocation"/>
     </RelativeLayout>
 
 
