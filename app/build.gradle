@@ -8,13 +8,29 @@ android {
         applicationId "org.zarroboogs.maps"
         minSdkVersion 19
         targetSdkVersion 23
-        versionCode 1
-        versionName "v0.1 beta"
+        versionCode 2
+        versionName "0.1.1"
     }
+
+    //release
+    //gradle assembleRelease
+    signingConfigs {
+        //noinspection GroovyMissingReturnStatement
+        releaseConfig {
+            if (System.console() != null) {
+                keyAlias System.console().readLine("\nkeyAlias:")
+                keyPassword System.console().readLine("\nPassword:")
+                storeFile file('../maps.keystore')
+                storePassword System.console().readLine("\nPassword:")
+            }
+        }
+    }
+
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.releaseConfig
         }
     }
     sourceSets {
