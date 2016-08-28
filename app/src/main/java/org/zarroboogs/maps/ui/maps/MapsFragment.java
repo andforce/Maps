@@ -263,7 +263,8 @@ public class MapsFragment extends Fragment implements View.OnClickListener, Draw
                 mSearchEditText.setSelection(mSearchEditText.getText().toString().length());
 
                 Log.d("Search_OnItemClick ", "" + tip.toString());
-                mSearchMapsPresenter.searchPoi(getActivity().getApplicationContext(), tip.getName(), tip.getAdcode());
+                mSearchMapsPresenter.searchPoi(getActivity(), tip.getName(), tip.getAdcode());
+
 
             }
         });
