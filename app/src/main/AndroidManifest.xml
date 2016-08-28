@@ -40,11 +40,7 @@
 
         <meta-data
             android:name="com.amap.api.v2.apikey"
-            android:value="f1e07742f3c40d16d0d09c467d73fa05" />
-        <!--fb15dd3628ba8254bd507c12c81198cc-->
-        <!--1f306b44bc5e478c0275bfda38f87f56  Release -->
-        <!--24163234088d4f3eb8350898bf9c18ec-->
-        <!--f1e07742f3c40d16d0d09c467d73fa05 公司-->
+            android:value="1f306b44bc5e478c0275bfda38f87f56" />
 
         <activity
             android:name=".ui.offlinemaps.OfflineMapActivity"
