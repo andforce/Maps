@@ -33,3 +33,5 @@ proguard/
 */*.iml
 
 .navigation/
+
+*.DS_Store
