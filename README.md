@@ -12,7 +12,6 @@
 ### 截图
 ![截图](screenshot/0.png)
 ![截图](screenshot/1.png)
-![截图](screenshot/2.png)
 ![截图](screenshot/3.png)
 ![截图](screenshot/4.png)
 ![截图](screenshot/5.png)
