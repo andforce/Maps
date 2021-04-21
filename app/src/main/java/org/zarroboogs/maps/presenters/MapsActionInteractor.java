@@ -1,7 +1,5 @@
 package org.zarroboogs.maps.presenters;
 
-import com.amap.api.location.AMapLocationListener;
-
 /**
  * Created by wangdiyuan on 15-7-21.
  */

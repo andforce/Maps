@@ -1,1 +1,2 @@
 include ':app', ':greendaogenerator'
+rootProject.name = "Maps"

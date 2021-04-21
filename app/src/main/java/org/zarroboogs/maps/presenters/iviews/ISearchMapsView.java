@@ -1,7 +1,5 @@
 package org.zarroboogs.maps.presenters.iviews;
 
-import android.content.Context;
-
 import com.amap.api.services.core.PoiItem;
 
 import java.util.List;

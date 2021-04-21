@@ -19,15 +19,13 @@ import com.amap.api.maps.model.CameraPosition;
 import com.amap.api.maps.model.LatLng;
 import com.amap.api.maps.model.Marker;
 import com.amap.api.maps.model.MarkerOptions;
-import com.iflytek.cloud.Setting;
 
+import org.zarroboogs.maps.OnLocationChangedListener;
+import org.zarroboogs.maps.R;
 import org.zarroboogs.maps.presenters.MapsPresenter;
 import org.zarroboogs.maps.presenters.MapsPresenterImpl;
 import org.zarroboogs.maps.presenters.iviews.IGaoDeMapsView;
 import org.zarroboogs.maps.ui.maps.MapsFragment;
-import org.zarroboogs.maps.OnLocationChangedListener;
-import org.zarroboogs.maps.R;
-import org.zarroboogs.maps.utils.FileUtils;
 import org.zarroboogs.maps.utils.SettingUtils;
 
 import java.util.ArrayList;
